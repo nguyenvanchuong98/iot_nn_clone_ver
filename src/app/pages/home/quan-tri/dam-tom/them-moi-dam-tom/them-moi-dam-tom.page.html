@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/dam-tom"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Thêm mới nhà vườn </ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid class="content">
+    <form [formGroup]="formCreatedam">
+      <!-- Tên đầm tôm -->
+      <!-- <ion-label class="label-title"> Tên nhà vườn <span>*</span> </ion-label> -->
+      <ion-item class="ion-no-padding" lines="none">
+        <!-- <ion-label position="stacked"> Tên đầm tôm * </ion-label> -->
+        <i class="mdi mdi-image-filter-vintage"></i>
+        <ion-input
+          formControlName="tendamtom"
+          placeholder="Tên nhà vườn *"
+          (ionChange)="changeNameDamtom()"
+          required
+        >
+          <!-- <i class="mdi mdi-flower"></i> -->
+      </ion-input>
+      </ion-item>
+      <!-- Validate ten dam tom -->
+      <p *ngIf="formCreatedam.get('tendamtom').value?.trim()=='' && formCreatedam.get('tendamtom').touched" 
+        class="mess-error"> 
+          Đây là trường bắt buộc! 
+      </p>
+
+      <p *ngIf="formCreatedam.get('tendamtom').value?.length>255" class="mess-error">
+        Tối đa 255 ký tự!
+      </p>
+
+      <p *ngIf="isExist" class="mess-error">
+        Tên nhà vườn đã tồn tại!
+      </p>
+      <!-- Vị trí -->
+      <!-- <ion-item>
+        <ion-label position="stacked"> Vị trí </ion-label>
+        <ion-input formControlName="vitri" placeholder="Vị trí"></ion-input>
+      </ion-item> -->
+      <!-- Validate vị trí -->
+      <!-- <ion-item
+        lines="none"
+        *ngIf="formCreatedam.get('vitri').value.length>255"
+      >
+        <ion-label style="font-size: 12px;color:#eb445a;"> Độ dài vị trí không quá 255 ký tự </ion-label>
+      </ion-item> -->
+      <!-- Ghi chú -->
+      <!-- <ion-label class="label-title"> Ghi chú </ion-label> -->
+      <div class="row-note">
+        <i class="mdi mdi-circle-edit-outline"></i>
+        <ion-item class="ion-no-padding" lines="none">
+          <!-- <ion-input formControlName="ghichu" placeholder="Ghi chú"></ion-input> -->
+          <ion-textarea formControlName="ghichu" rows="3" placeholder="Ghi chú"></ion-textarea>
+        </ion-item>
+      </div>
+
+      <p *ngIf="formCreatedam.get('ghichu').value?.length > 4000" class="mess-error">
+        Tối đa 4000 ký tự!
+      </p>
+
+      <ion-row class="ion-justify-content-center" style="margin-bottom: 84px;margin-top: 24px;">
+        <ion-button
+            class="btn-confirm-default"
+            [disabled]="formCreatedam.get('tendamtom').value?.trim()==''||formCreatedam.get('tendamtom').value?.length>255||formCreatedam.get('vitri').value.length>255"
+            (click)="onCreateDamtom()"
+            >Xác nhận</ion-button
+          >
+      </ion-row>
+      
+      <!-- Kích hoạt -->
+      <!-- <ion-item class="ion-no-padding" lines="none">
+        <ion-label class="label-title">
+          Kích hoạt ngay
+        </ion-label>
+        <ion-toggle
+          formControlName="active"
+        ></ion-toggle>
+      </ion-item> -->
+    </form>
+  </ion-grid>
+</ion-content>
+
+<ion-fab 
+vertical="bottom" 
+horizontal="end" 
+slot="fixed"
+class="custom-ion-fab"
+*ngIf="isGoTop" (click)="goTop()">
+  <ion-fab-button>
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-row class="tab-bar-footer">
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/giam-sat" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+          <ion-label>Giám sát</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/dieu-khien" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+          <ion-label>Điều khiển</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/camera" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/camera.svg"></ion-icon>
+          <ion-label>Camera</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/quan-tri/menu" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+          <ion-label>Quản trị</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer> -->

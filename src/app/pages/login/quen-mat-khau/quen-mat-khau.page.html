@@ -1,0 +1,76 @@
+<ion-content>
+    <ion-grid>
+        
+        <ion-row>
+            <ion-col class="ion-no-padding">
+                <i style="margin-top: 22px;" class="ph-caret-left-light" (click)="goBackHome()"></i>
+                <ion-img src="./assets/images/mobifone-global.svg"></ion-img>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col class="ion-no-padding">
+                <h1>Quên mật khẩu</h1>
+            </ion-col>
+        </ion-row>
+        
+        <form [formGroup]="formResetPass">
+            <ion-row>
+                <ion-col class="ion-no-padding">
+                    <h6 *ngIf="formResetPass.pristine || formResetPass.get('sdtOrEmail').value === ''">
+                        Nhập SĐT hoặc Email để nhận lại mật khẩu
+                    </h6>
+                    <ion-item 
+                            lines="none" 
+                            class="custom-item-border-default"
+                            [ngClass]="{'custom-item-border-danger': formResetPass.get('sdtOrEmail').invalid && formResetPass.get('sdtOrEmail').dirty}">
+                        <!-- <i class="ph-envelope-open-light icon-Input"></i> -->
+                        <ion-input
+                                type="text"
+                                placeholder="Nhập SĐT hoặc Email của bạn"
+                                style="font-size: 14px"
+                                formControlName="sdtOrEmail"
+                                (ionChange)="errorAccount=false"
+                        ></ion-input>
+                        
+                        <ng-template [ngIf]="formResetPass.get('sdtOrEmail').valid">
+                            <!-- <i class="ph-check-circle"
+                               style="color:#34C759; font-size: 24px;">
+                            </i> -->
+                            <ion-icon name="close-outline" (click) = "clearInput()"></ion-icon>
+
+                        </ng-template>
+
+                        <!-- <ng-template [ngIf]="formResetPass.get('sdtOrEmail').invalid && formResetPass.get('sdtOrEmail').dirty && !formResetPass.get('sdtOrEmail').value==''">
+                            <i class="ph-x-light"
+                               style="color: #6F7780; font-size: 24px;"
+                               (click)="clearInput()">
+                            </i>
+                        </ng-template> -->
+                    </ion-item >
+                    
+                    <!-- <p class="text-status-wrong"
+                       *ngIf="(formResetPass.controls['sdtOrEmail'].dirty) && formResetPass.controls['sdtOrEmail'].hasError('pattern')"
+                    >
+                        Địa chỉ email không đúng định dạng!
+                    </p> -->
+                    <p class="text-status-wrong" *ngIf="errorAccount">
+                        {{messageWarning}}
+                    </p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col class="ion-text-center ion-no-padding">
+                    <ion-button
+                            class="btn-confirm-default"
+                            expand="block"
+                            fill="clear"
+                            (click)="confirmResetPass()">Xác nhận
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </form>
+
+    </ion-grid>
+</ion-content>

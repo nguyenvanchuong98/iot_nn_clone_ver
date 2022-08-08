@@ -1,0 +1,125 @@
+<ion-header>
+    <ion-toolbar class="gs-toolbar" color="toolbar">
+        <ion-buttons slot="start">
+            <ion-button class="btn-bell" routerLink="/home/giam-sat/danh-sach-canh-bao"
+            [queryParams]="{damtomid: 'all', checkall: 'true'}" routerDirection="forward">
+                <i class="mdi mdi-bell"></i>
+                <ion-badge *ngIf="countAllAlarm" [class.badge-one]="countAllAlarm < 10"
+                    [class.badge-two]="countAllAlarm >= 10">{{countAllAlarm}}
+                </ion-badge>
+            </ion-button>
+        </ion-buttons>
+        <h3 class="title-gs">Giám sát</h3>
+        <ion-buttons slot="primary">
+            <ion-button [routerLink]="['/home/giam-sat/danh-sach-canh-bao/thiet-lap-luat-canh-bao']" 
+                        [queryParams]="{damTomGsId: damTomSelected?.id}"
+                        routerDirection="forward">
+                <ion-icon
+                    name="settings-outline"
+                    style="color: #455a64; font-size: 23px; margin-left: -7px"
+                ></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<!-- <div style="background: #FFFFFF;">
+    <ion-segment *ngIf="isLoadDataFinish" 
+    class="segment" scrollable 
+    [(ngModel)]="segment" 
+    (ionChange)="segmentChanged($event)">
+        <ion-segment-button *ngFor="let damTom of loadedDataDamtoms; index as i" [value]=i class="segment-label" id="segment-{{i}}">
+            <ng-container *ngFor="let alarm of countAlarm">
+                <ion-badge *ngIf="damTom.id === alarm.idDam && alarm.countAlarm > 0"
+                    [class.badge-segment-one]="alarm.countAlarm < 10"
+                    [class.badge-segment-two]="alarm.countAlarm >= 10">{{alarm.countAlarm}}</ion-badge>
+            </ng-container>
+            <ion-label class="label">{{damTom.name}}</ion-label>
+        </ion-segment-button>
+        <div class="devider"></div>
+    </ion-segment>
+</div> -->
+<!-- select option nha vuon -->
+<ion-item class="item-select-nha-vuon" 
+    lines="none" 
+    style="--background: var(--background-content-dark-mode) !important;">
+    <ion-select 
+    [interfaceOptions]="customActionSheetOptions" 
+    interface="action-sheet" 
+    placeholder="Chọn nhà vườn"
+    *ngIf="loadedDataDamtoms" 
+    okText="Xác nhận" 
+    cancelText="Hủy bỏ" 
+    [ngModel]="damTomSelected"
+    (ngModelChange)="changeDamTom($event)">
+        <ion-select-option 
+        class="ion-select-option-text-wrap" 
+        *ngFor="let damTom of loadedDataDamtoms" 
+        [value]="damTom">
+            {{damTom.name}}
+        </ion-select-option>
+    </ion-select>
+    <i class="mdi mdi-chevron-down"></i>
+    <ion-badge>{{damTomSelected?.countAlarms}}</ion-badge>
+</ion-item>
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <ion-grid class="grid-container">
+        <div *ngIf="!isLoadDataFinish">
+            <div class="loading-data ion-text-center">
+                <ion-spinner name="bubbles"></ion-spinner> 
+            </div>
+            
+            <div style="text-align: center;">
+                <p>Đang tải dữ liệu</p>
+            </div>
+        </div>
+        <ion-grid *ngIf="isLoadDataFinish">
+            <!-- accordion list zone -->
+            <app-giam-sat-zone 
+            [damTom]="damTomSelected"
+            *ngFor="let zone of damTomSelected?.listZoneSensor" 
+            [zoneSensor]="zone">
+            </app-giam-sat-zone>
+    
+            <!-- dieu khien dang hoat dong -->
+            <app-giam-sat-dieu-khien-active
+            #gsDieuKhien
+            [damTomIdInput]="damTomSelected?.id"
+            [listRpcActive]="damTomSelected?.listRpcActive"
+            [listRpcRem]="listRpcRem">
+            </app-giam-sat-dieu-khien-active>
+    
+            <!-- camera trong dam tom -->
+            <app-giam-sat-camera 
+            [damTomIdInput]="damTomSelected?.id"
+            [listCamera]="damTomSelected?.cameras">
+            </app-giam-sat-camera>
+        </ion-grid>
+    </ion-grid>
+    
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+    <!-- <ion-slides #slides (ionSlideWillChange)="slideChanged()" >
+        <ion-slide *ngFor="let damTom of loadedDataDamtoms">
+            <app-dashboard-data 
+            #dashboard
+            *ngIf="isLoadDataFinish"
+            [listRpcActiveNew]="damTom.listRpcActive"
+            [listZoneSensorNew]="damTom.listZoneSensor"
+            [damTom] = "damTom" 
+            style="width: 100%;">
+        </app-dashboard-data>
+        </ion-slide>
+    </ion-slides> -->
+</ion-content>
+<ion-fab 
+    vertical="bottom" 
+    horizontal="end" 
+    slot="fixed"
+    class="custom-ion-fab"
+    *ngIf="isGoTop" (click)="goTop()">
+        <ion-fab-button>
+            <i class="mdi mdi-chevron-up"></i>
+        </ion-fab-button>
+</ion-fab>

@@ -1,0 +1,53 @@
+<ion-toolbar>
+  <ion-title class="modal-title">Thiết lập thang đo</ion-title>
+  <ion-buttons slot="primary">
+    <ion-button class="dismiss-button" (click)="dismissModal()">Huỷ</ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="margin: 8px 16px;">
+      <ion-col size="2">
+        <ion-icon src="assets/icon/ph_antoan.svg" style="font-size: 36px;"></ion-icon>
+      </ion-col>
+      <ion-col class="ion-text-left min" size="10">
+        <div>Từ {{knobValues.lower}} đến {{knobValues.upper}}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item line='none'>
+          <ion-range dualKnobs="true" min="0" max="14" step="1" pin="true" [(ngModel)]="knobValues"
+            class="ion-no-padding" (ionChange)="ionSliderForValues($event)">
+            <!-- <ion-label slot="start">{{knobValues.lower}}</ion-label> -->
+            <ion-label slot="start">0</ion-label>
+            <ion-label slot="end">14</ion-label>
+            <!-- <ion-icon slot="end" src="assets/icon/ph_antoan.svg" style="font-size: 32px;"></ion-icon> -->
+            <!-- <ion-label slot="end">{{knobValues.upper}}</ion-label> -->
+          </ion-range>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col>
+        <div id="tickmarks" class="tick-position">
+          <p [ngClass]="selectedValue === 0 ? 'active' : null">5</p>
+          <p [ngClass]="selectedValue === 25 ? 'active' : null">25</p>
+          <p [ngClass]="selectedValue === 50 ? 'active' : null">50</p>
+          <p [ngClass]="selectedValue === 75 ? 'active' : null">75</p>
+          <p [ngClass]="selectedValue === 100 ? 'active' : null">100</p>
+        </div>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="onSubmit()" class="save-btn ion-no-margin" expand="block">
+        <ion-label>Xác nhận</ion-label>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,102 @@
+<ion-header>  
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="buttonBack()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Danh sách phân vùng</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid class="grid-container">
+    <!-- update giao dien v2 -->
+    <ion-grid class="grid-ds-nhom">
+      <ion-row class="row-title">
+        <i class="mdi mdi-view-module icon-left"></i>
+        <h3>Danh sách phân vùng</h3>
+        <ion-button fill="clear" class="btn-plus" (click)="openThemMoi()">
+          <i class="mdi mdi-plus-circle"></i>
+        </ion-button>
+      </ion-row>
+  
+      <!-- list zone -->
+      <ion-list class="list-reorder">
+        <ion-reorder-group (ionItemReorder)="reorderItems($event)" disabled="false">
+            <ion-card *ngFor="let zone of listZoneLoaded">
+              <ion-item class="ion-no-padding" lines="none" detail="false">
+                <i class="mdi mdi-speaker"></i>
+                <ion-reorder class="reorder-custom-css">
+                  <ion-label>{{zone.name}}</ion-label>
+                </ion-reorder>
+                <ion-buttons>
+                  <ion-button (click)="openCapnhap(zone.id)">
+                    <i class="mdi mdi-square-edit-outline"></i>
+                  </ion-button>
+                  <ion-button (click)="deleteZone(zone.id,zone.name)">
+                    <ion-icon name="trash"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+            </ion-card>
+        </ion-reorder-group>
+      </ion-list>
+
+      <p *ngIf="listZoneLoaded.length === 0 " class="messageWarning">Chưa có phân vùng!</p>
+      
+    </ion-grid>
+  </ion-grid>
+</ion-content>
+
+<ion-fab 
+    vertical="bottom" 
+    horizontal="end" 
+    slot="fixed"
+    class="custom-ion-fab"
+    *ngIf="isGoTop" (click)="goTop()">
+      <ion-fab-button>
+        <i class="mdi mdi-chevron-up"></i>
+      </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-row>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/giam-sat" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+            <ion-label>Giám sát</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/dieu-khien" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+            <ion-label>Điều khiển</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/camera" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/camera.svg"></ion-icon>
+            <ion-label>Camera</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/quan-tri/menu" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+            <ion-label>Quản trị</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->

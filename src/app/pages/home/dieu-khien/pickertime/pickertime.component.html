@@ -1,0 +1,249 @@
+<!--<ion-header>-->
+  <!-- <ion-toolbar style="position: relative;">
+      <div>
+          <ion-img src="/assets/images/home indicator.svg"></ion-img>
+      </div>
+      <ion-row style="margin-top:8px;" class="ion-justify-content-center">
+          <ion-col class="ion-align-self-center">
+              <ion-button class="btn-huy" (click)="huyPickerTime()" >
+                  Huỷ
+              </ion-button>
+          </ion-col>
+          <ion-col class="ion-align-self-center"> 
+              <h2>{{modelData.deviceRpc.label?modelData.deviceRpc.label:modelData.deviceRpc.tenThietBi | titlecase}}</h2>
+          </ion-col>
+          <ion-col class="ion-align-self-center">
+              <ion-button class="btn-xac-nhan ion-float-right"  (click)="onSubmitControlDevice()" >
+                  Xác nhận
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-toolbar> -->
+<!--</ion-header>-->
+
+<!-- <ion-content>
+  <form [formGroup]="entityForm">
+  <ion-grid>
+      <h1 *ngIf="modelData.valueControl === 1">Bật thiết bị trong</h1>
+      <h1 *ngIf="modelData.valueControl === 0">Tắt thiết bị trong</h1>
+      <ion-row class="body-lap-lai-device">
+        <ion-item class="time-pick-center ion-no-padding" lines="none">
+          <ion-row>
+            <ion-col>
+                <div class="custom-ion-datetime">
+                    <ion-datetime doneText="Xác nhận" cancelText="Hủy bỏ" formControlName="timeCallBack" placeholder="00 giờ : 00 phút : 00 giây" displayFormat="HH giờ : mm ppút : ss giây">
+                    </ion-datetime>
+                    <span class="fake-minus-1">
+                      <span class="fake-minus-2">
+                        <span class="fake-minus-3">phút</span>
+                      </span>
+                    </span>
+                </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-row>
+      <ion-row class="header-lap-lai-device">
+        <ion-item lines="none">
+          <ion-label>
+            Lặp lại sau
+          </ion-label>
+          <ion-checkbox mode="md" (ionChange)="checkBoxOption()" [checked]="false" name="loopOption" formControlName="loopOption" slot="start"></ion-checkbox>
+        </ion-item>
+      </ion-row>
+
+
+      <ion-row class="body-lap-lai-device">
+        <ion-item class="time-pick-center ion-no-padding" lines="none">
+          <ion-row>
+            <ion-col class="ion-no-padding">
+              <div class="custom-ion-datetime">
+                <ion-datetime doneText="Xác nhận" cancelText="Hủy bỏ" formControlName="timeDuringLoop" placeholder="00 giờ : 00 phút : 00 giây" displayFormat="HH giờ : mm ppút : ss giây">
+                </ion-datetime>
+                <span class="fake-minus-1">
+                      <span class="fake-minus-2">
+                        <span class="fake-minus-3" [ngClass]="{'time-disabled':!checkLoopOption}">phút</span>
+                      </span>
+                    </span>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="number-loop-device">
+        <ion-col>
+          <h2 [ngClass]="{'activeLoopOption-h2': checkLoopOption, 'disabed-h2': !checkLoopOption}">Số lần lặp lại</h2>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-select name="loopCount" formControlName="loopCount">
+              <ion-select-option
+                      *ngFor="let number of numberSelect" [value]="number">{{number}}
+              </ion-select-option>
+            </ion-select>
+              <span class="select-icon">
+              </span>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+</form>
+</ion-content> -->
+
+<!--<ion-footer>-->
+<!--  <ion-row>-->
+<!--    <ion-col>-->
+<!--      <ion-button (click)="onSubmitControlDevice()" expand="block">Xác nhận</ion-button>-->
+<!--    </ion-col>-->
+<!--  </ion-row>-->
+<!--</ion-footer>-->
+
+<!--<ion-footer>-->
+<!--  <ion-row>-->
+<!--    <ion-col class = "ion-no-padding">-->
+<!--      <ion-button expand="full" class = "btnHuyBo" type="submit" (click)="dismiss()">Hủy bỏ</ion-button>-->
+<!--    </ion-col>-->
+<!--    <ion-col class = "ion-no-padding">-->
+<!--      <ion-button  expand="full" class = "btnXacNhan" type="submit">Xác nhận</ion-button>-->
+<!--    </ion-col>-->
+<!--  </ion-row>-->
+<!--</ion-footer>-->
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>Thông tin tài khoản</ion-title>
+    <ion-buttons  (click)="buttonBack()" slot="start">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-buttons class="btn-trash" (click)="xoaTaiKhoan()"  slot="end">
+      <i class="ph-trash"></i>
+    </ion-buttons>
+  </ion-toolbar> -->
+  <!-- <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-row class="title-home-account">
+      <ion-label class="title">
+        {{modelData.deviceRpc.label?modelData.deviceRpc.label:modelData.deviceRpc.tenThietBi | titlecase}}
+      </ion-label>
+    </ion-row>
+  </ion-toolbar> -->
+  <ion-toolbar>
+    <ion-title>
+      {{modelData.deviceRpc.label?modelData.deviceRpc.label:modelData.deviceRpc.tenThietBi | titlecase}}
+    </ion-title>
+    <ion-buttons slot="end">
+        <ion-button class="btn-huy" (click)="huyPickerTime()" >
+            Huỷ
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<!-- update giao dien v2 -->
+<ion-content>
+  <ion-grid class="container-grid">  
+    <ion-grid class="grid-dieu-khien">
+      <ion-row class="row-title">
+        <i class="mdi mdi-power"></i>
+        <h3 class="title">Điều khiển</h3>
+      </ion-row>
+  
+      <ion-grid class="content-grid-dk">
+        <form [formGroup]="entityForm">
+          <!-- bat/tat -->
+          <ion-row class="row-control">
+            <ion-col>
+              <h4 *ngIf="modelData.valueControl === 1">
+                Bật trong
+              </h4>
+              <h4 *ngIf="modelData.valueControl === 0">
+                Tắt trong
+              </h4>
+            </ion-col>
+            <ion-col class="col-control">
+              <i class="ph-clock icon-clock"></i>
+              <ion-item lines="none">
+                <ion-datetime 
+                  doneText="Xác nhận" 
+                  cancelText="Hủy bỏ" 
+                  formControlName="timeCallBack" 
+                  placeholder="00 : 00 : 00 " 
+                  displayFormat="HH : mm : ss">
+                </ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+    
+          <!-- lap lai sau -->
+          <ion-row class="row-lap-lai">
+            <ion-col>
+              <h4>
+                Lặp lại sau
+              </h4>
+              <ion-checkbox 
+                  mode="md" 
+                  (ionChange)="checkBoxOption()" 
+                  [checked]="false" 
+                  name="loopOption" 
+                  formControlName="loopOption">
+                </ion-checkbox>
+            </ion-col>
+    
+            <ion-col class="col-lap-lai-sau">
+              <i class="ph-clock icon-clock" 
+              [ngClass]="{'disable-icon-clock': !checkLoopOption, 
+                          'active-icon-clock': checkLoopOption}"></i>
+              <ion-item lines="none" class="item-datetime">
+                <ion-datetime 
+                doneText="Xác nhận" 
+                cancelText="Hủy bỏ" 
+                formControlName="timeDuringLoop" 
+                placeholder="00 : 00  : 00 " 
+                displayFormat="HH  : mm  : ss ">
+                </ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+    
+          <!-- so lan lap lai -->
+          <ion-row class="row-so-lan-lap">
+            <ion-col>
+              <h4 [ngClass]="{'activeLoopOption-h2': checkLoopOption, 
+                              'disabed-h2': !checkLoopOption}">
+                Số lần lặp lại
+              </h4>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-select  [interfaceOptions]="customPopoverOptions" interface="popover" name="loopCount" formControlName="loopCount">
+                  <ion-select-option
+                          *ngFor="let number of numberSelect" [value]="number">{{number}}
+                  </ion-select-option>
+                </ion-select>
+                  <span class="select-icon">
+                  </span>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+
+    </ion-grid>
+  
+    <ion-row class="ion-justify-content-center">
+      <!-- <ion-button 
+      style="margin: 0 6px 0 0;"
+      class="btn-yellow" (click)="huyPickerTime()">
+        Huỷ bỏ
+      </ion-button> -->
+  
+      <ion-button 
+      style="margin: 0 0 0 6px;"
+      class="btn-confirm-default"  
+      (click)="onSubmitControlDevice()" >
+        Xác nhận
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>

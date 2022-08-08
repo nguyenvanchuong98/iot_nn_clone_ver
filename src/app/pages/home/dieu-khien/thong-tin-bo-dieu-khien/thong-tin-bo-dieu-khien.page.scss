@@ -1,0 +1,266 @@
+ion-header {
+  // background-color: #d7d8da;
+  ion-back-button {
+    --color: var(--dark-700) !important;
+  }
+  ion-toolbar{
+    margin-bottom: 16px;
+    margin-top: 32px;
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,ion-icon{
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+
+ion-grid {
+  // padding: 0 16px 38px;
+  padding: 0px 16px 0 16px;
+  p {
+    margin: 4px 0 0 0;
+    color: #d91f2c;
+    font-size: 12px;
+  }
+  i{
+    font-size: 20px;
+  }
+  .input-area {
+    margin: 12px 0;
+    ion-item {
+      width: 100%;
+      --border-radius: 8px;
+      --padding-start: 0;
+      --inner-padding-start: 12px;
+      --inner-padding-end: 12px;
+      // --placeholder-color: rgba(45, 48, 51, 0.5);
+      --placeholder-color:  var(--dark-700);
+      font-size: 16px;
+      line-height: 24px;
+      // ion-input{
+      //     --padding-top: 12px;
+      //     --padding-bottom: 12px;
+      // }
+      ion-input {
+        line-height: 24px;
+        font-size: 15px;
+        --placeholder-font-weight: 500;
+        --placeholder-color:  var(--dark-700);
+        --padding-start: 12px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+      ion-textarea {
+        line-height: 24px;
+        font-size: 15px;
+        --placeholder-font-weight: 500;
+        --placeholder-color:  var(--dark-700);
+        --padding-start: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+      i {
+        color: var(--dark-700);
+        font-size: 20px;
+        margin-left: 3px;
+        // margin-right: 10px;
+      }
+    }
+  }
+  .input-area:first-child{
+    margin-top: 0;
+  }
+  ion-card{
+    margin: 0;
+    box-shadow: none;
+    text-align: left;
+    --background: var(--background-input-dark-mode) !important;
+    .tab-header {
+      position: relative;
+      align-items: center;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      .icon-header {
+        background-color: var(--alix-primary-color);
+        color: #ffffff;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        text-align: center;
+        line-height: 36px;
+        font-size: 20px;
+        margin: 0 16px;
+      }
+      span {
+        margin: 0;
+        // margin-left: 16px;
+        font-size: 18px;
+        color: var(--dark-700);
+        font-weight: 500;
+      }
+      .btn-add-rpc {
+        // --color: #3D85CC;
+        --padding-end: 0;
+        position: absolute;
+        right: 16px;
+        i {
+          font-size: 20px;
+          color: var(--dark-700);
+        }
+      }
+    }
+    ion-img {
+      width: 35px;
+      // margin: auto;
+    }
+    .control-name {
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 16px 0px 16px;
+      ion-col {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        i {
+          font-size: 23px;
+          color: var(--dark-700);
+        }
+      }
+      .ten-dieu-khien-label {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--dark-700);
+      }
+      ion-icon {
+        font-size: 20px;
+        color: var(--dark-700);
+      }
+    }
+    .row-su-kien {
+      align-items: center;
+      border-bottom: 0.5px solid rgba(83, 89, 95, 0.2);
+      width: calc(100% - 32px);
+      margin: 0 auto;
+      .col-listicon {
+        display: flex;
+        justify-content: flex-start;
+        overflow-x: scroll;
+      }
+      .col-action {
+        display: flex;
+        justify-content: flex-end;
+        i {
+          color: var(--dark-700);
+          font-size: 23px;
+        }
+      }
+      .su-kien-name-label {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--dark-700);
+      }
+      ion-icon {
+        font-size: 20px;
+        color: var(--dark-700);
+      }
+    }
+    .row-dieu-khien {
+      padding-left: 51px;
+      margin: 0 16px;
+      border-bottom: 1px solid rgba(83, 89, 95, 0.2);
+      align-items: center;
+      padding-bottom: 5px;
+      .dieu-khien-info-label {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 24px;
+        color: var(--dark-700);
+      }
+      ion-icon {
+        font-size: 20px;
+        color: var(--dark-700);
+      }
+    }
+  }
+  .add-btn{
+    margin: 24px 0;
+    justify-content: center;
+    ion-button{
+      width: fit-content;
+      height: fit-content;
+      i{
+        color: var(--dark-700);
+        // font-size: 23px;
+        font-size: 20px;
+      }
+    }
+  }
+  .action{
+    justify-content: center;
+    margin: 24px 0 68px 0;
+    .btn-yellow{
+      display: block;
+      margin: 0 20px 0 0;
+    }
+    .btn-confirm-default{
+      margin: 0;
+    }
+  }
+}
+
+.ion-invalid.ion-touched ion-label.valid {
+  color: var(--ion-color-danger);
+}
+
+.ion-invalid.ion-touched ion-input.valid {
+  color: var(--ion-color-danger);
+  border-bottom: 1px solid var(--ion-color-danger);
+}
+.ion-invalid.ion-touched ion-select.valid {
+  color: var(--ion-color-danger);
+  border-bottom: 1px solid var(--ion-color-danger);
+}

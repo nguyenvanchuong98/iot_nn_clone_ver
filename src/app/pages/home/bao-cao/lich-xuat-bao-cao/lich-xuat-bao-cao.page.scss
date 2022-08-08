@@ -1,0 +1,145 @@
+ion-header {
+  // background-color: #d7d8da;
+  ion-back-button {
+    --color: var(--dark-700) !important;
+  }
+  ion-toolbar{
+    margin-bottom: 16px;
+    margin-top: 32px;
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px !important;
+        i,ion-icon{
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+
+ion-item {
+  --background: #ffffff;
+  // border-radius: 10%;
+  // border: 1px solid #ffffff;
+    // border-bottom: #d60000
+    // margin-bottom: 2px;
+}
+ion-card{
+  --background: #ffffff;
+  padding-top: 2px;
+  width: 100%;
+}
+
+ion-grid{
+  // padding: 16px 16px 38px;
+  padding: 0px 16px 84px 16px;
+  i{
+    font-size: 20px;
+    color: #455a64;
+    margin-right: 8px;  
+  }
+}
+.input-wrapper{
+  border-bottom: #d60000
+}
+
+.section-baocao {
+  ion-list{
+    border-radius: 8px;
+    padding-left: 16px;
+    background-color: white;
+  }
+  .row-tai-khoan{
+    position: relative;
+    border-bottom: 1px solid var(--line-dark-mode);
+    padding: 10px 0;
+    .info-tai-khoan{
+      width: 100%;
+      padding-right: 72px;
+      // div{
+      //   display: flex;
+      //   align-items: center;
+      // }
+      h2{
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #43484D;
+        margin: 0 0 7px 0;
+      }
+      i{
+        //width: 24px;
+        height: 24px;
+        font-size: 20px;
+        align-items: center;
+        color: #6F7780;
+      }
+      span{
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 17px;
+        color: #6F7780;
+        // margin-left: 4px;
+      }
+    }
+    .toggle-tai-khoan{
+      position: absolute;
+      right: 16px;
+      height: 32px;
+    }
+  }
+  .row-tai-khoan:last-child{
+    border-bottom: none;
+  }
+}
+// ion-fab{
+//   margin-bottom: 50px;
+//   ion-button{
+//     background: #64B5F6;
+//     height: 40px;
+//     padding: 0px;
+//     text-align: center;
+//     width: 40px;
+//     border-radius: 32px;
+//   }
+//   i{
+//     color: #fff;
+//     line-height: 40px;
+//     font-size: 1.2rem;
+//   }
+// }

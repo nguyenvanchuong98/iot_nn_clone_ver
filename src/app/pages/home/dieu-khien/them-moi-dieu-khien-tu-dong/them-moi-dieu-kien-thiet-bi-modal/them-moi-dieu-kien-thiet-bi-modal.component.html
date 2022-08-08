@@ -1,0 +1,235 @@
+<!-- <div class="modal-header">
+  <ion-toolbar>
+    <ion-title class="modal-title">Điều kiện thiết bị</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button class="dismiss-button" (click)="dismissModal()">Huỷ</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</div> -->
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="dismissModal()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Điều kiện thiết bị</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list class="list-radio-button">
+    <ion-radio-group value="rem" mode="md" [(ngModel)]="optionSelected">
+      <ion-item>
+        <ion-label>Thiết bị khác</ion-label>
+        <ion-radio slot="start" value="another"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Rèm</ion-label>
+        <ion-radio slot="start" value="rem"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <!-- Rem -->
+  <ion-grid *ngIf="optionSelected === 'rem'" class="container-rem">
+    <form [formGroup]="formDKTB">
+      <!-- <ion-row class="checkbox-control-rem">
+        <ion-radio-group (ionChange)="changePullPush($event)" formControlName="optionControl">
+          <ion-item lines="none">
+            <ion-label>
+              Rải rèm
+            </ion-label>
+            <ion-radio mode="md" slot="start" color="primary" value="PUSH"></ion-radio>
+          </ion-item>
+  
+          <ion-item lines="none">
+            <ion-label>
+              Thu rèm
+            </ion-label>
+            <ion-radio mode="md" slot="start" color="primary" value="PULL"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-row> -->
+      <ion-row class="select-device">
+        <ion-select 
+          [interfaceOptions]="customPopoverOptions" 
+          interface="popover"
+          okText="Xác nhận"
+          cancelText="Hủy bỏ"
+          placeholder="Chọn thiết bị"
+          formControlName="nameRpcPull"
+          >
+
+          <div *ngFor="let zone of devices">
+            <div *ngIf="zone.rpcRemList.length > 0">
+              <ion-select-option 
+              [disabled]="true"
+              class="zone-item-disable"
+              [value]="zone.zoneName">
+                  {{zone.zoneName}}
+              </ion-select-option>
+              <div>
+                <ion-select-option 
+                [disabled]="rem.disable"
+                class="zone-device-item"
+                *ngFor="let rem of zone.rpcRemList" 
+                [value]="rem.rpcPullDevice.tenThietBi">
+                    {{rem.name}}
+                </ion-select-option>
+              </div>
+            </div>
+          </div>
+
+        </ion-select>
+      </ion-row>
+      <!-- dieu khien > < = -->
+      <ion-row class="select-condition">
+        <ion-label>Điều kiện *</ion-label>
+
+        <ion-segment 
+        (ionChange)="segmentChanged($event)" 
+        class="segment-conditonal"
+        formControlName="condition"
+        >
+          <ion-segment-button value="GREAT">
+            <ion-label>{{listCondition[0].sign}}</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="LESS">
+            <ion-label>{{listCondition[1].sign}}</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="EQUAL">
+            <ion-label>{{listCondition[2].sign}}</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <!-- <ion-select 
+          [interfaceOptions]="customSelectCondition" 
+          interface="popover"
+          okText="Xác nhận"
+          cancelText="Hủy bỏ"
+          placeholder="Chọn điều kiện"
+          formControlName="nameRpcPull"
+          >
+          <div *ngFor="let condition of listCondition">
+            <ion-select-option 
+              [value]="condition.key">
+                  {{condition.sign}}
+              </ion-select-option>
+          </div>
+        </ion-select> -->
+      </ion-row>
+      
+
+      <!-- chon ty le -->
+      <ion-row class="row-ty-le-control">
+        <span>
+          {{titlePullPush}} (%)
+        </span>
+        <ion-item lines="none">
+          <ion-input 
+          formControlName="percentControl"
+          (ionChange)="changePercentInput($event)" 
+          inputmode="numeric" 
+          type="number">
+        </ion-input>
+        </ion-item>
+        <p id="error" class="mess-error hidden">Nhập trong khoảng 0 đến 100</p>
+        <p *ngIf="invalidCondition" id="error" class="mess-error">
+          Điều kiện không hợp lệ
+        </p>
+      </ion-row>
+      <ion-row class="row-select-percent">
+        <ion-radio-group 
+        #radioGroup 
+        allowEmptySelection="true" 
+        name="radioGroupControl"
+        (ionChange)="changeRadioPercent($event)">
+          <ion-item 
+          *ngFor="let percent of listPercent" 
+          lines="none">
+            <ion-label>{{percent}}%</ion-label>
+            <ion-radio 
+            slot="start" 
+            [value]="percent"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-row>
+      
+
+    </form>
+  </ion-grid>
+
+  <!-- thiet bi khac -->
+  <ion-grid *ngIf="optionSelected === 'another' " class="main-grid">
+    <ion-row class="choose-device">
+      <ion-item
+        lines="none"
+        class="ion-text-center item-with-border"
+        style="font-weight: bold"
+      >
+        <ion-icon
+          style="font-size: 20px;margin-left: 4px;"
+          src="assets/icon/device-tablet-speaker.svg"
+        ></ion-icon>
+        <ion-label [hidden]="true">Chọn thiết bị *</ion-label>
+        <ion-select [interfaceOptions]="customPopoverOptions" interface="popover"
+          [(ngModel)]="thietbiId"
+          placeholder="Chọn thiết bị *"
+          okText="Xác nhận"
+          cancelText="Hủy bỏ"
+        >
+          <div *ngFor="let zone of devices">
+            <div *ngIf="zone.rpcDeviceList.length > 0">
+              <ion-select-option
+              [disabled]="true"
+              class="zone-item-disable"
+              [value]="zone.zoneName"
+              >{{ zone.zoneName }}
+              </ion-select-option>
+              <ion-select-option [disabled]="dv.disable"
+                class="zone-device-item"
+                *ngFor="let dv of zone.rpcDeviceList"
+                [value]="dv.tenThietBi"
+                >{{ dv.label ? dv.label : dv.tenThietBi }}
+              </ion-select-option>
+            </div>
+          </div>
+        </ion-select>
+        <span class="select-icon">
+          <!-- <ion-icon src="assets/icon/caret-down.svg"></ion-icon> -->
+          <i class="mdi mdi-chevron-down"></i>
+        </span>
+      </ion-item>
+    </ion-row>
+    <form [formGroup]="formDKTB">
+      <ion-row class="input-area row-on-off">
+          <i class="mdi mdi-repeat"></i>
+          <ion-label class="su-kien-label"
+            >Trạng thái:{{
+              formDKTB.get("toggleOnOff").value ? " Đang bật" : " Đang tắt"
+            }}</ion-label
+          >
+          <ion-toggle formControlName="toggleOnOff"></ion-toggle>
+      </ion-row>
+    </form>
+  </ion-grid>
+  <ion-row class="action">
+      <ion-button
+        class="btn-confirm-default ion-no-margin"
+        (click)="onSubmit()"
+        [disabled]="!thietbiId && formDKTB.invalid"
+      >
+        <ion-label>Xác nhận</ion-label>
+      </ion-button>
+  </ion-row>
+  <!-- <ion-fab slot="fixed" vertical="bottom"
+    style="width: 100%; padding-left: 16px; padding-right: 16px; padding-bottom: 40px;">
+    <ion-button [disabled]="!thietbiId" (click)="onSubmit()" class="save-btn ion-no-margin">
+      <ion-label>Xác nhận</ion-label>
+    </ion-button>
+  </ion-fab> -->
+</ion-content>
+

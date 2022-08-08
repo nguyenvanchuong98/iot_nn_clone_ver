@@ -1,0 +1,147 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title class="ion-no-padding">Thêm mới tài khoản</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/home/quan-tri/tai-khoan">
+      </ion-back-button>
+      
+    </ion-buttons>
+  </ion-toolbar> -->
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/vai-tro"
+        style="color: var(--dark-700);"
+      ></ion-back-button>
+      <!-- <ion-button>
+        <i
+          class="mdi mdi-menu"
+          style="color: var(--dark-700); font-size: 23px; margin-left: -8px"
+        ></i>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Thêm mới vai trò </ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <div *ngIf="!form || isLoading" class="ion-text-center main-content">
+    <ion-spinner></ion-spinner>
+  </div>
+    
+  <form [formGroup]="form" *ngIf="form && !isLoading">
+    <ion-grid style = "padding: 0 16px 8px 16px !important;">
+      <!-- <h2>Tên vai trò<span>*</span></h2> -->
+      <ion-row class="row-input">
+        <ion-item lines="none">
+          <i class="mdi mdi-briefcase-outline prefix icon-name"></i>
+          <ion-input (ionChange)="changeNameVaiTro()"
+            formControlName="tenVaiTro"
+            name="tenVaiTro"
+            type="text"
+            placeholder="Tên vai trò *"
+          ></ion-input>
+        </ion-item>
+        <p *ngIf="(form.controls['tenVaiTro'].touched || form.controls['tenVaiTro'].dirty) && form.controls['tenVaiTro'].hasError('required')" class="mess-error">
+          Đây là trường bắt buộc
+        </p>
+        <p *ngIf="(form.controls['tenVaiTro'].touched || form.controls['tenVaiTro'].dirty) && form.controls['tenVaiTro'].hasError('maxlength')" class="mess-error">
+          Tối đa 255 ký tự
+        </p>
+        <p *ngIf="isRoleNameExist" class="mess-error">
+          Tên vai trò đã tồn tại
+        </p>
+      </ion-row>
+      <!-- <h2>Ghi chú</h2> -->
+      <ion-row class="row-input" style = "margin-top: 12px;">
+        <ion-item lines="none">
+          <!-- <ion-icon name="create-outline" style = "margin-top: 5px; margin-right: 2px;"></ion-icon> -->
+          <i class="mdi mdi-circle-edit-outline icon-name icon-edit"></i>
+          <ion-textarea
+          formControlName="ghiChu"
+          name="ghiChu"
+          placeholder="Ghi chú" rows="3"></ion-textarea>
+          <!-- <ion-input
+            formControlName="ghiChu"
+            name="ghiChu"
+            type="text"
+            placeholder="Ghi chú"
+          ></ion-input> -->
+        </ion-item>
+        <p *ngIf="form.get('ghiChu').invalid && (form.get('ghiChu').touched || form.get('ghiChu').dirty)">
+          Tối đa 4000 ký tự
+        </p>
+      </ion-row>
+      <ion-card>
+        <ion-item lines="none" class="ion-no-padding flex" (click)="togglePhanQuyen()">
+          <div class = "icon-pq">
+            <i class="mdi mdi-square-edit-outline icon-mdi"></i>
+          </div>
+          <ion-label class = "title-pg">
+            <h2 style = "font-size: 20px;">Phân quyền</h2>
+          </ion-label>
+          <i *ngIf="!onThongTin else open" class="ph-caret-right"></i>
+          <ng-template #open>
+            <i class="ph-caret-down"></i>
+          </ng-template>
+        </ion-item>
+        <ion-list *ngIf="onThongTin">
+          <div *ngFor="let p of initPermissions, index as i">
+            <div class="flex">
+              <ion-item lines="none" class="checkbox-permission">
+                <ion-label> {{ p.title}}</ion-label>
+
+                <ion-checkbox
+                  mode="md"
+                  (click)="validCheckBox(p.name)"
+                  [formControlName]="p.name"
+                  [name]="p.name"
+                  color="primary"
+                  [checked]="p.completed"
+                  slot="start"
+                ></ion-checkbox>
+                <i
+                  *ngIf="!toggle[i] else open"
+                  class="ph-caret-right"
+                  (click)="arrowIcon(i)"
+                ></i>
+                <ng-template #open>
+                  <i class="ph-caret-down" (click)="arrowIcon(i)"></i>
+                </ng-template>
+              </ion-item>
+            </div>
+            <div
+              *ngIf="p.child !== null && p.child !== undefined &&toggle[i] != false"
+            >
+              <ion-item
+                class="child-role checkbox-permission"
+                *ngFor="let child of p.child"
+                lines="none"
+              >
+                <ion-label>{{child.title}}</ion-label>
+              </ion-item>
+            </div>
+          </div>
+          <div style = "margin-top: 20px;"></div>
+        </ion-list>
+      </ion-card>
+      <ion-row class = "btn-row">
+        <ion-col style = "display: flex; justify-content: space-around; padding: 0 !important;">
+            <ion-button class="btn-confirm-default"
+                        (click)="themVaiTro()"
+                        [disabled]="form.invalid|| !form.dirty"
+                        expand="block" *ngIf="form && !isLoading">Xác nhận</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-button class="ion-no-margin" fill="clear" (click)="scrollToTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-button>
+</ion-fab>

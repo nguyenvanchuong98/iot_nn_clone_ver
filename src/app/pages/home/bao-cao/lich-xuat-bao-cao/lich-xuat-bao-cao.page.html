@@ -1,0 +1,115 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/home/quan-tri/menu">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Đặt lịch xuất báo cáo</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button routerLink="/home/quan-tri/bao-cao/lich-xuat-bao-cao/them-moi-lich-xuat-bao-cao">
+        <i class="ph-plus-light" style="font-size: 28px; color: #FFFFFF; margin-right: 5px;"></i>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar> -->
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/menu"
+        style="color: #6f7780"
+      ></ion-back-button>
+      <!-- <ion-button>
+        <i
+          class="mdi mdi-menu"
+          style="color: #6f7780; font-size: 24px; margin-left: -8px"
+        ></i>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Đặt lịch xuất báo cáo </ion-label>
+      <ion-button class="ion-no-padding"
+        fill="clear"
+        routerLink="/home/quan-tri/bao-cao/lich-xuat-bao-cao/them-moi-lich-xuat-bao-cao"
+      >
+        <i class="mdi mdi-calendar-plus"></i>
+      </ion-button>
+    </ion-row>
+    <!-- <ion-buttons slot="primary">
+      <ion-button>
+        <i
+          class="mdi mdi-invert-colors mdi-transition1"
+          style="color: #6f7780; font-size: 24px; margin-left: -8px"
+        ></i>
+      </ion-button>
+      <ion-button>
+        <ion-icon
+          name="settings-outline"
+          style="color: #6f7780; font-size: 23px; margin-left: -7px"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <div
+    *ngIf="!reportScheduleList || isLoading"
+    class="ion-text-center ion-padding"
+  >
+    <ion-spinner>{{message}}</ion-spinner>
+  </div>
+
+  <ion-grid *ngIf="reportScheduleList">
+    <div
+      *ngIf="reportScheduleList.length<=0 && !isLoading"
+      class="ion-text-center"
+    >
+      <p>{{message}}</p>
+    </div>
+    <div *ngIf="reportScheduleList" class="section-baocao">
+      <ion-list>
+        <ion-row
+          class="row-tai-khoan"
+          *ngFor="let reportSchedule of reportScheduleList;index as i;last as isLastEl"
+        >
+          <div
+            [routerLink]="['/','home','quan-tri','bao-cao','lich-xuat-bao-cao','thong-tin-lich-xuat-bao-cao',reportSchedule.id]"
+            class="info-tai-khoan"
+          >
+            <h2>{{reportSchedule.scheduleName}}</h2>
+            <div>
+              <i class="mdi mdi-note-multiple-outline"></i>
+              <!-- <i class="ph-user-gear" ></i> -->
+              <span>{{getTenBaoCao(reportSchedule.reportName).value}}</span>
+            </div>
+            <div>
+              <i class="mdi mdi-repeat"></i>
+              <span>{{convertCronToRepeatName(reportSchedule.cron)}}</span>
+            </div>
+          </div>
+          <div class="ion-align-self-center toggle-tai-khoan">
+            <ion-toggle
+              name="active"
+              (ionChange)="toggleClick($event, reportSchedule)"
+              [checked]="reportSchedule.active"
+              class="btn-toggle"
+            ></ion-toggle>
+          </div>
+        </ion-row>
+      </ion-list>
+    </div>
+    <ion-infinite-scroll threshold="5%" (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data..."
+      >
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-grid>
+</ion-content>
+<ion-fab class="custom-ion-fab ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-fab-button class="ion-no-margin" fill="clear" (click)="goTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>

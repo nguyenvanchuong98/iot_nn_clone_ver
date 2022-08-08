@@ -1,0 +1,448 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/home/quan-tri/bao-cao/lich-xuat-bao-cao">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Thông tin Lịch xuất báo cáo</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="deleteLichXuatBaoCao()">
+        <i class="ph-trash" style="font-size: 28px; color: #FFFFFF; margin-right: 5px;"></i>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar> -->
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/bao-cao/lich-xuat-bao-cao"
+        style="color: #455a64"
+      ></ion-back-button>
+      <!-- <ion-button>
+        <i
+          class="mdi mdi-menu"
+          style="color: #455a64; font-size: 23px; margin-left: -8px"
+        ></i>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Thông tin lịch xuất báo cáo </ion-label>
+      <ion-button class="ion-no-padding ion-no-margin" fill="clear" (click)="deleteLichXuatBaoCao()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-row>
+    <!-- <ion-buttons slot="primary">
+      <ion-button>
+        <i
+          class="mdi mdi-invert-colors mdi-transition1"
+          style="color: #455a64; font-size: 23px; margin-left: -8px"
+        ></i>
+      </ion-button>
+      <ion-button>
+        <ion-icon
+          name="settings-outline"
+          style="color: #455a64; font-size: 23px; margin-left: -7px"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <!-- <div class="ion-text-center"  *ngIf="!form || isPageLoading" >
+      <ion-spinner></ion-spinner>
+    </div> -->
+    <form [formGroup]="form" *ngIf="form && !isPageLoading">
+      <ion-grid class="main-grid">
+        <ion-row class="input-area">
+          <ion-item lines="none">
+            <i class="mdi mdi-calendar-range"></i>
+            <ion-input
+              formControlName="reportScheduleName"
+              (ionChange)="changeNameLich()"
+              placeholder="Tên lịch xuất báo cáo *"
+            ></ion-input>
+          </ion-item>
+          <p
+            *ngIf="form.get('reportScheduleName').value.trim() == '' && (form.get('reportScheduleName').dirty || form.get('reportScheduleName').touched)"
+          >
+            Đây là trường bắt buộc
+          </p>
+          <p *ngIf="form.get('reportScheduleName').hasError('maxlength')">
+            Tối đa 255 ký tự
+          </p>
+          <p *ngIf="isExistName">
+            Tên lịch xuất báo cáo đã tồn tại!
+          </p>
+        </ion-row>
+        <ion-row class="input-area role">
+          <ion-item lines="none">
+            <i
+              style="
+                z-index: 1;
+                position: absolute;
+                left: 12px;
+                width: fit-content;
+              "
+              class="mdi mdi-note-multiple-outline"
+            ></i>
+            <ion-label hidden>Chọn báo cáo *</ion-label>
+            <ion-select
+              formControlName="reportName"
+              (ionChange)="reportTypeChange($event)"
+              okText="Xác nhận"
+              placeholder="Chọn báo cáo"
+              cancelText="Hủy bỏ"
+            >
+              <ion-select-option
+                *ngFor="let reportName of reportNameMap"
+                [value]="reportName.key"
+                >{{reportName.value}}
+              </ion-select-option>
+            </ion-select>
+            <span class="select-icon">
+              <i class="mdi mdi-chevron-down"></i>
+            </span>
+          </ion-item>
+          <p
+            *ngIf="form.get('reportName').invalid && form.get('reportName').touched && form.get('reportName').hasError('required')"
+          >
+            Đây là trường bắt buộc
+          </p>
+        </ion-row>
+        <!-- <ion-row>
+          <div *ngIf="form.get('reportName').invalid && form.get('reportName').touched" lines="none">
+            <p *ngIf="form.get('reportName').hasError('required')">Đây là trường bắt buộc</p>
+          </div>
+        </ion-row> -->
+  
+        <!-- DamTOm -->
+        <ion-row class="input-area role">
+          <ion-item lines="none">
+            <i
+              style="
+                z-index: 1;
+                position: absolute;
+                left: 12px;
+                width: fit-content;
+              "
+              class="mdi mdi-map-marker-outline"
+            ></i>
+            <ion-label hidden>Chọn nhà vườn *</ion-label>
+            <ion-select
+              formControlName="damtom"
+              (ionChange)="ionSelectDamTomChange()"
+              okText="Xác nhận"
+              placeholder="Chọn nhà vườn"
+              cancelText="Hủy bỏ"
+            >
+              <ion-select-option
+                *ngFor="let damtom of damTomList"
+                [value]="damtom.id.id"
+                >{{damtom.name}}
+              </ion-select-option>
+            </ion-select>
+            <span class="select-icon">
+              <i class="mdi mdi-chevron-down"></i>
+            </span>
+          </ion-item>
+          <p
+            *ngIf="form.get('damtom').invalid && form.get('damtom').touched && form.get('damtom').hasError('required')"
+          >
+            Đây là trường bắt buộc
+          </p>
+        </ion-row>
+        <!-- Người nhận báo cáo -->
+        <ion-row class="input-area role">
+          <ion-item lines="none" class="received-user">
+            <i
+              style="
+                z-index: 1;
+                position: absolute;
+                left: 12px;
+                width: fit-content;
+              "
+              class="mdi mdi-account-outline"
+            ></i>
+            <div *ngIf="userReceivedReport.length > 0" class="user">
+              <div
+                *ngFor="let user of userReceivedReport"
+                class="user-item"
+                (click)="deleteUserReceivedReport(user)"
+              >
+                <i class="ph-x-light" style="color: #6f7780; font-size: 24px"></i>
+                <span> {{user.firstName}} </span>
+              </div>
+            </div>
+            <div *ngIf="userReceivedReport.length == 0" class="user">
+              Người nhận báo cáo *
+            </div>
+            <div class="down-icon">
+              <span class="select-icon">
+                <i class="mdi mdi-chevron-down"></i>
+              </span>
+              <ion-label [hidden]="true">Người nhận báo cáo *</ion-label>
+              <ion-select
+                okText="Xác nhận"
+                cancelText="Hủy bỏ"
+                *ngIf="!isUserLoading"
+                multiple="true"
+                (ionChange)="changeUserReceivedReport($event)"
+                formControlName="reportRecipients"
+                name="reportRecipients"
+              >
+                <ion-select-option
+                  *ngFor="let user of staffOfDamTom"
+                  [value]="user.userId "
+                  >{{user.firstName}}
+                </ion-select-option>
+                <!-- <ion-select-option *ngIf="tennantUser" [value]="tennantUser.id.id">{{tennantUser.firstName}}
+                        </ion-select-option> -->
+              </ion-select>
+            </div>
+          </ion-item>
+          <p
+            *ngIf="form.get('reportRecipients').invalid && form.get('reportRecipients').touched && form.get('reportRecipients').hasError('required')"
+          >
+            Đây là trường bắt buộc
+          </p>
+        </ion-row>
+  
+        <ion-row class="input-area">
+          <ion-item lines="none">
+            <i class="mdi mdi-email-outline"></i>
+            <ion-input
+              formControlName="emailRecipients"
+              placeholder="Người nhận báo cáo khác (email)"
+            ></ion-input>
+          </ion-item>
+          <p
+            *ngIf="form.get('emailRecipients').invalid && form.get('emailRecipients').touched && form.get('emailRecipients').hasError('pattern')"
+          >
+            Địa chỉ Email không đúng định dạng!
+          </p>
+        </ion-row>
+        <!-- Lịch lập -->
+  
+        <ion-card class="ion-no-padding ion-no-margin">
+          <!-- <ion-row class="row-item">
+            <ion-label class="su-kien-label">Hẹn giờ báo cáo và nội dung</ion-label>
+          </ion-row>
+          <ion-row class="divider"></ion-row> -->
+          <ion-row
+            class="role row-item"
+          >
+            <ion-label class="from-to-label"><i class="mdi mdi-repeat"></i>Lặp lại</ion-label>
+            <ion-col class="ion-no-padding" size="6">
+              <ion-item class="ion-no-padding" lines="none">
+                <ion-select
+                  okText="Xác nhận"
+                  cancelText="Hủy bỏ"
+                  (ionChange)="controlTimeRp(null)"
+                  value="day"
+                  placeholder="Ngày"
+                  formControlName="repeat"
+                  name="repeat"
+                >
+                  <ion-select-option value="day">Ngày</ion-select-option>
+                  <ion-select-option value="week">Tuần</ion-select-option>
+                  <ion-select-option value="month">Tháng</ion-select-option>
+                </ion-select>
+                <span class="select-icon">
+                  <i class="mdi mdi-chevron-down"></i>
+                </span>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row
+            class="row-item ion-justify-content-between"
+            style="padding-top: 16px"
+            *ngIf="date === repeater.Weekly"
+          >
+            <div
+              class="day-of-week-btn"
+              [ngClass]="{
+              'day-of-week-btn': !scheduleDayOfWeek['t2'],
+              'day-of-week-btn-active': scheduleDayOfWeek['t2']
+            }"
+              (click)="toggleDayOfWeek('t2')"
+            >
+              <div class="container">
+                <div class="text">T2</div>
+              </div>
+            </div>
+  
+            <div
+              class="day-of-week-btn"
+              [ngClass]="{
+              'day-of-week-btn': !scheduleDayOfWeek['t3'],
+              'day-of-week-btn-active': scheduleDayOfWeek['t3']
+            }"
+              (click)="toggleDayOfWeek('t3')
+            "
+            >
+              <div class="container">
+                <div class="text">T3</div>
+              </div>
+            </div>
+  
+            <div
+              class="day-of-week-btn"
+              [ngClass]="{
+              'day-of-week-btn': !scheduleDayOfWeek['t4'],
+              'day-of-week-btn-active': scheduleDayOfWeek['t4']
+            }"
+              (click)="toggleDayOfWeek('t4')
+            "
+            >
+              <div class="container">
+                <div class="text">T4</div>
+              </div>
+            </div>
+  
+            <div
+              class="day-of-week-btn"
+              [ngClass]="{
+              'day-of-week-btn': !scheduleDayOfWeek['t5'],
+              'day-of-week-btn-active': scheduleDayOfWeek['t5']
+            }"
+              (click)="toggleDayOfWeek('t5')
+            "
+            >
+              <div class="container">
+                <div class="text">T5</div>
+              </div>
+            </div>
+  
+            <div
+              class="day-of-week-btn"
+              [ngClass]="{
+              'day-of-week-btn': !scheduleDayOfWeek['t6'],
+              'day-of-week-btn-active': scheduleDayOfWeek['t6']
+            }"
+              (click)="toggleDayOfWeek('t6')
+            "
+            >
+              <div class="container">
+                <div class="text">T6</div>
+              </div>
+            </div>
+  
+            <div
+              class="day-of-week-btn"
+              [ngClass]="{
+              'day-of-week-btn': !scheduleDayOfWeek['t7'],
+              'day-of-week-btn-active': scheduleDayOfWeek['t7']
+            }"
+              (click)="toggleDayOfWeek('t7')
+            "
+            >
+              <div class="container">
+                <div class="text">T7</div>
+              </div>
+            </div>
+  
+            <div
+              class="day-of-week-btn"
+              [ngClass]="{
+              'day-of-week-btn': !scheduleDayOfWeek['cn'],
+              'day-of-week-btn-active': scheduleDayOfWeek['cn']
+            }"
+              (click)="toggleDayOfWeek('cn')
+            "
+            >
+              <div class="container">
+                <div class="text">CN</div>
+              </div>
+            </div>
+          </ion-row>
+  
+          <ion-row *ngIf=" validateLoop() && date === repeater.Weekly">
+              <ion-item lines="none"
+              >
+                <p> Đây là trường bắt buộc</p>
+              </ion-item>
+          </ion-row>
+          
+  
+          <ion-row  *ngIf="date === repeater.Monthly"
+            class="pick-hour row-item"
+          >
+            <ion-label class="from-to-label"><i class="mdi mdi-calendar-outline"></i>Ngày gửi</ion-label>
+            <ion-item class="ion-no-padding date-send" lines="none">
+              <!-- <ion-datetime
+                cancelText="Hủy bỏ"
+                doneText="Xác nhận"
+                formControlName="receivedDate"
+                placeholder="Ngày 1 𝗁àng t𝗁áng"
+                displayFormat="Ngày D 𝗁àng t𝗁áng"
+              > -->
+              <ion-datetime style="padding-right: 26px;"
+                cancelText="Hủy bỏ"
+                doneText="Xác nhận"
+                formControlName="receivedDate"
+                placeholder="Ngày 1 ḥàng tḥáng"
+                displayFormat="Ngày D ḥàng tḥáng"
+              >
+              </ion-datetime>
+              <span class="fake-mark-space1"></span>
+              <span class="fake-mark-space2"></span>
+              <span class="select-icon">
+                <i class="mdi mdi-chevron-down"></i>
+              </span>
+            </ion-item>
+          </ion-row>
+  
+          <ion-row
+            class="pick-hour row-item"
+          >
+            <ion-label class="from-to-label"><i class="mdi mdi-calendar-range"></i><span>Giờ gửi</span></ion-label>
+            <ion-col class="ion-no-padding" size="6">
+              <ion-item class="ion-no-padding" lines="none">
+                <i class="mdi mdi-clock-outline"></i>
+                <ion-datetime style="text-transform: uppercase;text-align: right;"
+                  cancelText="Hủy bỏ"
+                  doneText="Xác nhận"
+                  formControlName="receivedhour"
+                  placeholder="00:00 AM"
+                  displayFormat="hh:mm a"
+                >
+                </ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+  
+        <ion-row class="input-area">
+          <ion-item lines="none">
+            <i
+              style="padding-top: 10px"
+              class="mdi mdi-circle-edit-outline prefix"
+            ></i>
+            <ion-textarea
+              formControlName="content"
+              placeholder="Ghi chú"
+              rows="3"
+              autocomplete="off"
+            ></ion-textarea>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row class="btn-submit">
+          <ion-button
+            class="btn-confirm-default ion-no-padding ion-no-margin"
+            [disabled]="form.invalid|| !form.dirty  || isExistName" *ngIf="form && !isPageLoading" (click)="updatereportExportName()"
+            fill="clear"
+          >
+            Xác nhận
+          </ion-button>
+        </ion-row>
+      </ion-grid>
+    </form>
+</ion-content>
+<ion-fab class="custom-ion-fab ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-fab-button class="ion-no-margin" fill="clear" (click)="goTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>

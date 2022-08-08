@@ -1,0 +1,209 @@
+<ion-grid class="ion-no-padding fullscreen">
+  <!-- <ion-grid *ngIf="isLoading">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <!--  Du lieu cam bien theo zone-->
+  <ion-grid class="ion-no-padding" style="margin: 0 12px 0px 12px">
+<!--    <ion-row *ngIf="!isLoading && (!listDeviceFix || (!!listDeviceFix && listDeviceFix.length < 1))">-->
+<!--      <ion-col>-->
+<!--        <h2 style="margin-top: 16px;  font-size: 18px">Không có dữ liệu</h2>-->
+<!--      </ion-col>-->
+<!--    </ion-row>-->
+
+    <ng-container *ngFor="let zone of listZoneSensor">
+      <ion-row class="zoneLabel" >
+        <i class="ph-gear-six"></i>
+        <span>
+          {{zone.name}}
+        </span>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngFor="let sensor of zone.listDevices " size='4'>
+          <ion-card
+                  [ngClass]="{'telcard': sensor.lastestSensorData.value !== null,'telcardmkn': sensor.lastestSensorData.value === null}"
+                  [routerLink]="['./du-lieu-cam-bien']"
+                  [queryParams]="{damtomid: damTom?.id, segment: sensor.telemetryType, 
+              zoneId: zone.id !== null ? zone.id : 'null', deviceId: sensor.id}" routerDirection="forward">
+            <ion-row>
+              <ion-col class="ion-text-center">
+                <ion-img *ngIf="sensor.lastestSensorData.alarm === false && sensor.lastestSensorData.value !== null"
+                          [src]="telemetryIcons[sensor.telemetryType]['nomal']"
+                          style="width: 44px; height: 50px; padding-top: 8px;margin: 0 auto;">
+                </ion-img>
+                <ion-img *ngIf="sensor.lastestSensorData.alarm === false && sensor.lastestSensorData.value === null"
+                          [src]="telemetryIcons[sensor.telemetryType]['disconnected']"
+                          style="width: 44px; height: 50px; padding-top: 8px;margin: 0 auto;">
+                </ion-img>
+                <ion-img *ngIf="sensor.lastestSensorData.alarm === true"
+                          [src]="telemetryIcons[sensor.telemetryType]['alarm']"
+                          style="width: 44px; height: 50px; padding-top: 8px;margin: 0 auto;">
+                </ion-img>
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label>
+                  <div *ngIf="sensor.lastestSensorData.value !== null && sensor.lastestSensorData.alarm === false"
+                      class="devicenumber" style="color: #39BF9F;">
+                    {{sensor.lastestSensorData.value}} {{telemetryIcons[sensor.telemetryType]['unit']}}</div>
+                  <div *ngIf="sensor.lastestSensorData.value !== null && sensor.lastestSensorData.alarm === true"
+                      class="devicenumber" style="color: #D91F2C">
+                    {{sensor.lastestSensorData.value}} {{telemetryIcons[sensor.telemetryType]['unit']}}</div>
+                  <div *ngIf="sensor.lastestSensorData.value === null" class="matketnoilabel"
+                      style=" padding-top: 4px; padding-left: 8px">Mất kết nối</div>
+                </ion-label>
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label>
+                  <div class="devicelabel">{{!!sensor.label ? sensor.label : sensor.name}}</div>
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+  </ion-grid>
+
+  <!-- <ion-card class="favCard" [routerLink]="['/home/dieu-khien']" [queryParams]="{damTomId: damTom.id}"
+      routerDirection="forward"> -->
+  <ion-grid class="ion-no-padding" style="margin: 16px 12px 0px 12px">
+    <ion-row class="ion-no-padding ">
+      <ion-col class="ion-no-padding ion-text-start" size="8">
+        <!-- <ion-card-header color="gslistbg" style="height: 50px;" class="ion-no-padding"> -->
+        <ion-label>
+          <div class="dulieucambienlabel">
+            {{listRpcActive.length}} thiết bị đang hoạt động
+          </div>
+        </ion-label>
+        <!-- </ion-card-header> -->
+      </ion-col>
+      <ion-col class="ion-no-padding" size="4">
+        <!-- <ion-card-header color="gslistbg" style="height: 50px;" class="ion-no-padding"> -->
+        <!-- <i class="ph-caret-right-light"
+                  style="font-size: 24px; color: white; padding-top: 12px;"></i> -->
+        <!-- </ion-card-header> -->
+        <ion-label [routerLink]="['/home/dieu-khien']" [queryParams]="{damTomId: damTom?.id, tab: 0}" routerDirection="forward"
+          class="ion-text-right">
+          <div class="xemtatca">
+            Xem tất cả
+          </div>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ng-container *ngFor="let rpc of listRpcActive">
+          <ion-col size="4" class="ion-no-padding">
+            <ion-card class="camcard" [routerLink]="['/home/dieu-khien']" [queryParams]="{damTomId: damTom?.id, tab: 0, rpcID: rpc.id}"
+                      routerDirection="forward">
+              <ion-row>
+                <ion-col>
+                  <ion-icon style="font-size: 32px;" src="assets/icon/device-rpc.svg">
+                  </ion-icon>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  {{caculationTimeDevice(rpc.statusTime)}}
+                </ion-col>
+              </ion-row>
+              <ion-row style="flex-wrap: nowrap;" class="nowrap">
+                <ion-col>
+                  <div class="h3label">{{!!rpc.label ? rpc.label : rpc.name}}</div>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+  </ion-grid>
+
+  <!-- </ion-card> -->
+  <!-- <ion-card class="favCard "> -->
+  <!-- <ion-row class="ion-no-padding ">
+          <ion-col class="ion-no-padding ion-text-start" size="10" style="height: 50px;">
+              <ion-card-header color="gslistbg" style="height: 50px;" class="ion-no-padding">
+                  <ion-label *ngIf="listRPC" class="gscardlabelheader" color="gstext">
+                      <div style="padding-top: 12px; padding-left: 16px">
+                          Xem camera
+                      </div>
+                  </ion-label>
+              </ion-card-header>
+          </ion-col>
+          <ion-col class="ion-no-padding" size="2" style="height: 50px;">
+              <ion-card-header color="gslistbg" style="height: 50px;" class="ion-no-padding"
+                  [routerLink]="['/home/camera']" [queryParams]="{damTomId: damTom.id}"
+                  routerDirection="forward">
+                  <i class="ph-caret-right-light"
+                      style="font-size: 24px; color: white; padding-top: 12px;"></i>
+              </ion-card-header>
+          </ion-col>
+      </ion-row> -->
+  <ion-grid class="ion-no-padding" style="margin: 16px 12px 16px 12px">
+    <ion-row class="ion-no-padding ">
+      <ion-col class="ion-no-padding ion-text-start" size="8">
+        <!-- <ion-card-header color="gslistbg" style="height: 50px;" class="ion-no-padding"> -->
+        <ion-label *ngIf="damTom?.cameras">
+          <div class="dulieucambienlabel">
+            Xem Camera
+          </div>
+        </ion-label>
+        <!-- </ion-card-header> -->
+      </ion-col>
+      <ion-col class="ion-no-padding" size="4">
+        <!-- <ion-card-header color="gslistbg" style="height: 50px;" class="ion-no-padding"> -->
+        <!-- <i class="ph-caret-right-light"
+                      style="font-size: 24px; color: white; padding-top: 12px;"></i> -->
+        <!-- </ion-card-header> -->
+        <ion-label *ngIf="damTom?.cameras" [routerLink]="['/home/camera']" [queryParams]="{damTomId: damTom?.id}"
+          routerDirection="forward" class="ion-text-right">
+          <div class="xemtatca">
+            Xem tất cả
+          </div>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ng-container *ngIf="!!damTom?.cameras && damTom?.cameras.length >0">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ng-container *ngIf="damTom?.cameras">
+            <ng-container *ngFor="let cam of damTom?.cameras">
+              <ion-col size="4">
+                <ion-card class="camcard" [routerLink]="['/home/camera']"
+                  [queryParams]="{damTomId: damTom?.id, camId: cam.id}" routerDirection="forward">
+                  <ion-row>
+                    <ion-col>
+                      <!-- <i class="ph-video-camera-light"
+                                                  style="font-size: 28px; color: #43484D;"></i> -->
+                      <ion-icon src="assets/icon/webcam.svg" style="font-size: 32px;">
+                      </ion-icon>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-label>
+                        <div class="camName">{{cam.name}}</div>
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+                </ion-card>
+              </ion-col>
+            </ng-container>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+  </ion-grid>
+
+  <!-- </ion-card> -->
+</ion-grid>

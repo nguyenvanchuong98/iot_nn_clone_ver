@@ -1,0 +1,52 @@
+<!-- <ion-toolbar>
+  <ion-title>
+    {{specialDevice?.name}}
+  </ion-title>
+  <ion-buttons slot="end">
+      <ion-button class="btn-huy" (click)="cancelModal()" >
+          Huỷ
+      </ion-button>
+  </ion-buttons>
+</ion-toolbar> -->
+<!-- <ion-content> -->
+  <ion-grid>
+    <ion-row class="row-icon">
+      <ion-img *ngIf="specialDevice.pauseStatus >=1 && specialDevice.pauseStatus <= 100" 
+        [src]="iconRpc[specialDevice?.deviceType]['iconRai']">
+        </ion-img>
+        <ion-img *ngIf="specialDevice.pauseStatus === 0" 
+          [src]="iconRpc[specialDevice?.deviceType]['iconThuDung']">
+        </ion-img>
+    </ion-row>
+    <ion-row class="row-progress">
+      <p>{{specialDevice?.pauseStatus}}%</p>
+      <ion-progress-bar [value]="(specialDevice?.pauseStatus)/100" type="determinate"></ion-progress-bar>
+    </ion-row>
+    <ion-row class="row-control">
+        <ion-button 
+        [disabled]="getStatusRem() === 'Thu rèm' 
+        || getStatusRem() === 'Rải rèm' 
+        || getStatusRem() === 'Mất kết nối' 
+        || specialDevice.pauseStatus === 100"
+        (click)="controlRem('PUSH')"
+        class="btn-rai">
+          Rải
+        </ion-button>
+        <ion-button 
+        [disabled]="getStatusRem() === 'Mất kết nối' || getStatusRem() === 'Dừng'"
+        (click)="controlRem('STOP')"
+        class="btn-dung">
+          Dừng
+        </ion-button>
+        <ion-button 
+        [disabled]="getStatusRem() === 'Rải rèm' 
+        || getStatusRem() === 'Thu rèm' 
+        || getStatusRem() === 'Mất kết nối' 
+        || specialDevice.pauseStatus === 0"
+        (click)="controlRem('PULL')"
+        class="btn-thu">
+          Thu
+        </ion-button>
+    </ion-row>
+  </ion-grid>
+<!-- </ion-content> -->

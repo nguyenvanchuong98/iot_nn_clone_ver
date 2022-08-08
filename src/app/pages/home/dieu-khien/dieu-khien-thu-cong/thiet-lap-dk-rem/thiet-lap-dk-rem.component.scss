@@ -1,0 +1,244 @@
+ion-header {
+  ion-toolbar {
+    --background: var(--background-input-dark-mode);
+    --min-height: 45px;
+    --border-color: var(--line-dark-mode);
+    --border-width: 1px;
+    --border-style: none none solid none;
+    --color: unset;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    ion-img {
+      width: 15%;
+      position: absolute;
+      top: 0;
+      left: 42%;
+    }
+    ion-button {
+      --color: var(--alix-primary-color);
+      margin: 0;
+      --background: none;
+      --padding-top: 0px;
+      --padding-bottom: 0px;
+      --padding-end: 15px;
+      --background-activated: none;
+      line-height: 17px;
+      font-size: 16px;
+    }
+    ion-button.btn-huy {
+      --padding-start: 15px;
+    }
+    ion-title {
+      color: var(--dark-700);
+    }
+  }
+  // ion-toolbar {
+  //   margin-bottom: 16px;
+  //   margin-top: 32px;
+  //   ion-buttons.back-arrow {
+  //     ion-button {
+  //       width: 48px;
+  //       height: 48px;
+  //       margin: 0;
+  //     }
+  //     i {
+  //       font-size: 26px;
+  //     }
+  //   }
+  //   .title-home-account {
+  //     justify-content: space-between;
+  //     align-items: center;
+  //     .btn-delete {
+  //       margin-right: -35px;
+  //     }
+  //     ion-button {
+  //       width: fit-content;
+  //       height: fit-content;
+  //       margin-top: 7px;
+  //       i,
+  //       ion-icon {
+  //         color: var(--dark-700);
+  //         font-size: 23px;
+  //         margin-right: 16px;
+  //       }
+  //     }
+  //     // ChuongNV 11/9/2021
+  //     .title {
+  //       color: var(--dark-700);
+  //       text-transform: none;
+  //       font-weight: 500;
+  //       font-size: 22px;
+  //       line-height: 36px;
+  //       position: relative;
+  //     }
+  //   }
+  // }
+  // ion-toolbar::before {
+  //   display: block;
+  //   position: absolute;
+  //   content: " ";
+  //   height: 1px;
+  //   width: 20px;
+  //   background: #64b5f6;
+  //   top: 44px;
+  //   left: 16px;
+  // }
+
+  // ion-toolbar::after {
+  //   display: block;
+  //   position: relative;
+  //   content: " ";
+  //   height: 1px;
+  //   width: 40px;
+  //   background: #64b5f6;
+  //   left: 16px;
+  // }
+}
+ion-content {
+  ion-col, ion-grid {
+    padding: 0;
+  }
+  .container-body {
+    margin: 0 16px;
+    padding: 0 16px;
+    background: var(--background-input-dark-mode);
+    border-radius: 8px;
+  }
+  .row-title {
+    align-items: center;
+    i {
+      background-color: var(--alix-primary-color);
+      font-size: 20px;
+      color: #ffffff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+    }
+    .title {
+      font-size: 20px;
+      color: var(--dark-700);
+      margin: 0 18px;
+    }
+  }
+  .checkbox-control-rem {
+    padding: 8px 0;
+    justify-content: center;
+    ion-radio-group {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      ion-radio {
+        margin-right: 12px;
+      }
+    }
+  }
+  .row-ty-le-control {
+    margin: 0 0 16px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    ion-item {
+      text-align: center;
+      --border-radius: 8px;
+      --border-color: var(--line-dark-mode);
+      --border-width: 1px;
+      width: 50%;
+    }
+    .mess-error {
+      color: #eb445a;
+      font-size: 14px;
+      margin: 8px 0 0;
+    }
+    .hidden {
+      display: none;
+    }
+  }
+  .row-select-percent {
+    ion-radio-group {
+      justify-content: space-between;
+      width: 100%;
+      display: flex;
+      font-size: 16px;
+      ion-item {
+        --background-activated-opacity: 0;
+        font-size: 14px;
+        --padding-start: 0;
+        --border-radius: 30px;
+        --border-width: 1px;
+        --border-color: #fb9d11;
+        --min-height: 30px;
+        ion-label {
+          margin: 0 8px 0 0;
+        }
+      }
+      .item-radio-checked {
+        --background: #fb9d11 !important;
+      }
+      ion-radio {
+        margin-right: 5px;
+        --color-checked: #fb9d11;
+      }
+    }
+  }
+  .row-time {
+    align-items: center;
+    margin: 16px 0;
+    justify-content: space-between;
+    font-size: 16px;
+    ion-item {
+      --border-radius: 8px;
+      --border-color: var(--line-dark-mode);
+      --border-width: 1px;
+      width: 50%;
+      text-align: center;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+    }
+    p {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  .row-btn {
+    margin: 32px 0 48px;
+  }
+}
+.segement-row{
+  justify-content: center;
+  margin: 0 16px;
+}
+ion-segment {
+  height: 66px;
+  border-radius: unset;
+  padding: 16px 0;
+  --background: unset;
+  ion-segment-button {
+    --background: var(--background-input-dark-mode) !important;
+    --indicator-box-shadow: transparent !important;
+    box-sizing: border-box;
+    border-radius: 50px;
+    --background: white;
+    --color: var(--dark-700);
+    font-weight: 500;
+    --background-checked: #64b5f6;
+    --color-checked: #ffffff;
+    --indicator-color: transparent !important;
+    min-width: fit-content;
+    margin: 0;
+    margin-right: 8px;
+    margin-bottom: 16px;
+    height: 35px;
+  }
+  ion-segment-button::before {
+    content: none;
+  }
+  ion-segment-button:last-child {
+    margin-right: 0;
+  }
+}
+app-dieu-khien-rem {
+  display: block;
+  width: 100%;
+}

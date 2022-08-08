@@ -1,0 +1,317 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/dam-tom"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Thông tin nhà vườn </ion-label>
+      <ion-button class="ion-no-padding ion-no-margin" fill="clear" (click)="onDelete()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid class="grid-content">
+    <ion-list *ngIf="!damtomLoad" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+    </ion-list>
+    <ion-list *ngIf="damtomLoad">
+      <form [formGroup]="formEditDam">
+        <!-- Tên đầm tôm -->
+        <!-- <ion-label class="label-title"> Tên nhà vườn <span>*</span> </ion-label> -->
+        <ion-item class="kich-hoat ion-no-padding" lines="none">
+          <i class="mdi mdi-image-filter-vintage icon-name"></i>
+          <ion-input
+            formControlName="tendamtom"
+            placeholder="Tên nhà vườn *"
+            required
+          >
+          <!-- <i class="mdi mdi-flower icon-name"></i> -->
+        </ion-input>
+        </ion-item>
+        <!-- Validate ten dam tom -->
+        <p class="mess-error" *ngIf="formEditDam.get('tendamtom').value.trim()=='' && formEditDam.get('tendamtom').touched">
+          Đây là trường bắt buộc!
+        </p>
+
+        <p *ngIf="formEditDam.get('tendamtom').value?.length>255" class="mess-error">
+          Tối đa 255 ký tự!
+        </p>
+
+        <p *ngIf="isExist" class="mess-error">
+          Tên nhà vườn đã tồn tại!
+        </p>
+        <!-- Vị trí -->
+        <!-- <ion-item>
+          <ion-label position="stacked"> Vị trí </ion-label>
+          <ion-input formControlName="vitri" placeholder="Vị trí"></ion-input>
+        </ion-item>
+        <ion-item
+          lines="none"
+          *ngIf="formEditDam.get('vitri').value.length>255"
+        >
+          <ion-label style="font-size: 12px;color:#eb445a;"> Tối đa 255 ký tự! </ion-label>
+        </ion-item> -->
+
+        <!-- Ghi chú -->
+        <!-- <ion-label class="label-title"> Ghi chú </ion-label> -->
+        <div class="row-note">
+          <i class="mdi mdi-circle-edit-outline"></i>
+          <ion-item class="ion-no-padding" lines="none">
+            <!-- <ion-input formControlName="ghichu" placeholder="Ghi chú"></ion-input> -->
+            <ion-textarea formControlName="ghichu" rows="3" placeholder="Ghi chú"></ion-textarea>
+          </ion-item>
+        </div>
+
+        <p  *ngIf="formEditDam.get('ghichu').value?.length > 4000" class="mess-error">
+          Tối đa 4000 ký tự!
+        </p>
+
+      </form>
+        <!-- Bộ thiết bị design cu-->
+        <!-- <ion-card class="ion-no-margin">
+          <ion-item
+            detail="false"
+            class="ion-no-padding header-btb">
+            <ion-label class="label-title">Bộ thiết bị ({{damtomLoad2?.gateways?.length}})</ion-label>
+            <div class="quan-ly-nhom">
+              <ion-button fill="clear" (click)="goToQuanLyNhom()" class="quan-ly-nhom-btn">
+                <ion-icon name="layers-outline"></ion-icon>
+                Quản lý nhóm
+              </ion-button>
+            </div>
+          </ion-item>
+          <ion-row class="form-child">
+            <ion-item
+              *ngFor="let dv of damtomLoad2?.gateways"
+              (click)="onRouterTtBtb(dv.id)"
+              class="ion-no-padding"
+            >
+              <i class="mdi mdi-chevron-right detail-icon"></i>
+              <ion-label>
+                <span>{{dv.device.name}}</span>
+                <p>Số lượng thiết bị: {{dv.lengthdvice}}</p>
+              </ion-label>
+            </ion-item>
+          </ion-row>
+
+          <ion-row class="them-btb">
+            <ion-button
+              class="ion-no-padding ion-no-margin btn-confirm-default"
+              (click)="onRouterBtb()"
+            >
+            Thêm bộ thiết bị
+            </ion-button>
+          </ion-row>
+        </ion-card> -->
+        <!-- ======================== -->
+        
+        <!-- Tabs bo thiet bi va phan vung -->
+        <ion-segment mode="md" [(ngModel)]="selectedSegment" class="segment">
+          <ion-segment-button *ngFor="let item of segmentList; let i = index" [value]="item" 
+          (click)="segmentChanged(item, i)">
+
+            <ion-label *ngIf="i === 0">{{item}} ({{damtomLoad2?.gateways?.length}})</ion-label>
+            <ion-label *ngIf="i === 1">{{item}}</ion-label>
+
+          </ion-segment-button>
+        </ion-segment>
+
+        <ion-slides #slides (ionSlideWillChange)="slideChanged($event)" class="slides">
+          <!-- slide gateway -->
+          <ion-slide value=0>
+            <ion-grid class="tab-btb">
+              <ion-card  class="ion-no-margin card-gateway">
+                <ion-row class="form-child">
+                  <ion-item
+                    lines="none"
+                    *ngFor="let dv of damtomLoad2?.gateways"
+                    (click)="onRouterTtBtb(dv.id)"
+                    class="ion-no-padding">
+                    <i class="mdi mdi-chevron-right detail-icon"></i>
+                    <ion-label>
+                      <span>{{dv.device.name}}</span>
+                      <p>Số lượng thiết bị: {{dv.lengthdvice}}</p>
+                    </ion-label>
+                  </ion-item>
+                </ion-row>
+  
+                <ion-row *ngIf="damtomLoad2?.gateways?.length === 0" 
+                class="ion-justify-content-center">
+                  <p>
+                    Không có dữ liệu
+                  </p>
+                </ion-row>
+      
+                <ion-row class="them-btb">
+                  <ion-button
+                    class="ion-no-padding ion-no-margin btn-confirm-default"
+                    (click)="onRouterBtb()"
+                  >Thêm bộ thiết bị</ion-button>
+                </ion-row>
+              </ion-card>
+            </ion-grid>
+          </ion-slide>
+          <!-- slide zone -->
+          <ion-slide>
+            <ion-grid class="tab-zone">
+              <app-slide-zone [damTomId]="idDamtom"></app-slide-zone>
+            </ion-grid>
+          </ion-slide>
+        </ion-slides>
+        <!-- ============================= -->
+        <!-- Người quản lý -->
+        <ion-card class="ion-no-margin card-ng-ql">
+          <ion-item
+            detail="false"
+            class="ion-no-padding header-ng-ql">
+            <ion-label class="label-title">Người quản lý ({{damtomLoad2?.staffs.length}})</ion-label>
+          </ion-item>
+          <ion-row class="form-child">
+            <ion-item
+              class="ion-no-padding"
+              *ngFor="let addt of damtomLoad2?.staffs"
+              detail="false"
+              lines="none"
+            >
+              <ion-label>
+                <span>{{addt?.firstName}}</span> 
+              </ion-label>
+            </ion-item>
+          </ion-row>
+
+          <ion-row *ngIf="damtomLoad2?.staffs?.length === 0" 
+              class="ion-justify-content-center">
+                <p>
+                  Không có dữ liệu
+                </p>
+          </ion-row>
+
+          <ion-row class="them-ng-ql">
+            <ion-button
+              class="ion-no-padding ion-no-margin btn-confirm-default"
+              (click)="onRouterNguoiQl()"
+            >
+              <ion-label>Thêm người quản lý</ion-label>
+            </ion-button>
+          </ion-row>
+        </ion-card>
+  
+        <!-- Danh sách camera -->
+        <ion-card class="ion-no-margin card-camera">
+          <ion-item
+            detail="false"
+            class="ion-no-padding header-ds-cam"
+          >
+            <ion-label class="label-title"
+              >Danh sách Camera ({{lstCamera.length}})</ion-label
+            >
+          </ion-item>
+          <ion-row class="form-child">
+            <ion-item
+              class="ion-no-padding"
+              *ngFor="let cam of lstCamera"
+              detail="false"
+              lines="none"
+            >
+              <ion-label (click)="onRouterTtCamera(cam.id)">
+                <span> {{cam.name}}</span>
+              </ion-label>
+              <ion-button
+                fill="clear"
+                (click)="onDeleteCamera(cam.id,cam.name)"
+              >
+                <!-- <i class="ph-trash"></i> -->
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-row>
+
+          <ion-row *ngIf="lstCamera?.length === 0" 
+              class="ion-justify-content-center">
+                <p>
+                  Không có dữ liệu
+                </p>
+          </ion-row>
+
+          <ion-row class="them-cam">
+            <ion-button
+              class="ion-no-padding ion-no-margin btn-confirm-default"
+              (click)="onRouterCamera()"
+            >
+              <ion-label>Thêm camera</ion-label>
+            </ion-button>
+          </ion-row>
+        </ion-card>
+  
+        <!-- Kích hoạt -->
+        <!-- <ion-item class="kich-hoat ion-no-padding" lines="none">
+          <ion-label class="label-title"> Kích hoạt ngay </ion-label>
+          <ion-toggle formControlName="active"></ion-toggle>
+        </ion-item> -->
+      
+
+      <ion-row class="ion-justify-content-center" style="margin-bottom: 68px;margin-top: 24px;">
+        <ion-button
+        class="btn-confirm-default"
+        [disabled]="((formEditDam.get('tendamtom').value.trim()==''||formEditDam.get('vitri').value?.length>255||formEditDam.get('tendamtom').value?.length>255)&&formEditDam.dirty)|| !formEditDam.dirty "
+        (click)="onEditDam()"
+        >Xác nhận</ion-button>
+      </ion-row>
+    </ion-list>
+  </ion-grid>  
+</ion-content>
+
+<ion-fab 
+vertical="bottom" 
+horizontal="end" 
+slot="fixed"
+class="custom-ion-fab"
+*ngIf="isGoTop" (click)="goTop()">
+  <ion-fab-button>
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-row>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/giam-sat" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+          <ion-label>Giám sát</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/dieu-khien" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+          <ion-label>Điều khiển</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/camera" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/camera.svg"></ion-icon>
+          <ion-label>Camera</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3" class="ion-no-padding">
+      <ion-button class="ion-no-margin" routerLink="/home/quan-tri/menu" expand="block" fill="clear">
+        <div class="custom-button-content">
+          <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+          <ion-label>Quản trị</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer> -->

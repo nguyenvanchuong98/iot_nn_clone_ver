@@ -1,0 +1,175 @@
+<ion-header>
+
+    <ion-toolbar class="ion-no-padding" color="toolbar">
+        <!-- <ion-title >Lịch sử truy cập</ion-title> -->
+        <ion-buttons slot="start">
+            <ion-back-button mode="md" text="" defaultHref="/home/quan-tri" class="mdi-toolbar"></ion-back-button>
+            <!-- <ion-button>
+                <i class="mdi mdi-menu mdi-toolbar" style="margin-top: 2px;
+                margin-left: -8px;"></i>
+            </ion-button> -->
+        </ion-buttons>
+        <ion-row class="title">
+            <ion-label class="pagetitle">
+                Lịch sử truy cập
+            </ion-label>
+        </ion-row>
+        <!-- <ion-buttons slot="primary">
+            <ion-button (click)="switchMode()">
+                <i class="mdi mdi-toolbar mdi-invert-colors mdi-transition1" style=" margin-top: 2px;
+                margin-left: -8px;"></i>
+            </ion-button>
+            <ion-button>
+                <ion-icon name="settings-outline" class="mdi-toolbar" style="margin-top: 2px;
+                margin-left: -7px;"></ion-icon>
+            </ion-button>
+        </ion-buttons> -->
+    </ion-toolbar>
+</ion-header>
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+
+    <ion-grid class="main-content">
+        <ion-row style="margin: 0px 16px 12px 16px">
+            <ion-col class="ion-no-padding ion-no-margin">
+                <ion-searchbar (ionChange)="searchUsersLog($event)" class="ion-searchbar-custom ion-no-padding" placeholder="Nhập tên tài khoản, đối tượng">
+                </ion-searchbar>
+            </ion-col>
+        </ion-row>
+        <ion-row class="date-time-row">
+            <ion-col size='6' class="col-filter-time" style="padding-right: 4px;">
+                <ion-item lines="none">
+                    <i class="mdi mdi-clock-outline"></i>
+                    <ion-datetime display-format="DD/MM/YYYY HH:mm" picker-format="DD/MM/YYYY HH:mm" [ngModel]="fromDate" (ngModelChange)="fromDateChange($event)" max={{currentDate}} doneText="Xác nhận" cancelText="Hủy bỏ" class="datetimePicker"></ion-datetime>
+                </ion-item>
+            </ion-col>
+            <ion-col size='6' class="col-filter-time" style="padding-left: 4px;">
+                <ion-item lines="none">
+                    <i class="mdi mdi-clock-outline"></i>
+                    <ion-datetime text-wrap display-format="DD/MM/YYYY HH:mm" picker-format="DD/MM/YYYY HH:mm" [ngModel]="toDate" (ngModelChange)="toDateChange($event)" max={{currentDate}} doneText="Xác nhận" cancelText="Hủy bỏ" class="datetimePicker"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!datesValid()" lines="none">
+            <ion-label color="danger" style="margin: 0px 16px">
+                Khoảng thời gian không hợp lệ</ion-label>
+        </ion-row>
+        <ion-row style="margin-bottom: 12px;">
+            <ion-col class="ion-no-padding">
+                <form [formGroup]="form">
+                    <ion-row>
+                        <ion-col class="ion-no-padding">
+                            <ion-card class="reportCard">
+                                <ion-item lines="none" style="--padding-start: 15px">
+                                    <i class="ph-map-pin-light" style="font-size: 20px; color: var(--dark-700); margin-right: 4px;"></i>
+                                    <ion-select [interfaceOptions]="customActionSheetOptions" *ngIf="listEntityType" [value]="listEntityType[0].value" (ionChange)="changeEntityType($event)" okText="Xác nhận" cancelText="Hủy bỏ" interface="action-sheet">
+                                        <ion-select-option class="ion-select-option-text-wrap" *ngFor="let entity of listEntityType" [value]="entity.value">{{entity.display}}</ion-select-option>
+                                    </ion-select>
+                                    <span class="select-icon">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </span>
+                                </ion-item>
+                            </ion-card>
+                        </ion-col>
+                    </ion-row>
+                </form>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-grid class="ion-no-padding">
+                <ion-row *ngIf="isLoading">
+                    <ion-col class="ion-text-center">
+                        <ion-spinner></ion-spinner>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="listUserLogs.length<=0 && !isLoading">
+                    <ion-col class="ion-text-center">
+                        <p>{{message}}</p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-row>
+        <ng-container *ngFor="let userLog of listUserLogs">
+            <ion-card class="tab-card">
+                <ion-grid class="tab-card-grid ion-no-padding ">
+                    <!-- <ion-item > -->
+                    <ion-row class="tab-card-row ion-no-padding" style="flex-wrap: nowrap;">
+                        <ion-col class="ngayHistory ion-no-padding" size="4">
+                            <ion-label>
+                                <div class="ngayLabel">{{userLog.createdTime | date: 'HH:mm'}}</div>
+                            </ion-label>
+                        </ion-col>
+                        <ion-col class="thangnamHistory ion-no-padding" size="8">
+                            <ion-label>
+                                <div class="thangnamLabel">Ngày {{userLog.createdTime | date:'dd'}} Tháng {{userLog.createdTime | date:'MM'}} năm {{userLog.createdTime | date:'YYYY'}}</div>
+                                <div class="thuLabel">{{convertTiengViet(transformThu(userLog.createdTime))}}</div>
+                            </ion-label>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="divider"></ion-row>
+                    <ion-row class="tab-card-row no-wrap-row">
+                        <ion-col size="6">
+                            <i class="mdi mdi-account i-content"></i>
+                            <ion-label class="lstcTitle">
+                                Tài khoản
+                            </ion-label>
+                        </ion-col>
+                        <ion-col size="6" class="lstcDetail">{{userLog.userName}}</ion-col>
+                    </ion-row>
+                    <ion-row class="divider"></ion-row>
+                    <ion-row class="tab-card-row no-wrap-row">
+                        <ion-col size="6">
+                            <i class="mdi mdi-assistant i-content"></i>
+                            <ion-label class="lstcTitle">
+                                Hành động
+                            </ion-label>
+                        </ion-col>
+                        <ion-col size="6" class="lstcDetail">{{convertActionType(userLog.actionType)}}</ion-col>
+                    </ion-row>
+                    <ion-row class="divider"></ion-row>
+                    <ion-row class="tab-card-row no-wrap-row">
+                        <ion-col size="6">
+                            <i class="mdi mdi-view-grid i-content"></i>
+                            <ion-label class="lstcTitle">
+                                Loại đối tượng
+                            </ion-label>
+                        </ion-col>
+                        <ion-col size="6" class="lstcDetail">{{convertEntityType(userLog.entityId.entityType)}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="divider"></ion-row>
+                    <ion-row class=" tab-card-row no-wrap-row">
+                        <ion-col size="6">
+                            <i class="mdi mdi-account-edit i-content"></i>
+                            <ion-label class="lstcTitle">
+                                Đối tượng
+                            </ion-label>
+                        </ion-col>
+                        <ion-col size="6" class="lstcDetail">{{userLog.entityName}}</ion-col>
+                    </ion-row>
+                    <ion-row class="divider"></ion-row>
+                    <ion-row class="tab-card-row no-wrap-row">
+                        <ion-col size="6">
+                            <i class="mdi mdi-update i-content"></i>
+                            <ion-label class="lstcTitle">
+                                Trạng thái
+                            </ion-label>
+                        </ion-col>
+                        <ion-col size="6" class="lstcDetail">{{convertActionStatus(userLog.actionStatus)}}</ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card>
+        </ng-container>
+        <ion-infinite-scroll threshold="5%" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Đang tải dữ liệu...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-grid>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end">
+    <ion-button class="ion-no-margin" fill="clear" (click)="goTop()">
+        <i class="mdi mdi-chevron-up"></i>
+    </ion-button>
+</ion-fab>

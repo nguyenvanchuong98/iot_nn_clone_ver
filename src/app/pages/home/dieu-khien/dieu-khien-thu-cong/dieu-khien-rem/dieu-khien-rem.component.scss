@@ -1,0 +1,95 @@
+ion-toolbar {
+  --background: var(--background-input-dark-mode);
+  --min-height: 45px;
+  --border-color: rgb(69 90 100);
+  --border-width: 1px;
+  --border-style: none none solid none;
+  --color: unset;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  h2 {
+    height: 100%;
+    margin: 0;
+    padding-top: 0;
+    text-align: center;
+    color: #43484d;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+  }
+  ion-img {
+    width: 15%;
+    position: absolute;
+    top: 0;
+    left: 42%;
+  }
+  ion-button {
+    --color: #3d85cc;
+    margin: 0;
+    --background: none;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --padding-end: 15px;
+    --background-activated: none;
+    --color-activated: rgba(61, 133, 204, 0.64);
+    --color-focused: rgba(61, 133, 204, 0.64);
+    line-height: 17px;
+    font-size: 16px;
+  }
+  ion-button.btn-huy {
+    --padding-start: 15px;
+  }
+  ion-title {
+    color: var(--dark-700);
+  }
+}
+// ion-content {
+  ion-col,
+  ion-gird {
+    padding: 0;
+  }
+  .row-icon {
+    justify-content: center;
+    ion-img {
+      height: 126px;
+    }
+  }
+  .row-progress {
+    margin: 0 16;
+    justify-content: center;
+    p {
+      margin: 0;
+      font-size: 16px;
+    }
+    ion-progress-bar {
+      height: 14px;
+      --background: #c4c4c4;
+      --progress-background: #fb9d11;
+    }
+  }
+  .row-control {
+    margin: 16px 0;
+    ion-button {
+      --border-radius: 20px;
+      height: 36px;
+      color: #ffffff;
+    }
+    .btn-rai,
+    .btn-thu {
+      flex: 2;
+      margin: 0;
+      --background: #fb9d11;
+      --background-activated: #d2820b;
+    }
+    .btn-rai {
+    }
+    .btn-dung {
+      flex: 1;
+      margin: 0 4px;
+      --background: #089fe5;
+      --background-activated: #2394df;
+    }
+    .btn-thu {
+    }
+  }
+// }

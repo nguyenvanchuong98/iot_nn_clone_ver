@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="dismissModal()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Điều kiện môi trường</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-grid class="main-grid">
+
+    <form [formGroup]="form" *ngIf="form && !isLoading">
+      <ion-row class="input-row">
+        <app-dft-ion-select style="width: 100%;" [control]="this.form?.get('duLieuCamBien')"
+          [placeholder]="'Chọn dữ liệu cảm biến'" [icon]="'assets/icon/cpu-fill.svg'" [header]="'Dữ liệu cảm biến'" [options]="telemetryOptions">
+        </app-dft-ion-select>
+
+      </ion-row>
+
+      <!-- <ion-row>
+        <ion-label class="input-label">
+          Kiểu dữ liệu
+        </ion-label>
+      </ion-row> -->
+
+      <ion-row class="input-row">
+        <app-dft-ion-select style="width: 100%;" [icon]="'assets/icon/database-fill.svg'" [control]="this.form?.get('kieuDuLieu')"
+          [placeholder]="'Chọn kiểu dữ liệu'" [header]="'Kiểu dữ liệu'" [options]="[
+          {value: 'BAT_KY', display: 'Cảm biến bất kỳ'},
+          {value: 'CU_THE', display: 'Cảm biến cụ thể'},
+          ]">
+        </app-dft-ion-select>
+      </ion-row>
+
+      <ng-container *ngIf="this.form?.get('kieuDuLieu')?.value === 'CU_THE'">
+        <ion-row class="choose-device">
+          <!-- <app-dft-ion-select [disable]="isLoading" style="width: 100%;" [control]="createForm?.get('deviceId')"
+            [placeholder]="'Chọn thiết bị *'" [header]="'Thiết bị'" [options]="getRpcOptions()"
+            [icon]="'assets/icon/device-tablet-speaker.svg'">
+          </app-dft-ion-select> -->
+
+          <ion-item
+            lines="none"
+            class="ion-text-center item-with-border"
+            style="font-weight: bold"
+          >
+            <ion-icon
+              style="font-size: 20px;margin-left: 6px;"
+              src="assets/icon/device-tablet-speaker.svg"
+            ></ion-icon>
+            <ion-label [hidden]="true">Cảm biến</ion-label>
+            <ion-select
+              formControlName="camBien"
+              [interfaceOptions]="customPopoverOptions" interface="popover"
+              placeholder="Chọn thiết bị cảm biến *"
+              okText="Xác nhận"
+              cancelText="Hủy bỏ"
+            >
+              <ion-select-option *ngFor="let dv of getSensorDevice()" [value]="dv.id">{{dv.label}}</ion-select-option>
+            </ion-select>
+            <span class="select-icon">
+              <i class="mdi mdi-chevron-down"></i>
+            </span>
+          </ion-item>
+        </ion-row>
+
+        <!-- <ion-row class="input-row">
+          <app-dft-ion-select style="width: 100%;" [control]="this.form?.get('camBien')" [placeholder]="'Chọn thiết bị cảm biến *'"
+            [header]="'Cảm biến'" [options]="getSensorDevice()" [icon]="'assets/icon/device-tablet-speaker.svg'">
+          </app-dft-ion-select>
+        </ion-row> -->
+      </ng-container>
+
+      <!-- <ion-row>
+        <ion-col size="3">
+          <ion-label class="input-label">
+            Toán tử
+          </ion-label>
+        </ion-col>
+        <ion-col size="9">
+          <ion-label class="input-label">
+            Giá trị <span>*</span>
+          </ion-label>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row class="input-row">
+        <ion-col class="ion-no-padding" size="4" style="padding-right: 8px;">
+          <app-dft-ion-select [fontSize]="'24px'" style="width: 100%;" [header]="'Toán tử'" [control]="this.form?.get('toanTu')" [options]="[
+            {value: 'LESS_OR_EQUAL', display: '≤'},
+            {value: 'GREATER_OR_EQUAL', display: '≥'},
+          ]">
+          </app-dft-ion-select>
+        </ion-col>
+        <ion-col class="ion-no-padding" size="8">
+          <ion-input placeholder="Giá trị *" formControlName="nguongGiaTri" type="text" inputmode="decimal" (ionBlur)="convertNguongGiaTri($event)"></ion-input>
+          <p *ngIf="form.get('nguongGiaTri').value==''&&form.get('nguongGiaTri').touched">Đây 
+            là trường bắt buộc</p>
+          <p
+            *ngIf="form.get('nguongGiaTri').hasError('pattern')"
+            >Không đúng định dạng</p
+          >
+          <p *ngIf="checkInputHumidity()">Nhập
+            trong
+            khoảng 0 đến 100</p>
+          <p *ngIf="checkInputLux()">Nhập
+            trong
+            khoảng 0 đến 100000</p>
+          <p *ngIf="checkInputTemp()">Nhập
+            trong khoảng 0 đến 100</p>
+          <!-- <ion-label *ngIf="validSoThapPhan()">Nhập
+            tối đa một số sau dấu phẩy</ion-label> -->
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </ion-grid>
+  <ion-row class="action">
+    <ion-button
+      class="btn-confirm-default ion-no-margin"
+      (click)="onSubmit()" 
+      [disabled]="!isFormValid() || validNguongGiaTri()" 
+    >
+      <ion-label>Xác nhận</ion-label>
+    </ion-button>
+  </ion-row>

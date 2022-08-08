@@ -1,0 +1,46 @@
+<ion-card class="card-camera">
+  <!-- name zone -->
+  <div class="container-header">
+    <ion-card-header class="card-header" (click)="toggleAccordion()">
+      <ion-row>
+        <i class="mdi mdi-camera-iris icon-circle-header"></i>
+  
+        <span>Xem camera</span>
+        
+        <ion-icon name="chevron-up-outline" *ngIf="accordionExpanded"></ion-icon>
+        <ion-icon name="chevron-down-outline" *ngIf="!accordionExpanded"></ion-icon>
+      </ion-row>    
+    </ion-card-header>
+  
+    <ion-button 
+    (click)="xemAllCamera()"
+    fill="clear" 
+    class="btn-3-dot">
+      <i class="mdi mdi-dots-horizontal"></i>
+    </ion-button>
+  </div>
+  
+
+  <ion-card-content class="card-content" *ngIf="accordionExpanded">
+    <ion-row>
+      <!-- list device sensor -->
+      <ion-col *ngFor="let camera of listCamera" size="6">
+        <ion-card (click)="routerSpecificCamera(camera.id)">
+          <!-- icon camera -->
+          <ion-row class="row-icon">
+            <i class="mdi mdi-camera"></i>
+            <!-- <ion-icon name="videocam"></ion-icon> -->
+          </ion-row>
+
+          <!-- name camera -->
+          <ion-row class="row-name">
+            <ion-label>
+              {{camera.name}}
+            </ion-label>
+          </ion-row>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

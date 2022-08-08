@@ -1,0 +1,124 @@
+<ion-header>
+  <!-- <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="huyBo()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">
+        {{deviceRem?.name}}
+      </ion-label>
+    </ion-row>
+  </ion-toolbar> -->
+
+  <ion-toolbar>
+    <ion-title>
+      {{deviceRem?.name}}
+    </ion-title>
+    <ion-buttons slot="end">
+        <ion-button class="btn-huy" (click)="huyBo()" >
+            Huỷ
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="segement-row">
+      <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment">
+        <ion-segment-button value="0">
+          <ion-label>Thủ công</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          <ion-label>Thiết lập</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    
+  </ion-grid>
+  <ion-grid class="container-body">
+    <!-- <ion-row class="row-title">
+      <i class="mdi mdi-power"></i>
+      <h3 class="title">Điều khiển</h3>
+    </ion-row> -->
+
+    <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
+      <ion-slide>
+        <app-dieu-khien-rem [specialDevice]="deviceRem">
+        </app-dieu-khien-rem>
+      </ion-slide>
+      <ion-slide>
+        <form [formGroup]="formSetting">
+          <ion-row class="checkbox-control-rem">
+            <ion-radio-group (ionChange)="changePullPush($event)" formControlName="optionControl">
+              <ion-item lines="none">
+                <ion-label>
+                  Rải rèm
+                </ion-label>
+                <ion-radio mode="md" slot="start" color="primary" value="PUSH"></ion-radio>
+              </ion-item>
+      
+              <ion-item lines="none">
+                <ion-label>
+                  Thu rèm
+                </ion-label>
+                <ion-radio mode="md" slot="start" color="primary" value="PULL"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-row>
+          <ion-row class="row-ty-le-control">
+            <span>
+              {{titlePullPush}} (%)
+            </span>
+            <ion-item lines="none">
+              <ion-input 
+              formControlName="percentControl"
+              (ionChange)="changePercentInput($event)" 
+              inputmode="numeric" 
+              type="number">
+            </ion-input>
+            </ion-item>
+    
+            <p id="error" class="mess-error hidden">Nhập trong khoảng 0 đến 100</p>
+    
+          </ion-row>
+          <ion-row class="row-select-percent">
+            <ion-radio-group 
+            #radioGroup 
+            allowEmptySelection="true" 
+            name="radioGroupControl"
+            (ionChange)="changeRadioPercent($event)">
+              <ion-item 
+              *ngFor="let percent of listPercent" 
+              lines="none">
+                <ion-label>{{percent}}%</ion-label>
+                <ion-radio 
+                [disabled]="((percent <= deviceRem?.pauseStatus) && formSetting.get('optionControl').value === 'PUSH') 
+                || (percent > deviceRem?.pauseStatus && formSetting.get('optionControl').value === 'PULL')"
+                slot="start" 
+                [value]="percent"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-row>
+          <ion-row class="row-time">
+            <span>Thời gian</span>
+            <ion-item lines="none" class="item-datetime">
+              <p>{{msToTime(timeHandle)}}</p>
+            </ion-item>
+          </ion-row>
+
+          <ion-row class="ion-justify-content-center row-btn">
+            <ion-button 
+            [disabled]="isInvalidPercent || formSetting.get('optionControl').value === null"
+            style="margin: 0 0 0 6px;"
+            class="btn-confirm-default"  
+            (click)="onSubmit()" >
+              Xác nhận
+            </ion-button>
+          </ion-row>
+        </form>
+      </ion-slide>
+    </ion-slides>
+  </ion-grid>
+</ion-content>

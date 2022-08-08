@@ -1,0 +1,63 @@
+.telemetry-icon {
+    position: absolute;
+    z-index: 10000;
+    // font-size: 24px;
+    font-size: 20px; //ChuongNV
+    // color: #6F7780;
+    color: var(--dark-700); //ChuongNV
+    top: 25%;
+    // left: 10px;
+    left: 16px; //ChuongNV
+}
+
+.icon-left
+{
+    padding-left: 52px !important;
+}
+
+ion-item {
+    position: relative;
+    --background: #FFFFFF;
+    --border-color:	rgba(83, 89, 95, 0.2);
+    // --color: #43484D;
+    --border-radius:	8px;
+    --border-style: solid;
+    --border-width: 1px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+
+    // --background-activated: #FFFFFF;
+    --background-activated: var(--background-input-dark-mode) !important;
+
+    ion-select {
+        text-align: left;
+        height: 48px;
+        max-width: 100% !important;
+        width: 100% !important;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        // --color: #43484D;
+        color: var(--dark-700);//ChuongNV
+        --placeholder-color: var(--dark-700); //ChuongNV
+    }
+
+    .select-icon {
+        pointer-events: none;
+        position: absolute;
+        font-size: 20px;
+        // font-size: 14px;
+        // color: #43484D;
+        color: var(--dark-700);
+        // right: 10px;
+        right: 16px; //ChuongNV
+        top: 15px;
+        z-index: 10000;
+        // background: #FFFFFF;
+        background: var(--background-input-dark-mode) !important; // ChuongNV
+        min-width: 10%;
+        flex: 1;
+        text-align: right;
+    }
+}

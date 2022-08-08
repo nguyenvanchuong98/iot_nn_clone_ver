@@ -1,0 +1,262 @@
+.wrap-list {
+  position: relative;
+  padding: 0 16px;
+}
+
+.ion-color-toggleluat {
+  --ion-color-base: var(--ion-color-toggleluat);
+}
+ion-header {
+  // background-color: #d7d8da;
+  ion-back-button {
+    --color: var(--dark-700) !important;
+  }
+  ion-toolbar {
+    margin-bottom: 16px;
+    margin-top: 32px;
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,
+        ion-icon {
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+//Thiet lap nguong canh bao
+ion-list {
+  box-shadow: unset;
+  --ion-background-color: #ffffff;
+  .tab-card-row {
+    align-items: center;
+    position: relative;
+    padding: 0 16px;
+    .list-luat-item {
+      align-items: center;
+      padding: 12px 0px;
+      i {
+        left: 0;
+        font-size: 1.5rem !important;
+        color: var(--dark-700);
+      }
+      ion-col {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    ion-toggle {
+      // height: 32px;
+      // margin-right: 12px;
+      // position: absolute;
+      right: 0;
+    }
+  }
+  .divider {
+    border-bottom: 1px solid var(--line-dark-mode) !important;
+  }
+}
+
+ion-fab {
+  // margin-bottom: 50px;
+  ion-button {
+    background: #64b5f6;
+    height: 40px;
+    padding: 0px;
+    text-align: center;
+    width: 40px;
+    border-radius: 32px;
+  }
+  i {
+    color: #fff;
+    line-height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+.main-content {
+  min-height: calc(100% - 234px);
+  // padding: 0px 16px 8px 16px;
+  padding: 0px 0px 44px 0px;
+}
+
+.reportCard {
+  box-shadow: none;
+  flex-direction: column;
+  align-items: flex-start;
+  position: static;
+  margin: 0;
+  min-height: 48px;
+  // background: #ffffff;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 16px;
+  ion-item {
+    height: 48px;
+    // --background: #ffffff;
+    --background-activated: var(--background-content-dark-mode);
+  }
+  ion-select {
+    height: 48px;
+    max-width: 100% !important;
+    width: 100% !important;
+    color: var(--dark-700);
+  }
+  ion-select::part(icon) {
+    display: none;
+    position: absolute;
+    margin-top: -9999px;
+  }
+  .select-icon {
+    pointer-events: none;
+    position: absolute;
+    color: var(--dark-700);
+    right: 10px;
+    // top: 27%;
+    z-index: 10000;
+    background: var(--background-input-dark-mode);
+    --background-activated: var(--background-content-dark-mode);
+    text-align: right;
+  }
+}
+
+.rule-card {
+  margin: 0;
+  // margin-top: 12px;
+  box-shadow: none;
+  // background: #ffffff;
+  margin: 12px 16px 24px 16px;
+  .rule-card-grid {
+    .rule-card-row {
+      padding: 12px 10px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 400;
+      color: var(--dark-700);
+      border-bottom: 1px solid var(--line-dark-mode) !important;
+    }
+    .divider {
+      border-bottom: 1px solid var(--line-dark-mode) !important;
+      margin: 0px 16px;
+      width: 100%;
+      margin-left: 0px;
+    }
+  }
+}
+
+.grid-content {
+  min-height: calc(100% - 234px);
+  // padding: 0px 16px 8px 16px;
+  padding: 0px 0px 44px 0px;
+}
+
+.danh-sach-luat {
+  font-size: 18px;
+  font-weight: 500 !important;
+  line-height: 30px;
+  height: 30px;
+  margin: 0;
+  display: inline-block;
+  margin-left: 8px;
+  top: 1px;
+  color: var(--dark-700);
+}
+
+ion-footer {
+  ion-toolbar {
+    padding-top: 2px;
+    ion-row {
+      ion-col {
+        .custom-button-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          ion-icon {
+            margin-top: 2px;
+            margin-bottom: 2px;
+            font-size: 30px;
+            font-weight: 400;
+            max-width: 100%;
+          }
+          ion-label {
+            font-size: 10px;
+            min-height: 11px;
+            margin-bottom: 1px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--dark-700);
+          }
+        }
+      }
+    }
+  }
+}
+
+.i-content {
+  position: relative;
+  top: 1px;
+  font-size: 20px;
+  margin-right: 8px;
+  margin-left: 8px;
+  background: #64b5f6;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  display: inline-block;
+  text-align: center;
+  line-height: 36px;
+  color: #ffffff;
+}
+
+.rule-name {
+  font-size: 16px;
+  max-width: 100px;
+  color: var(--dark-700);
+  font-weight: 500 !important;
+  margin-bottom: 2px;
+}
+
+.rule-time {
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--dark-700);
+}

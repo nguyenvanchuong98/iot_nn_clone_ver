@@ -1,0 +1,120 @@
+<ion-card class="card-rpc">
+  <div class="container-header">
+    <ion-card-header class="card-header" (click)="toggleAccordion()">
+      <ion-row>
+        <!-- <i class="mdi mdi-view-sequential icon-circle-header"></i> -->
+        <i class="mdi mdi-radioactive icon-circle-header"></i>
+  
+        <span>Thiết bị đang hoạt động ({{listRpcActive?.length + listRpcRem?.length}})</span>
+  
+        <ion-icon name="chevron-up-outline" *ngIf="accordionExpanded"></ion-icon>
+        <ion-icon name="chevron-down-outline" *ngIf="!accordionExpanded"></ion-icon>
+      </ion-row>   
+    </ion-card-header>
+
+    <ion-button 
+    (click)="xemAllRpc()"
+    fill="clear" 
+    class="btn-3-dot">
+      <i class="mdi mdi-dots-horizontal"></i>
+    </ion-button>
+  </div>
+
+  <ion-card-content class="card-content" *ngIf="accordionExpanded">
+    <ion-row>
+      <!-- list device rpc active -->
+      <ion-col class="col-device-rpc" size="4" *ngFor="let deviceRpc of listRpcActive">
+        <ion-card (click)="routerSpecificRpc(deviceRpc?.id)">
+          <!-- icon device -->
+          <ion-row class="row-icon">
+            <ion-col>
+              <ion-img [src]="iconRpc[deviceRpc?.dftDeviceType]['icon']"></ion-img>
+            </ion-col>
+          </ion-row>
+
+          <!-- time hoat dong -->
+          <ion-row class="row-time">
+            <ion-col>
+              <ion-label>
+                {{caculationTimeDevice(deviceRpc?.statusTime)}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <!-- name device -->
+          <ion-row class="row-label-name">
+            <ion-col>
+              <ion-label>
+                {{!!deviceRpc?.label ? deviceRpc?.label : deviceRpc?.name}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+        </ion-card>
+      </ion-col>
+
+      <!-- list rem active -->
+      <ion-col 
+      class="col-device-rpc" 
+      size="4" 
+      *ngFor="let rem of listRpcRem">
+        <ion-card 
+        (click)="routerSpecificRpc(rem?.id)">
+          <!-- icon device -->
+          <ion-row class="row-icon">
+            <ion-col>
+              <ion-img *ngIf="rem.pauseStatus >=1 && rem.pauseStatus <= 100" 
+                [src]="iconRpc[rem?.deviceType]['iconRai']">
+              </ion-img>
+              <ion-img *ngIf="rem.pauseStatus === 0" 
+                [src]="iconRpc[rem?.deviceType]['iconThuDung']">
+              </ion-img>
+              <!-- <ion-img *ngIf="getStatusRem(rem) === 'Mất kết nối' && 
+              (rem.pauseStatus < 100 && rem.pauseStatus > 0 || rem.pauseStatus === 0)" 
+                [src]="iconRpc[rem?.deviceType]['iconThuMkn']">
+              </ion-img>
+              <ion-img *ngIf="getStatusRem(rem) === 'Mất kết nối' && (rem.pauseStatus === 100)" 
+                [src]="iconRpc[rem?.deviceType]['iconRaiMkn']">
+              </ion-img>
+              <ion-img *ngIf="getStatusRem(rem) === 'Dừng' &&
+              (rem.pauseStatus < 100 && rem.pauseStatus > 0 || rem.pauseStatus === 0)" 
+                [src]="iconRpc[rem?.deviceType]['iconThuDung']">
+              </ion-img>
+              <ion-img *ngIf="getStatusRem(rem) === 'Dừng' && (rem.pauseStatus === 100)" 
+                [src]="iconRpc[rem?.deviceType]['iconRai']">
+              </ion-img> -->
+            </ion-col>
+          </ion-row>
+
+          <!-- time hoat dong -->
+          <ion-row class="row-time">
+            <ion-col>
+              <ion-label>
+                {{caculationTimeDevice(rem?.latestTimeAction)}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="row-progress-rem">
+            <p>{{rem.pauseStatus}}%</p>
+            <ion-progress-bar [value]="rem.pauseStatus/100"></ion-progress-bar>
+          </ion-row>
+
+          <ion-row class="row-status-rem">
+            <ion-label>Trạng thái: {{getStatusRem(rem)}}</ion-label>
+          </ion-row>
+
+          <!-- name device -->
+          <ion-row class="row-label-name">
+            <ion-col>
+              <ion-label>
+                {{rem?.name}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

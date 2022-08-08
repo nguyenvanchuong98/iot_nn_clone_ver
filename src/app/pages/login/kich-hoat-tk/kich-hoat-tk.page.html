@@ -1,0 +1,76 @@
+<ion-content [fullscreen]="true">
+    <ion-grid class="background-login">
+        <ion-row>
+            <ion-col class="ion-no-padding">
+                <i class="ph-caret-left-light icon-back-login" (click)="goBackHome()"></i>
+                <ion-img src="./assets/images/mobifone-global.svg"></ion-img>
+            </ion-col>
+        </ion-row>
+
+        <div class="form-login">
+            <ion-row>
+                <ion-col class="ion-no-padding">
+                    <h1>Nhập mã kích hoạt</h1>
+                </ion-col>
+            </ion-row>
+
+            <form [formGroup]="formKichHoat">
+                <ion-row>
+                    <ion-col class="ion-no-padding" size-sm="6" offset-sm="3">
+                        <ion-list>
+                            <ion-item class="custom-item-border-default"
+                                    lines="none">
+                                <ion-input
+                                        type="text"
+                                        placeholder="Nhập mã kích hoạt"
+                                        formControlName="activeCode"
+                                        (ionChange)="errorStatus=false"
+                                ></ion-input>
+                                <ng-template [ngIf]="formKichHoat.valid">
+                                    <i class="ph-check-circle">
+                                    </i>
+                                </ng-template>
+
+                                <ng-template [ngIf]="formKichHoat.dirty && formKichHoat.invalid && !formKichHoat.get('activeCode').value">
+                                    <i class="ph-x-light"
+                                        (click)="clearInput()">
+                                    </i>
+                                </ng-template>
+                            </ion-item>
+
+                            <p class="text-status-wrong"
+                               *ngIf="formKichHoat.dirty && formKichHoat.invalid">
+                                Mã kích hoạt gồm 6 ký tự
+                            </p>
+
+                            <p class="text-status-wrong"
+                               *ngIf="errorStatus">
+                                {{messageWarning}}
+                            </p>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col class="ion-text-center ion-no-padding">
+                        <p class="guiLaiMa">Chưa nhận được Mã kích hoạt? 
+                            <span [ngClass]="{'disabled': dangGuiMa == true, 'active': dangGuiMa==false}" 
+                                (click)="guiLaiMa()">
+                                Gửi lại</span>
+                        </p>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col class="ion-text-center ion-no-padding">
+                        <ion-button
+                                class="btn-confirm-default"
+                                expand="block"
+                                (click)="kichHoat()">Xác nhận
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </div>
+    </ion-grid>
+</ion-content>

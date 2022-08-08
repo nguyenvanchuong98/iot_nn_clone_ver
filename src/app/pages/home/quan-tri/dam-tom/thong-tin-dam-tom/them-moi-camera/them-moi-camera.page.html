@@ -1,0 +1,197 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="buttonBack()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Thêm mới camera</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid>
+    <ion-list>
+      <form [formGroup]="formcreateCamera">
+        <!-- Mã camera -->
+        <!-- <ion-label class="label-title"> Mã camera <span>*</span> </ion-label> -->
+        <ion-item class="ion-no-padding item-ma-cam" lines="none">
+          <i class="mdi mdi-cards-outline"></i>
+          <ion-input
+            formControlName="macamera"
+            placeholder="S/N Box Camera *"
+            required>
+          </ion-input>
+        </ion-item>
+        <!-- Validate ma camera -->
+        <p class="mess-error" *ngIf="formcreateCamera.get('macamera').value?.trim()=='' && formcreateCamera.get('macamera').touched">
+          Đây là trường bắt buộc!
+        </p>
+
+        <p class="mess-error" *ngIf="statusExistCode">
+          Mã Camera đã tồn tại!
+        </p>
+
+        <p class="mess-error" *ngIf="formcreateCamera.get('macamera').value?.length>50">
+          Tối đa 50 ký tự!
+        </p>
+
+        <p class="mess-error" *ngIf="formcreateCamera.get('macamera').hasError('pattern')">
+          Trường dữ liệu không hợp lệ!
+        </p>
+        <!-- Tên camera -->
+          <!-- <ion-label class="label-title"> Tên camera <span>*</span> </ion-label> -->
+          <ion-item class="ion-no-padding item-ten-cam" lines="none">
+            <i class="mdi mdi-camera"></i>
+            <ion-input
+              formControlName="tencamera"
+              placeholder="Tên Camera *"
+              required>
+            </ion-input>
+          </ion-item>
+        <!-- validate ten camera -->
+        <p class="mess-error" *ngIf="statusExistName">
+          Tên Camera đã tồn tại!
+        </p>
+
+        <p class="mess-error" *ngIf="formcreateCamera.get('tencamera').value?.trim()=='' && formcreateCamera.get('tencamera').touched">
+          Đây là trường bắt buộc!
+        </p>
+
+        <p *ngIf="formcreateCamera.get('tencamera').value?.length>255" class="mess-error">
+          Tối đa 255 ký tự!
+        </p>
+        <!-- Địa chỉ ip -->
+        <!-- <ion-item class="ion-no-padding item-url-cam" lines="none">
+          <i class="mdi mdi-web"></i>
+          <ion-input
+            formControlName="diachiip"
+            placeholder="ID steaming camera *"
+            required
+            (ionChange)="changeUrl()">
+          </ion-input>
+        </ion-item>
+        <p *ngIf="statusExistUrl" class="mess-error">
+          URL đã tồn tại!
+        </p>
+  
+        <p *ngIf="formcreateCamera.get('diachiip').value?.trim()=='' && formcreateCamera.get('diachiip').touched" 
+        class="mess-error">
+          Đây là trường bắt buộc!
+        </p> -->
+        <!-- Url rtsp -->
+        <ion-item class="ion-no-padding item-url-cam" lines="none">
+          <i class="mdi mdi-web"></i>
+          <ion-input
+            formControlName="rtspUrl"
+            placeholder="Địa chỉ rtsp camera *"
+            required>
+          </ion-input>
+        </ion-item>
+        <p class="mess-error" *ngIf="formcreateCamera.get('rtspUrl').value?.trim()=='' && formcreateCamera.get('rtspUrl').touched">
+          Đây là trường bắt buộc!
+        </p>
+        <!-- Ghi chú -->
+        <!-- <ion-label class="label-title"> Ghi chú </ion-label> -->
+
+        <div class="row-note">
+          <i class="mdi mdi-circle-edit-outline"></i>
+          <ion-item class="ion-no-padding item-note-cam" lines="none">
+            <ion-textarea formControlName="ghichu" rows="3" placeholder="Ghi chú"></ion-textarea>
+          </ion-item>
+        </div>
+
+        <p *ngIf="formcreateCamera.get('ghichu').value?.length > 4000" class="mess-error">
+          Tối đa 4000 ký tự!
+        </p>
+        <!-- Ghi lại lịch sử camera -->
+        <ion-item class="ion-no-padding item-cam-chinh" lines="none">
+          <i class="mdi mdi-record-rec"></i>
+          <ion-label class="label-title">
+            Ghi lại lịch sử camera
+          </ion-label>
+          <ion-toggle
+            formControlName="recordHistory"
+          ></ion-toggle>
+        </ion-item>
+        <!-- Thiết lập làm camera chính -->
+        <ion-item class="ion-no-padding item-cam-chinh" lines="none">
+          <i class="mdi mdi-camera-metering-partial"></i>
+          <ion-label class="label-title">
+            Thiết lập làm Camera chính
+          </ion-label>
+          <ion-toggle
+            formControlName="ismain"
+          ></ion-toggle>
+        </ion-item>
+      </form>
+    </ion-list>
+
+    <ion-row class="ion-justify-content-center" style="margin: 12px 0 68px 0;">
+      <ion-button
+          class="btn-confirm-default"
+          (click)="onCreateCamera()"
+          [disabled]="formcreateCamera.get('tencamera').value?.trim()==''||
+          formcreateCamera.get('rtspUrl').value?.trim()==''||
+          formcreateCamera.get('macamera').value?.trim()==''||
+          formcreateCamera.get('tencamera').value?.length>255||
+          formcreateCamera.get('macamera').value?.length>255 ||
+          formcreateCamera.get('macamera').hasError('pattern')"
+          expand="block"
+          >Xác nhận
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-fab 
+vertical="bottom" 
+horizontal="end" 
+slot="fixed"
+class="custom-ion-fab"
+*ngIf="isGoTop" (click)="goTop()">
+  <ion-fab-button>
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-row>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerGs()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+            <ion-label>Giám sát</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerDk()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+            <ion-label>Điều khiển</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerCamera()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/camera.svg"></ion-icon>
+            <ion-label>Camera</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerQuanTri()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+            <ion-label>Quản trị</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->

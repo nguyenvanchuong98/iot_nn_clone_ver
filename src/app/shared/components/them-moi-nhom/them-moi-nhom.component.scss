@@ -1,0 +1,217 @@
+ion-header {
+  ion-toolbar {
+    margin-bottom: 16px;
+    margin-top: 32px;
+    ion-buttons.back-arrow {
+      ion-button {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+      }
+      i {
+        font-size: 26px;
+      }
+    }
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      .btn-delete {
+        margin-right: -35px;
+      }
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,
+        ion-icon {
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+ion-content {
+  font-family: "Inter var" !important;
+  .grid-body-content {
+    padding: 0 16px 16px;
+  }
+  ion-grid {
+    color: var(--dark-700);
+    min-height: calc(100% - 234px);
+  }
+  ion-list {
+    margin: 0;
+    background: unset;
+
+    .errorMess {
+      color: #d91f2c;
+      font-size: 14px;
+      margin: 4px 0 16px;
+    }
+    ion-item {
+      margin: 0 0 12px 0;
+      --inner-padding-end: none;
+      align-items: center;
+      --border-radius: 8px;
+      font-size: 16px;
+      --color: var(--dark-700);
+      --background: #ffffff;
+      ion-input {
+        line-height: 24px;
+        font-size: 15px;
+        --placeholder-font-weight: 600;
+        --placeholder-color: var(--dark-700);
+        --padding-start: 12px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+    }
+    .label-title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #43484d;
+      span {
+        margin-left: 3px;
+        color: #eb445a;
+      }
+    }
+  }
+  .ds-thiet_bi {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+.row-title {
+  h3 {
+    color: var(--dark-700);
+    margin: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    position: relative;
+  }
+  h3::before {
+    content: "";
+    height: 1px;
+    display: block;
+    width: 20px;
+    background-color: var(--alix-primary-color);
+    position: absolute;
+    top: 36px;
+    margin: 7px 0 0 0;
+  }
+  h3::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    margin: 10px 0 0px 0;
+    background-color: var(--alix-primary-color);
+  }
+  padding-bottom: 16px;
+  padding-left: 16px;
+}
+.item-name-zone {
+  i {
+    padding-left: 12px;
+    font-size: 20px;
+    color: var(--dark-700);
+  }
+}
+.row-ds-tb {
+  padding: 16px 16px 30px 16px;
+  background-color: white;
+  border-radius: 8px;
+  p {
+    margin: 12px 0;
+  }
+  .ds-tb-header {
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    h4 {
+      color: var(--dark-700);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      i {
+        font-size: 20px;
+        display: inline-block;
+        background: var(--alix-primary-color);
+        color: #fff;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 50%;
+      }
+      span {
+        padding: 0 20px;
+        color: var(--dark-700);
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
+  .btn-chon-thiet-bi {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    --padding-start: 0;
+    --padding-end: 0;
+    i {
+      font-size: 20px;
+      color: var(--dark-700);
+    }
+  }
+
+  .ds-tb-content {
+    align-items: center;
+    padding-left: 40px;
+    i {
+      color: #3880ff;
+      font-size: 20px;
+    }
+    .name-device {
+      margin: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}

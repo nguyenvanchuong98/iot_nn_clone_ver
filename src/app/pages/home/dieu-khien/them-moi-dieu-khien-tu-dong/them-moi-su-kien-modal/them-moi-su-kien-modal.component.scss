@@ -1,0 +1,191 @@
+ion-header {
+  ion-toolbar {
+    margin-bottom: 16px;
+    margin-top: 32px;
+    ion-buttons.back-arrow {
+      ion-button{
+        width: 48px;
+        height: 48px;
+        margin: 0;
+      }
+      i {
+        font-size: 26px;
+      }
+    }
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      .btn-delete{
+        margin-right: -35px;
+      }
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,ion-icon{
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+ion-grid {
+  padding: 0px 16px 0px 16px;
+  p {
+    margin: 4px 0 0 0;
+    color: #d91f2c;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  
+  .input-row {
+    margin: 12px 0;
+    ion-col {
+      ion-input {
+        --background: var(--background-input-dark-mode) !important;
+        border: 1px solid rgba(83, 89, 95, 0.2);
+        border-radius: 8px;
+        --padding-end: 12px;
+        --padding-start: 20px;
+        height: 50px;
+        margin-right: 8px;
+        color: var(--dark-700);
+        --placeholder-font-weight: 500;
+        --placeholder-color: var(--dark-700);
+        font-size: 15px;
+        font-weight: 400;
+      }
+    }
+  }
+  .choose-device{
+    margin: 12px 0;
+    ion-item{
+      width: 100%;
+      // background: #ffffff;
+      --background-activated: var(--background-input-dark-mode) !important;
+      --padding-start: 10px;
+
+      border-radius: 8px;
+      ion-select {
+        text-align: left;
+        color: var(--dark-700);
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        --padding-start: 16px;
+        --placeholder-color: var(--dark-700);
+        height: 48px;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      // ion-select::part(icon) {
+      //   display: none;
+      //   visibility: hidden;
+      // }
+      i {
+        font-size: 20px;
+      }
+      .select-icon {
+        pointer-events: none;
+        position: absolute;
+        // font-size: 13px;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        color: var(--dark-700);
+        right: 16px;
+        z-index: 10000;
+        background: var(--background-input-dark-mode) !important;
+        min-width: 10%;
+        flex: 1;
+        text-align: right;
+      }
+    }
+  }
+}
+
+// .custom-select {
+//     width: 100%;
+//     position: relative;
+
+//     ion-select {
+//         background: #FFFFFF;
+//         border: 1px solid rgba(83, 89, 95, 0.2);
+//         border-radius: 8px;
+//         padding: 13px 12px;
+//     }
+//     ion-select::part(icon) {
+//         display: none;
+//     }
+
+//     .select-icon {
+//         pointer-events: none;
+//         position: absolute;
+//         font-size: 20px;
+//         color: #43484D;
+//         right: 10px;
+//         top: 15px;
+//         z-index: 10000;
+//     }
+// }
+
+// ion-select {
+//     font-style: normal;
+//     font-weight: normal;
+//     font-size: 16px;
+//     line-height: 24px;
+//     color: #43484D;
+//     --placeholder-color: rgba(45, 48, 51, 0.5);
+// }
+
+// .telemetry-icon {
+//     position: absolute;
+//     z-index: 10000;
+//     font-size: 24px;
+//     color: #6F7780;
+//     top: 25%;
+//     left: 10px;
+// }
+
+.action {
+  justify-content: center;
+  margin: 24px 0 68px 0;
+  .btn-yellow {
+    display: block;
+    margin: 0 20px 0 0;
+  }
+  .btn-confirm-default {
+    margin: 0;
+  }
+}

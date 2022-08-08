@@ -1,0 +1,7 @@
+{
+  "name": "dam-tom-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

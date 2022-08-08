@@ -1,0 +1,107 @@
+<ion-toolbar>
+    <ion-title>
+        Thông tin thiết bị
+    </ion-title>
+    <ion-buttons slot="end">
+        <ion-button class="btn-huy" (click)="cancelInfoDevice()" >
+            Huỷ
+        </ion-button>
+    </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+    <ion-grid>
+        <form [formGroup]="formEditDevice">
+            <ion-row class="name-device">
+                <ion-button class="btn-info-device" (click)="infoDevice()" fill="clear">
+                    <i class="mdi mdi-information"></i>
+                </ion-button>
+
+                <ion-item>
+                    <ion-label position="stacked">Tên thiết bị <span>*</span></ion-label>
+                    <ion-input
+                            formControlName="nameDevice"
+                            placeholder="Nhập tên thiết bị"
+                            inputmode="text"
+                            (ionChange)="changeDeviceName()"
+                    ></ion-input>
+                </ion-item>
+            </ion-row>
+            
+            <ion-row class="row-validate">
+                <ng-container *ngIf="formEditDevice.get('nameDevice').hasError('maxlength')">
+                    <p class="errorMess">Tối đa 255 ký tự!</p>
+                </ng-container>
+                
+                <ng-container *ngIf="formEditDevice.get('nameDevice').value.trim()=='' && formEditDevice.get('nameDevice').touched">
+                    <p class="errorMess">
+                        Đây là trường bắt buộc
+                    </p>
+                </ng-container>
+
+<!--                ten device da ton tai-->
+                <ng-container *ngIf="errorMessage !== ''">
+                    <p class="errorMess">{{errorMessage}}</p>
+                </ng-container>
+            </ion-row>
+            
+        </form>
+        <ion-row class="zone-device">
+                <ion-item>
+                    <ion-label position="stacked">Phân vùng</ion-label>
+                    <ion-select
+                    [interfaceOptions]="customActionSheetOptions"
+                    interface="action-sheet"
+                    okText="Xác nhận" 
+                    cancelText="Hủy bỏ"
+                    [ngModel]="inforDeviceUpdate?.zone?.id"
+                    placeholder="Chọn phân vùng"
+                    (ngModelChange)="changeZone($event)">
+
+                        <ion-select-option *ngFor="let zone of inforDeviceUpdate?.listZone" [value]="zone?.id">
+                            {{zone?.name}}
+                        </ion-select-option>
+
+                    </ion-select>
+                </ion-item>
+        </ion-row>
+<!--            <ion-row class="active-device">-->
+<!--                <ion-item>-->
+<!--                    <ion-label>Kích hoạt</ion-label>-->
+<!--                    <ion-toggle formControlName="activateDevice"></ion-toggle>-->
+<!--                </ion-item>-->
+<!--            </ion-row>-->
+
+        <!-- Chon loai device -->
+        <ion-row class="row-type-device">
+            <ion-col>
+                <h3>Thuộc loại</h3>
+                <ion-item>
+                    <ion-select 
+                    [interfaceOptions]="actionSheetChooseType" 
+                    interface="action-sheet" 
+                    placeholder="Chọn loại"
+                    okText="Xác nhận" 
+                    cancelText="Hủy bỏ"
+                    [ngModel]="inforDeviceUpdate?.deviceType"
+                    (ngModelChange)="changeTypeDevice($event)">
+
+                        <ion-select-option 
+                        *ngFor="let type of inforDeviceUpdate?.listDeviceType" 
+                        [value]="type?.key">
+                        {{type?.value}}
+                        </ion-select-option>
+
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center" style="margin: 24px 0 68px 0;">
+            <ion-button [disabled]="!formEditDevice.dirty || formEditDevice.get('nameDevice').value.trim()==='' 
+            || errorMessage !== '' || formEditDevice.get('nameDevice').hasError('maxlength')" 
+                        class="btn-confirm-default"
+                        (click)="submitInfoDevice()">Xác nhận
+            </ion-button>
+        </ion-row>
+    </ion-grid>
+</ion-content>

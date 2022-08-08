@@ -1,0 +1,124 @@
+<ion-content [fullscreen]="true" >
+    <ion-grid class="background-login">
+        <ion-row>
+            <ion-col class="ion-no-padding">
+                <ion-img src="./assets/images/mobifone-global.svg"></ion-img>
+            </ion-col>
+        </ion-row>
+        <div class="form-login">
+            <ion-row >
+                <ion-col class="ion-no-padding">
+                    <h1>Đăng nhập</h1>
+                </ion-col>
+            </ion-row>
+            <form [formGroup]="formDangNhap">
+                <ion-row >
+                    <ion-col class="ion-no-padding" size-sm="6" offset-sm="3">
+                        <ion-list>
+                            <ion-item lines="none"
+                                    class="custom-item-border-default">
+                                <ion-input
+                                        formControlName="tk"
+                                        placeholder="Nhập SĐT hoặc Email"
+                                        name="tk"
+                                        style="font-size: 14px"
+                                        (ionChange)=changeAccount()
+                                >
+                                </ion-input>
+
+                                <ng-template [ngIf]="formDangNhap.get('tk').valid">
+                                    <!-- <i class="ph-check-circle" style="color: #34C759;"></i> -->
+                                    <ion-icon name="close-outline" (click) = "clearInput()"></ion-icon>
+                                </ng-template>
+
+                                <ng-template [ngIf]="formDangNhap.get('tk').invalid && formDangNhap.get('tk').dirty && !formDangNhap.get('tk').value">
+                                    <i class="ph-x-light"
+                                        (click)="clearInput()">
+                                    </i>
+                                </ng-template>
+
+                            </ion-item>
+                            
+                            <p class="text-status-wrong" 
+                               *ngIf="(formDangNhap.controls['tk'].dirty) && formDangNhap.controls['tk'].hasError('required') || accountEmpty">
+                                Nhập tài khoản của bạn!
+                            </p>
+                            
+                            <!-- <p class="text-status-wrong" 
+                               *ngIf="(formDangNhap.controls['tk'].dirty) && formDangNhap.controls['tk'].hasError('pattern')">
+                                Địa chỉ Email không đúng định dạng!
+                            </p> -->
+
+                            <ion-item
+                                    lines="none"
+                                    class="custom-item-border-default ion-margin-top">
+                                <ion-input
+                                        formControlName="mk"
+                                        name="password"
+                                        placeholder="Mật khẩu"
+                                        style="font-size: 14px"
+                                        [type]="showPassword ? 'text':'password'"
+                                        (ionChange)=changePassword()
+                                ></ion-input>
+
+                                <i *ngIf="passwordToggleIcon === 'eye-off'; else openEye"
+                                    [ngClass]="{ 'ph-eye-slash': passwordToggleIcon === 'eye-off' }"
+                                    (click)="togglePassword()">
+                                </i>
+                                <ng-template #openEye>
+                                    <i
+                                        [ngClass]="{ 'ph-eye-light': passwordToggleIcon === 'eye'}"
+                                        (click)="togglePassword()"></i>
+                                </ng-template>
+                            </ion-item>
+
+                            <p class="text-status-wrong" 
+                               *ngIf="(formDangNhap.controls['mk'].dirty) && formDangNhap.controls['mk'].hasError('required') || passwordEmpty">
+                                Nhập mật khẩu của bạn!
+                            </p>
+                            <p class="text-status-wrong" 
+                               *ngIf="(formDangNhap.controls['mk'].dirty) && formDangNhap.controls['mk'].hasError('minlength')">
+                                Mật khẩu phải chứa tối thiểu 6 ký tự!
+                            </p>
+                            <p class="text-status-wrong" *ngIf="errorUsernamePassword && formDangNhap.controls['mk'].value.length != 0 && formDangNhap.controls['tk'].value.length != 0">
+                                {{messageWarning}}
+                            </p>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="ion-align-items-center luuDangNhap">
+                    <ion-col size-md="6" class="ion-no-padding">
+                        <ion-item lines="none">
+                            <ion-checkbox mode="md"
+                                        (ionChange)="luuDangNhapCheckBox()"
+                                    formControlName="luuDangNhap"
+                                    slot="start">
+                            </ion-checkbox>
+                            <ion-label>Lưu đăng nhập</ion-label>
+                        </ion-item>
+                    </ion-col>
+
+                    <ion-col size-md="6" class="ion-no-padding">
+                        <div class="ion-text-end">
+                            <a routerLink="/login/quen-mat-khau">
+                                Quên mật khẩu?
+                            </a>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                
+                <ion-row>
+                    <ion-col  class="ion-text-center ion-no-padding">
+                        <ion-button
+                                class="btn-confirm-default"
+                                expand="block"
+                                fill="clear"
+                                (click)="DangNhap()">Đăng nhập</ion-button>
+                    </ion-col>
+                </ion-row>
+                
+            </form>
+        </div>
+    </ion-grid>
+</ion-content>

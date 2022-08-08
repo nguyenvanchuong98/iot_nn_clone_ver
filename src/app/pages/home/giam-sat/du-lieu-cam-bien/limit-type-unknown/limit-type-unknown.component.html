@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <ion-toolbar>
+      <ion-title color="title">Thiết lập thang đo</ion-title>
+  </ion-toolbar>
+</div>
+
+<ion-content>
+  <ion-grid>
+      <ion-row style="margin: 0 16px;">
+          <ion-col class="icon-col" size="2">
+              <ion-img [src]="icon" style="font-size: 36px;"></ion-img>
+          </ion-col>
+          <ion-col class="ion-text-left min label-thang-do" size="6">
+              <div>Từ {{knobValues.lower}} đến {{knobValues.upper}}</div>
+          </ion-col>
+          <ion-col class="reset-thang-do">
+              <ion-button fill="clear" (click)="reset()">
+                  Reset
+                  <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+              </ion-button>
+          </ion-col>
+      </ion-row>
+      <ion-row class="slider-row">
+          <ion-col>
+              <ion-item line='none'>
+                  <ion-range dualKnobs="true" 
+                  min="0" 
+                  [max]="maxUnknow" 
+                  step="1" 
+                  pin="true" 
+                  [(ngModel)]="knobValues"
+                  class="ion-no-padding" 
+                  (ionChange)="ionSliderForValues($event)">
+                      <ion-label slot="start">0</ion-label>
+                      <ion-label slot="end">{{maxUnknow}}</ion-label>
+                  </ion-range>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 80px;" class="ion-justify-content-center row-button-confirm">
+          <!-- <ion-col class="ion-text-center"> -->
+          <ion-button class="btn-yellow" (click)="dismissModal()">Huỷ bỏ</ion-button>
+          <!-- </ion-col>
+    <ion-col  class="ion-text-center"> -->
+          <ion-button (click)="onSubmit()" class="btn-confirm-default">
+              <ion-label>Xác nhận</ion-label>
+          </ion-button>
+          <!-- </ion-col> -->
+      </ion-row>
+  </ion-grid>
+</ion-content>

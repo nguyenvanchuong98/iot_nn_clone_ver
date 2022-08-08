@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+      <ion-buttons slot="start">
+          <ion-back-button mode="md" text="" defaultHref="/home/quan-tri/menu"></ion-back-button>
+      </ion-buttons>
+      <ion-row class="title-home-account">
+          <ion-label class="title"> Báo cáo hoạt động của thiết bị </ion-label>
+      </ion-row>
+  </ion-toolbar>
+  <ion-row class="row-select-vuon">
+    <ion-col class="ion-no-padding">
+      <ion-item lines="none">
+        <i class="ph-map-pin-light"></i>
+        <ion-select [interfaceOptions]="customActionSheetOptions" 
+        *ngIf="dsDamTom" 
+        [ngModel]="damTomIdSelected" 
+        (ngModelChange)="changeDamTom($event)"
+        okText="Xác nhận" 
+        cancelText="Hủy bỏ"  
+        interface="action-sheet">
+            <ion-select-option
+                *ngFor="let damtom of dsDamTom"
+                [value]="damtom.id">{{damtom.name}}
+            </ion-select-option>
+        </ion-select>
+        <span class="select-icon">
+            <ion-icon name="chevron-down-outline"></ion-icon>
+        </span>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <!-- filter time -->
+  <ion-row class="row-date-time">
+    <ion-col class="ion-no-padding col-start-date" size="6">
+      <ion-item class="ion-no-padding" lines="none">
+        <i class="ph-clock"></i>
+        <ion-datetime class="ion-no-padding" display-format="DD/MM/YYYY HH:mm" picker-format="DD/MM/YYYY HH:mm"
+            [ngModel]="startTs" (ngModelChange)="startDateChange($event)" max={{currentDate}}
+            doneText="Xác nhận" cancelText="Hủy bỏ"></ion-datetime>
+      </ion-item>
+    </ion-col>
+    <ion-col class="ion-no-padding col-end-date" size="6">
+      <ion-item class="ion-no-padding" lines="none">
+        <i class="ph-clock"></i>
+        <ion-datetime class="ion-no-padding" text-wrap display-format="DD/MM/YYYY HH:mm" picker-format="DD/MM/YYYY HH:mm"
+            [ngModel]="endTs" (click)="filterDate()" (ngModelChange)="endDateChange($event)" max={{currentDate}}
+            doneText="Xác nhận" cancelText="Hủy bỏ"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <!-- <ion-row class="row-validate">
+    <ion-label *ngIf="!isStartTsGreaterEndTs()">
+        Khoảng thời gian không hợp lệ
+    </ion-label>
+  </ion-row> -->
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingText="">
+      </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid class="grid-container">
+  <!-- bieu do tron -->
+    <ion-row class="row-chart">
+      <ion-col>
+        <div>
+          <div echarts [options]="chartOption" class="echart"></div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <!-- bang thong ke -->
+    <ion-row class="row-name-table">
+      <ion-label>
+        Thông tin chi tiết
+      </ion-label>
+    </ion-row>
+    <!-- table -->
+    <ion-grid class="table-time-device">
+      <ion-row class="header">
+        <ion-col size="5">
+          <h3>Tên thiết bị</h3>
+        </ion-col>
+        <ion-col size="4">
+          <h3>Phân vùng</h3>
+        </ion-col>
+        <ion-col size="3">
+          <h3>Số giờ chạy</h3>
+        </ion-col>
+      </ion-row>
+
+      <ng-container *ngFor="let item of dataTableHDTB">
+        <ion-row class="content">
+          <ion-col size="5" class="ten-thiet-bi">
+            <ion-label>{{item.label}}</ion-label>
+          </ion-col>
+          <ion-col size="4" class="phan-vung">
+            <ion-label lines="none">{{item.device_type}}</ion-label>
+          </ion-col>
+          <ion-col size="3" class="so-gio-chay">
+            <ion-label>{{item.timeOn}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ng-container> 
+
+      <!-- <ion-row class="no-data">
+        <p>Không có dữ liệu</p>
+      </ion-row> -->
+    </ion-grid>
+  
+  </ion-grid>
+</ion-content>
+<ion-fab 
+    vertical="bottom" 
+    horizontal="end" 
+    slot="fixed"
+    class="custom-ion-fab"
+    *ngIf="isGoTop" (click)="goTop()">
+      <ion-fab-button>
+        <i class="mdi mdi-chevron-up"></i>
+      </ion-fab-button>
+</ion-fab>

@@ -1,0 +1,195 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>Thông tin tài khoản</ion-title>
+    <ion-buttons  (click)="buttonBack()" slot="start">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-buttons class="btn-trash" (click)="xoaTaiKhoan()"  slot="end">
+      <i class="ph-trash"></i>
+    </ion-buttons>
+  </ion-toolbar> -->
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/tai-khoan"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Thông tin tài khoản </ion-label>
+      <ion-button class="ion-no-padding ion-no-margin" fill="clear" (click)="xoaTaiKhoan()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid>
+    <div *ngIf="!form || isLoading" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+    </div>
+    <ion-row style="margin-bottom: 10px;">
+      <ion-col>
+          <app-upload-avatar [avatarUrlLoad]="avatarBlobUrl"
+          (avatarPick)="onAvatarPicked($event)">
+          </app-upload-avatar>
+      </ion-col>
+  </ion-row>
+    <form [formGroup]="form" *ngIf="form && !isLoading">
+      <!-- <h2>Họ tên người dùng <span>*</span></h2> -->
+      <ion-row class="ho-ten">
+        <ion-item lines="none">
+          <i class="mdi mdi-account-outline"></i>
+          <ion-input 
+                  formControlName="name"
+                  placeholder="Họ tên *" 
+                  name="name" 
+                  type="text" 
+                  autocomplete="off">
+          </ion-input>
+        </ion-item>
+        
+        <p *ngIf="form.get('name').value.trim() == '' && form.get('name').dirty">Đây là trường bắt buộc!</p>
+        <div *ngIf="form.get('name').invalid && (form.get('name').touched || form.get('name').dirty)">
+          <p *ngIf="form.get('name').hasError('maxlength')">Tối đa 255 ký tự!</p>
+        </div>
+      </ion-row>
+      <ion-row class="username">
+        <ion-item lines="none">
+          <i class="mdi mdi-account-box-outline"></i>
+          <ion-input 
+                  formControlName="username" 
+                  name="username" 
+                  placeholder="Tên đăng nhập" 
+                  type="text" 
+                  autocomplete="off">
+          </ion-input>
+        </ion-item>
+        <p *ngIf="form.get('username').value.trim() == '' && form.get('username').dirty">Đây là trường bắt buộc!</p>
+        <div  *ngIf="form.get('username').invalid && form.get('username').touched">
+          <p *ngIf="form.get('username').hasError('maxlength')">Tối đa 45 ký tự!</p>
+          <p *ngIf="isUserNameExist">Tên đăng nhập đã tồn tại</p>
+        </div>
+      </ion-row>
+      <!-- <h2>Số điện thoại <span>*</span></h2> -->
+      <ion-row class="sdt">
+        <ion-item lines="none">
+          <i class="mdi mdi-cellphone"></i>
+          <ion-input 
+                  formControlName="phoneNumber" 
+                  placeholder="Số điện thoại *" 
+                  name="phoneNumber" 
+                  inputmode="tel"
+                  (keydown)="changeNumberPhone($event)"
+                  autocomplete="off"></ion-input>
+        </ion-item>
+        <p *ngIf="form.get('phoneNumber').value.trim() == '' && form.get('phoneNumber').dirty">Đây là trường bắt buộc!</p>
+        <div *ngIf="form.get('phoneNumber').invalid && form.get('phoneNumber').dirty">
+          <p *ngIf="form.get('phoneNumber').hasError('maxlength')">Tối đa 45 ký tự!</p>
+          <p *ngIf="form.get('phoneNumber').value.trim().length < 7 && form.get('phoneNumber').value.trim().length > 0">Tối thiểu 07 ký tự!</p>
+          <p *ngIf="form.get('phoneNumber').hasError('pattern') && !form.get('phoneNumber').hasError('maxlength') && form.get('phoneNumber').value.trim().length >= 7">Số điện thoại không đúng định dạng</p>
+          <p *ngIf="isPhoneNumberExist">Số điện thoại đã tồn tại</p>
+        </div>
+      </ion-row>
+
+      <!-- <h2>Địa chỉ Email</h2> -->
+      <ion-row class="email">
+        <ion-item lines="none">
+          <i class="mdi mdi-email-outline"></i>
+          <ion-input 
+                  formControlName="email" 
+                  name="email" 
+                  placeholder="Email" 
+                  type="Email" 
+                  autocomplete="off">
+          </ion-input>
+        </ion-item>
+        <div  *ngIf="form.get('email').invalid && form.get('email').touched">
+          <p *ngIf="form.get('email').hasError('maxlength')">Tối đa 320 ký tự!</p>
+          <p *ngIf="form.get('email').hasError('pattern') && !form.get('email').hasError('maxlength')">Địa chỉ email không đúng định dạng</p>
+          <p *ngIf="isEmailExist">Địa chỉ Email đã tồn tại</p>
+        </div>
+      </ion-row>
+
+      <!-- <h2>Vai trò</h2> -->
+      <ion-row class="role">
+        <ion-item lines="none">
+          <i style="z-index: 1;
+          position: absolute;
+          left: 12px;width: fit-content;" class="mdi mdi-briefcase-outline prefix"></i>
+          <ion-label hidden>Vị trí</ion-label>
+          <ion-select okText="Xác nhận" cancelText="Hủy bỏ" [(ngModel)]="selectedRole"
+                      [placeholder]="roleName ? roleName: 'Vị trí'" (click)="clickVaiTro()" [compareWith]="cmpFunction"
+                      multiple="true" formControlName="role">
+            <ion-select-option *ngFor="let role of roles" [value]='role'>{{role.name}}</ion-select-option>
+          </ion-select>
+          <span class="select-icon">
+            <i class="mdi mdi-chevron-down"></i>
+          </span>
+        </ion-item>
+        
+      </ion-row>
+
+      <!-- <h2>Ghi chú</h2> -->
+      <ion-row class="note">
+        <ion-item lines="none">
+          <i style="padding-top: 10px;" class="mdi mdi-circle-edit-outline prefix"></i>
+          <ion-textarea
+                  formControlName="note" 
+                  placeholder="Ghi chú" 
+                  rows="3" 
+                  autocomplete="off"
+          ></ion-textarea>
+        </ion-item>
+        <div *ngIf="form.get('note').invalid && form.get('note').touched">
+          <p *ngIf="form.get('note').hasError('maxlength')">Tối đa 4000 ký tự!</p>
+        </div>
+      </ion-row>
+
+      <!-- <ion-row class="activate">
+        <ion-item lines="none">
+          <ion-label>Kích hoạt ngay</ion-label>
+          <ion-toggle slot="end" color="success" formControlName="active" name="active"></ion-toggle>
+        </ion-item>
+      </ion-row> -->
+      <ion-card *ngIf="listNhaVuon.length > 0" class="ion-no-margin card-ng-ql">
+        <ion-item
+          detail="false"
+          class="ion-no-padding header-ng-ql">
+          <ion-label class="label-title"
+          >Danh sách vườn quản lý ({{listNhaVuon.length}})</ion-label
+        >
+        </ion-item>
+        <ion-row class="form-child">
+          <ion-item
+            class="ion-no-padding"
+            *ngFor="let nhaVuon of listNhaVuon"
+            detail="false"
+          >
+            <ion-label>
+              <span> {{nhaVuon.name}}</span>
+            </ion-label>
+          </ion-item>
+        </ion-row>
+      </ion-card>
+
+      <ion-row class = "btn-submit">
+        <ion-button class="btn-confirm-default ion-no-padding ion-no-margin"
+        [disabled]="form.invalid || !form.dirty || this.form.get('name').value.trim().length == 0" 
+        *ngIf="form && !isLoading" 
+        (click)="saveUser()"
+          fill="clear">
+            Xác nhận
+        </ion-button>
+
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>
+<ion-fab class="custom-ion-fab ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-fab-button class="ion-no-margin" fill="clear" (click)="goTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>

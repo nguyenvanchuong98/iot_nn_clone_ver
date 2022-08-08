@@ -1,0 +1,375 @@
+.ion-invalid.ion-touched ion-label {
+  color: var(--ion-color-danger);
+}
+.ion-invalid.ion-touched ion-input {
+  color: var(--ion-color-danger);
+}
+ion-header {
+  ion-toolbar {
+    margin-bottom: 16px;
+    margin-top: 32px;
+    ion-buttons.back-arrow {
+      ion-button {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+      }
+      i {
+        font-size: 26px;
+      }
+    }
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      .btn-delete {
+        margin-right: -35px;
+      }
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,
+        ion-icon {
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+ion-content {
+  font-family: "Inter var" !important;
+  .grid-content-page {
+    padding: 0 16px 16px;
+    color: var(--dark-700);
+    min-height: calc(100% - 234px);
+  }
+  i,
+  ion-icon {
+    font-size: 20px;
+    color: var(--dark-700);
+  }
+  ion-list {
+    margin: 0;
+    background: unset;
+    // .ten-botb {
+    //   --inner-padding-end: none;
+    //   margin: 0px 0 -8px 0;
+    //   ion-button {
+    //     height: unset;
+    //   }
+    // }
+    .item-kich-hoat,
+    .item-ten-btb,
+    .item-note {
+      margin: 16px 0 12px 0;
+      --inner-padding-end: none;
+      --border-radius: 8px;
+      --background: #ffffff;
+      ion-input {
+        line-height: 24px;
+        font-size: 15px;
+        --placeholder-font-weight: 500;
+        --placeholder-color: var(--dark-700);
+        --padding-start: 12px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+    }
+    .item-ten-btb {
+      i {
+        padding-left: 12px;
+      }
+    }
+    // ion-card {
+    //   box-shadow: unset;
+    //   margin-bottom: 30px;
+    //   --ion-background-color: #ffffff;
+    //   ion-item {
+    //     ion-label {
+    //       margin: 12px 0 12px 16px;
+    //     }
+    //   }
+    //   ion-row {
+    //     border-radius: 8px;
+    //     margin: 12px;
+
+    //     .item-device-row {
+    //       width: 100%;
+    //       margin: 0;
+    //       padding-right: 16px;
+
+    //       ion-item {
+    //         margin: 0 0 0 16px;
+    //         width: 100%;
+    //         ion-label {
+    //           width: 100%;
+    //           margin: 12px 0 12px 0;
+    //           p {
+    //             font-size: 14px;
+    //             line-height: 17px;
+    //             color: #6f7780;
+    //           }
+    //           .text-validate {
+    //             font-size: 11px;
+    //             line-height: 14px;
+    //             color: #eb445a;
+    //           }
+    //           ion-text {
+    //             font-weight: 600;
+    //             font-size: 16px;
+    //             line-height: 24px;
+    //             color: #43484d;
+    //             margin-bottom: 4px;
+    //           }
+    //           ion-input {
+    //             background-color: #ffffff;
+    //             --padding-start: 10px;
+    //             font-size: 16px;
+    //             line-height: 24px;
+    //             color: #43484d;
+    //             margin-bottom: 4px;
+    //             border-radius: 10px;
+    //           }
+    //         }
+    //         ion-button {
+    //           position: absolute;
+    //           right: 0;
+    //         }
+    //       }
+    //     }
+    //     .item-device-row:last-child {
+    //       ion-item {
+    //         --inner-border-width: 0;
+    //       }
+    //     }
+    //   }
+    //   // ion-row
+    // }
+  }
+
+  .error-mess {
+    ion-item {
+      width: 100%;
+    }
+    ion-label {
+      color: #cf3c4f;
+    }
+  }
+}
+// table device
+.table-device {
+  background-color: var(--background-input-dark-mode);
+  border-radius: 10px;
+  margin: 12px 0;
+  padding: 0;
+  .header {
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--line-dark-mode);
+    background-color: #334248;
+    border-radius: 10px 10px 0 0;
+    ion-col {
+      padding: 0;
+      text-align: center;
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--dark-700);
+      }
+    }
+  }
+  .content {
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line-dark-mode);
+    ion-col {
+      padding: 0;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }
+    .stt {
+      p {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--dark-700);
+      }
+    }
+    .name-device {
+      ion-item {
+        font-size: 15px;
+        font-weight: 500;
+        --color: var(--dark-700);
+        --min-height: 30px;
+        --padding-start: 0;
+        --inner-padding-end: 0;
+      }
+    }
+    .tac-vu {
+      .delete-device {
+        height: unset;
+        margin: 0;
+        width: 24px;
+        --padding-start: 0;
+        --padding-end: 0;
+      }
+    }
+  }
+  .content:last-child {
+    border: none;
+  }
+}
+.no-data {
+  justify-content: center;
+}
+.table-device-special {
+  background-color: var(--background-input-dark-mode);
+  border-radius: 10px;
+  margin: 12px 0;
+  padding: 0;
+  .header {
+    border-bottom: 1px solid var(--alix-primary-color);
+    background-color: #334248;
+    border-radius: 10px 10px 0 0;
+    justify-content: center;
+    h3 {
+      font-size: 16px;
+      margin: 20px 16px;
+      font-weight: bold;
+    }
+  }
+  .content {
+    padding: 0px 12px;
+    align-items: center;
+    border-bottom: 1px solid var(--line-dark-mode);
+    ion-col {
+      padding: 0;
+    }
+    ion-item {
+      font-size: 15px;
+    }
+  }
+  .content:last-child {
+    border: none;
+  }
+  .row-btn {
+    padding: 24px;
+  }
+  .tac-vu {
+    text-align: center;
+  }
+  .delete-device {
+    height: unset;
+    margin: 0;
+    width: 24px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --background-activated: var(--background-input-dark-mode);
+  }
+}
+.item-kich-hoat {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  i {
+    font-size: 24px;
+  }
+  .label-title {
+    color: var(--dark-700);
+    font-size: 15px;
+    margin: 12px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+}
+.row-note {
+  position: relative;
+  margin-bottom: 30px;
+  i {
+    position: absolute;
+    top: 12px;
+    z-index: 100;
+    font-size: 20px;
+    padding-left: 12px;
+  }
+  ion-textarea {
+    line-height: 24px;
+    font-size: 15px;
+    --placeholder-color: var(--dark-700);
+    --placeholder-font-weight: 500;
+    border-radius: 8px;
+    --padding-start: 44px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    --padding-end: 12px;
+  }
+}
+
+.mess-error {
+  font-size: 14px;
+  color: #eb445a;
+  margin: 0 0 16px 0;
+}
+ion-footer {
+  position: unset;
+  z-index: unset;
+  ion-toolbar {
+    padding-top: 2px;
+    ion-row {
+      ion-col {
+        .custom-button-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          ion-icon {
+            margin-top: 2px;
+            margin-bottom: 2px;
+            font-size: 30px;
+            font-weight: 400;
+            max-width: 100%;
+          }
+          ion-label {
+            font-size: 10px;
+            min-height: 11px;
+            margin-bottom: 1px;
+            text-align: center;
+            font-weight: 500;
+            color: #8c8c8c;
+          }
+        }
+      }
+    }
+  }
+}

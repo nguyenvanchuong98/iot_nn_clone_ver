@@ -1,0 +1,132 @@
+ion-header ion-toolbar{
+  --background: #FFFFFF;
+  --min-height: 60px;
+  --border-color: rgba(83, 89, 95, 0.2);
+  --border-width: 1px;
+  --border-style: solid;
+  --color: unset;
+  ion-title{
+    text-align: left;
+    padding: 0 16px;
+    color: #43484D;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+h2{
+  margin: 16px 16px 12px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #43484D;
+}
+.time-pick-center{
+  margin: auto;
+  .row-khong-margin{
+    margin: 0 auto;
+    ion-col{
+      .pick-time-nhan-cb{
+        padding-left:10px;
+        border: 0.5px solid rgba(83, 89, 95, 0.2);
+        border-radius: 8px;
+        line-height: 24px;
+        font-size: 16px;
+        color: #43484D;
+      }
+    }
+  }
+}
+ion-modal ion-backdrop {
+    visibility: hidden;
+  }
+  ion-content div.scroll-content {
+    background-color: transparent;
+}
+
+.btnHuyBo {
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid black;
+}
+
+.btnXacNhan {
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid black;
+  border-left: none;
+}
+.lap-lai-sau{
+ margin-left: 11.5%;
+}
+
+.so-lan-lap-lai{
+  margin-left: 31%;
+ }
+
+.repeat-time-pick{
+  margin: auto;
+    margin: 0 auto;
+    ion-col{
+      .pick-time-nhan-cb{
+        padding-left:10px;
+        border: 0.5px solid rgba(83, 89, 95, 0.2);
+        border-radius: 8px;
+        line-height: 24px;
+        font-size: 16px;
+        color: #43484D;
+        height: 40px;
+      }
+    }
+}
+
+
+.thoi-gian-su-kien-datetime {
+  // border: 1px solid rgba(83, 89, 95, 0.2);
+  box-sizing: border-box;
+  // border-radius: 8px;
+  color: #43484D;
+  --placeholder-color: #43484D;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  text-align: center;
+   size: 16px;
+  line-height: 24px;
+}
+// .combobox-rpc{
+//   border-radius: 8px;
+//   border: 1px solid rgba(83, 89, 95, 0.2)
+// }
+.combobox-rpc{
+  border: 0.5px solid rgba(83, 89, 95, 0.2);
+  border-radius: 12px;
+  --ion-background-color: #FFFFFF;
+  height: 40px;
+  width: 70%;
+  line-height: 36px;
+  margin-bottom: 16px;
+  ion-select{
+      width: 100%;
+      line-height: 100%;
+      margin-bottom: 16px;
+      text-align: center;
+  }
+}
+.my-custom-modal-css-2 .modal-wrapper{
+  --height: 100%;
+  margin-top:140%;
+  background: #FFFFFF;
+  border-radius: 20px 20px 0px 0px;
+}
+
+.repeat-row{
+  margin-top: 16px;
+}
+ion-content{
+  size: 16px;
+  line-height: 24px;
+}
+
+.row-lap-lap-sau{
+  margin-top: -5px;
+}

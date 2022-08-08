@@ -1,0 +1,47 @@
+.max {
+  margin-right: 15px;
+}
+
+
+// Customize Slider
+#tickmarks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25px;
+}
+
+#tickmarks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1px;
+  background: #ccd3da;
+  height: 10px;
+  line-height: 40px;
+  margin: 0 0 20px 0;
+  font-family: "Archivo";
+  font-size: 12px;
+}
+
+.save-btn {
+  // width: 100%;
+  height: 48px;
+  --background: #3d85cc;
+  --border-radius: 8px;
+  margin: 8px 16px;
+  ion-label {
+    padding: 12px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+  }
+}
+
+.modal-header {
+  ion-toolbar {
+    --background: var(--background-input-dark-mode) !important;
+  }
+}

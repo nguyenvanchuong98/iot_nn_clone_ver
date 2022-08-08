@@ -1,0 +1,296 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="buttonBack()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Thông tin Bộ thiết bị</ion-label>
+      <ion-button class="ion-no-padding btn-delete" fill="clear" (click)="onDeleteBtb()">
+        <!-- <i class="mdi mdi-delete"></i> -->
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+  
+      <ion-button class="ion-no-padding btn-info" fill="clear" (click)="infoGateway()" >
+        <i class="mdi mdi-information"></i>
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid class="grid-content-page">
+    
+    <ion-list *ngIf="!getThisBtb" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+    </ion-list>
+
+    <ion-list *ngIf="getThisBtb">
+      <form [formGroup]="formEditBtb">
+        <!-- Tên bộ thiet bị -->
+        <!-- <ion-item detail="false" class="ten-botb ion-no-padding" lines="none">
+          <ion-label class="label-title">Tên bộ thiết bị <span>*</span></ion-label>
+          <ion-button class="ion-no-padding ion-no-margin" (click)="infoGateway()" fill="clear">
+            <i style="font-size: 24px;" class="ph-info-bold"></i>
+          </ion-button>
+        </ion-item> -->
+        <ion-item class="item-ten-btb ion-no-padding" lines="none">
+          <!-- <i class="mdi mdi-cogs icon-name"></i> -->
+          <i class="mdi mdi-clipboard-text"></i>
+          <ion-input
+            formControlName="tenbtb"
+            placeholder="Đặt tên Bộ thiết bị *"
+            required>
+          </ion-input>
+        </ion-item>
+        <!-- Validate ten dam tom -->
+        <p class="mess-error" *ngIf="formEditBtb.get('tenbtb').value.trim()=='' && formEditBtb.get('tenbtb').touched">
+          Đây là trường bắt buộc!
+        </p>
+
+        <ion-item class="ion-no-padding" style="margin:0; margin-top:-16px;"
+          lines="none"
+          *ngIf="formEditBtb.get('tenbtb').value.length>255"
+        >
+          <ion-label style="font-size: 12px;color:#eb445a;"> Tối đa 255 ký tự! </ion-label>
+        </ion-item>
+
+        <p class="mess-error" *ngIf="formEditBtb.get('tenbtb').value.length>255">
+          Tối đa 255 ký tự!
+        </p>
+
+        <p class="mess-error" *ngIf="statusExist">
+          Tên bộ thiết bị đã tồn tại!
+        </p>
+        <!-- Vị trí -->
+        <!-- <ion-item>
+          <ion-label position="stacked"> Vị trí </ion-label>
+          <ion-input formControlName="vitri" placeholder="Vị trí"></ion-input>
+        </ion-item> -->
+        <!-- Validate vị trí -->
+        <!-- <ion-item
+          lines="none"
+          *ngIf="formEditBtb.get('vitri').value.length>255"
+        >
+          <ion-label style="font-size: 12px;color:#eb445a;"> Độ dài vị trí không quá 255 ký tự </ion-label>
+        </ion-item> -->
+
+        <!-- Bang thiet bi trong btb -->
+        <ion-grid class="table-device">
+          <ion-row class="header">
+            <ion-col size="2">
+              <h3>STT</h3>
+            </ion-col>
+            <ion-col size="8">
+              <h3>Tên thiết bị</h3>
+            </ion-col>
+            <ion-col size="2">
+              <h3>Bỏ theo dõi</h3>
+            </ion-col>
+          </ion-row>
+
+          <ng-container formArrayName="tenThietBis" *ngIf="lstDevice.length>0">
+            <ion-row class="content" *ngFor="let device of lstDevice;index as i">
+              <ion-col size="2" class="stt">
+                <p>{{i+1}}</p>
+              </ion-col>
+              <ion-col size="8" class="name-device">
+                <ion-item lines="none" 
+                (click)="infoDevice(device.id)" 
+                class="ion-text-center"
+                [formGroupName]="i">
+                  {{device.displayName}}
+                </ion-item>
+              </ion-col>
+              <ion-col size="2" class="tac-vu">
+                <!-- <ion-button 
+                (click)="deleteDevice(i, device.id, device.displayName)" 
+                fill="clear" 
+                class="delete-device">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button> -->
+                <ion-toggle (ionChange)="doFollowDevive($event,device.id)" [checked]="device.hidden"></ion-toggle>
+              </ion-col>
+            </ion-row>
+          </ng-container> 
+
+          <ion-row class="no-data" *ngIf="lstDevice.length==0">
+            <p>Không có dữ liệu</p>
+          </ion-row>
+        </ion-grid>
+        <!-- ============================= -->
+
+        <!-- Thiet bi dac biet -->
+        <ion-grid class="table-device-special">
+          <ion-row class="header">
+            <h3>Thiết bị đặc biệt</h3>
+          </ion-row>
+
+          <ng-container formArrayName="tenThietBis" *ngIf="lstDevice.length>0">
+            <ion-row class="content" *ngFor="let deviceSpecial of listDeviceSpecial; index as i">
+              <ion-col size="10" class="name-device">
+                <ion-item lines="none" 
+                (click)="infoSpecialDevice(deviceSpecial)" 
+                class="ion-text-center"
+                [formGroupName]="i">
+                  {{deviceSpecial.name}}
+                </ion-item>
+              </ion-col>
+              <ion-col size="2" class="tac-vu">
+                <ion-button 
+                (click)="deleteSpecialDevice(deviceSpecial)" 
+                fill="clear" 
+                class="delete-device">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ng-container> 
+
+          <ion-row class="no-data" *ngIf="listDeviceSpecial.length === 0">
+            <p>Không có dữ liệu</p>
+          </ion-row>
+
+          <ion-row class="row-btn">
+            <ion-button
+              class="ion-no-padding ion-no-margin btn-confirm-default"
+              (click)="addSpecialDevice()"
+            >
+              <ion-label>Thêm thiết bị</ion-label>
+          </ion-button>
+          </ion-row>
+          
+        </ion-grid>
+
+        <!-- design old -->
+        <!-- <ion-card class="ion-no-margin">
+          <ion-item
+            detail="false"
+            class="ion-no-padding"
+            class="ion-no-padding">
+            <ion-label>
+              Danh sách thiết bị ({{lstDevice.length}})
+            </ion-label>
+  
+          </ion-item>
+          <ion-row formArrayName="tenThietBis" *ngIf="lstDevice.length>0" class="form-child">
+            <ng-container *ngFor="let dvice of lstDevice;let i=index">
+              <ion-row class="item-device-row" >
+                <ion-item (click)="infoDevice(dvice.id)"  [formGroupName]="i"
+                          detail="false"
+                          class="ion-no-padding"
+                >
+                  <ion-label>
+                    <ion-text *ngIf="!isWantEditTenTb">{{dvice.label?dvice.label:dvice.name}}</ion-text>
+                    <ion-input *ngIf="isWantEditTenTb" formControlName="label" type="text" placeholder="Nhập tên thiết bị"></ion-input>
+                    <p *ngIf="!isWantEditTenTb">{{dvice.type}}</p>
+                    <p class="text-validate" *ngIf="(tenThietBis.at(i).touched||tenThietBis.at(i).value.label.trim()=='')&&isWantEditTenTb">Đây là trường bắt buộc</p>
+                  </ion-label>
+                  <ion-button [disabled]="!tenThietBis.at(i).dirty||tenThietBis.at(i).value.label.trim()==''" [hidden]="!isWantEditTenTb" style="height: unset;"
+                              fill="clear"
+                              (click)="onEditTenTB(i)">
+                    <i style="font-size: 24px;" class="ph-check-bold"></i>
+                  </ion-button>
+  
+                </ion-item>
+              </ion-row>
+            </ng-container>
+          </ion-row>
+  
+          <ion-row class="error-mess" *ngIf="lstDevice.length==0">
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-label>Không có dữ liệu</ion-label>
+            </ion-item>
+          </ion-row>
+        </ion-card> -->
+        <!-- ================== -->
+        <!-- Ghi chú -->
+        <!-- <ion-label class="label-title"> Ghi chú </ion-label> -->
+        <div class="row-note">
+          <i class="mdi mdi-circle-edit-outline"></i>
+          <ion-item class="item-note ion-no-padding" lines="none">
+            <!-- <ion-input formControlName="ghichu" placeholder="Ghi chú"></ion-input> -->
+            <ion-textarea formControlName="ghichu" rows="3" placeholder="Ghi chú"></ion-textarea>
+          </ion-item>
+        </div>
+
+        <p class="mess-error" *ngIf="formEditBtb.get('ghichu').value.length > 4000">
+          Tối đa 4000 ký tự!
+        </p>
+
+        <!-- Kích hoạt -->
+        <ion-item class="ion-no-padding item-kich-hoat" lines="none">
+          <i class="mdi mdi-power"></i>
+          <ion-label class="label-title">
+            Kích hoạt
+          </ion-label>
+          <ion-toggle
+            formControlName="active"
+          ></ion-toggle>
+        </ion-item>
+      </form>
+
+      <ion-row class="ion-justify-content-center" style="margin: 0 0 68px;">
+        <ion-button
+          class="btn-confirm-default"
+          [disabled]="((formEditBtb.get('tenbtb').value.trim()==''||formEditBtb.get('tenbtb').value.length>255)&&formEditBtb.dirty)|| !formEditBtb.dirty ||isWantEditTenTb "
+          (click)="onEditBoTb()">
+          Xác nhận
+        </ion-button>
+      </ion-row>
+    </ion-list>
+  </ion-grid>
+
+</ion-content>
+
+<ion-fab 
+vertical="bottom" 
+horizontal="end" 
+slot="fixed"
+class="custom-ion-fab"
+*ngIf="isGoTop" (click)="goTop()">
+  <ion-fab-button>
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-row>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerGs()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+            <ion-label>Giám sát</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerDk()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+            <ion-label>Điều khiển</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerCamera()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/camera.svg"></ion-icon>
+            <ion-label>Camera</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerQuanTri()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+            <ion-label>Quản trị</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->

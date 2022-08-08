@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-toolbar class="ion-no-padding" color="toolbar">
+        <ion-buttons slot="start">
+          <ion-back-button
+            mode="md"
+            text=""
+            defaultHref="/home/giam-sat"
+          ></ion-back-button>
+        </ion-buttons>
+        <ion-row class="title-home-account">
+          <ion-label class="title"> Dữ liệu cảm biến </ion-label>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content overflow-scroll="false" [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <ion-grid class="ion-no-padding ion-no-margin" style="margin-bottom: 32px">
+        <ion-grid class="ion-no-padding ion-no-margin favCard">
+            <!-- <ng-container *ngFor="let device of listDeviceSensor"> -->
+                <!-- <ng-container *ngIf="device.deviceId === deviceIdFromDashboard "> -->
+                    <!-- segment device -->
+                    <!-- <ion-row class="segment-row">
+                        <ion-col>
+                            <ion-segment scrollable 
+                            (ionChange)="segmentChanged($event)" 
+                            [(ngModel)]="deviceIdFromDashboard" >
+                                <ion-segment-button *ngFor="let device of listDeviceSensor" 
+                                [value]=device.deviceId
+                                [id]=device.deviceId>
+                                    <ion-label>{{ !!device.deviceLabel ? device.deviceLabel : device.deviceName}}</ion-label>
+                                </ion-segment-button>
+                            </ion-segment>
+                        </ion-col>
+                    </ion-row> -->
+                    
+                <!-- </ng-container> -->
+            <!-- </ng-container> -->
+
+
+            <!-- select option device -->
+            <ion-item class="item-select-device" lines="none">
+                <ion-select 
+                [interfaceOptions]="customActionSheetOptions" 
+                interface="action-sheet" 
+                placeholder="Chọn thiết bị"
+                *ngIf="zoneSensor" 
+                [ngModel]="deviceSensorSelected"
+                (ngModelChange)="changeDevice($event)">
+                    <ion-select-option 
+                    class="ion-select-option-text-wrap" 
+                    *ngFor="let device of zoneSensor?.deviceDtoList" 
+                    [value]="device">
+                        {{ !!device.label ? device.label : device.name }}
+                    </ion-select-option>
+                </ion-select>
+                
+                <span class="select-icon">
+                    <i class="mdi mdi-chevron-down"></i>
+                </span>
+            </ion-item>
+
+            <!-- chart of device -->
+            <app-bieu-do-sensor
+            [zone] = "zoneSensor"
+            *ngIf="deviceSensorSelected"
+            [deviceSensor] = "deviceSensorSelected"
+            ></app-bieu-do-sensor>
+        </ion-grid>
+
+    </ion-grid>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end">
+    <ion-button class="ion-no-margin" fill="clear" (click)="goTop()">
+        <i class="mdi mdi-chevron-up"></i>
+    </ion-button>
+</ion-fab>

@@ -1,0 +1,461 @@
+ion-header {
+  // background-color: #d7d8da;
+  ion-back-button {
+    --color: var(--dark-700) !important;
+  }
+  ion-toolbar {
+    margin-bottom: 16px;
+    margin-top: 32px;
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,
+        ion-icon {
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+    .bell-notify {
+      margin-right: 16px;
+      ion-badge {
+        background: var(--color-warning);
+        min-width: 33px;
+      }
+    }
+    .badge-one,
+    .badge-two {
+      min-width: 35px;
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+ion-content {
+  ion-infinite-scroll {
+    height: 30px;
+  }
+  .row-select-vuon {
+    ion-card {
+      box-shadow: none;
+      margin: 0 0 8px;
+      i {
+        font-size: 20px;
+        color: var(--dark-700);
+      }
+      ion-item {
+        --padding-start: 12px;
+        --background-activated: var(--background-content-dark-mode);
+        --border-radius: 8px;
+        ion-select {
+          padding: 12px;
+          max-width: 100%;
+          width: 100%;
+          color: var(--dark-700);
+          font-size: 16px;
+        }
+        ion-select::part(icon) {
+          display: none;
+        }
+        .select-icon {
+          pointer-events: none;
+          position: absolute;
+          right: 10px;
+          top: 32%;
+          z-index: 10000;
+          background: #fff;
+          min-width: 10%;
+          flex: 1;
+          text-align: right;
+          ion-icon {
+            font-size: 14px;
+            color: var(--dark-700);
+          }
+        }
+      }
+    }
+  }
+  .col-filter {
+    text-align: right;
+    ion-button {
+      font-size: 14px;
+      margin: 0;
+      color: var(--dark-700);
+      opacity: 1;
+      --background-activated: var(--background-input-dark-mode);
+      --background: var(--background-input-dark-mode);
+      height: 44px;
+      --border-radius: 8px;
+    }
+    i {
+      font-size: 20px;
+    }
+  }
+  .row-date-time {
+    margin: 0 0 8px;
+    ion-card {
+      box-shadow: none;
+    }
+    .card-start-date {
+      margin: 0 3px 0 0;
+    }
+    .card-end-date {
+      margin: 0 0 0 3px;
+    }
+    .card-start-date,
+    .card-end-date {
+      ion-item {
+        font-size: 14px;
+        --padding-start: 6px;
+        --inner-padding-end: 0;
+        color: var(--dark-700);
+        --border-radius: 8px;
+        ion-datetime {
+          width: 100%;
+          text-align: center;
+        }
+        i {
+          padding-right: 3px;
+          font-size: 20px;
+          color: var(--dark-700);
+        }
+      }
+    }
+  }
+  .row-validate {
+    justify-content: center;
+    ion-label {
+      margin: 0;
+      font-size: 14px;
+      padding: 12px 0;
+    }
+  }
+  .row-btn-xu-ly-all {
+    margin-bottom: 4px;
+    ion-button {
+      --background-activated: #4aabfa;
+      --background: var(--alix-primary-color);
+      border-radius: 8px;
+    }
+    ion-label,
+    i {
+      color: #ffffff;
+    }
+    i {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+  }
+}
+@media screen and (min-width: 414px) {
+  .card-start-date,
+  .card-end-date {
+    ion-item {
+      --padding-start: 12px !important;
+    }
+  }
+}
+@media screen and (max-width: 360px) {
+  .card-start-date,
+  .card-end-date {
+    i {
+      font-size: 18px !important;
+    }
+  }
+}
+ion-col {
+  padding: 0;
+}
+.grid-ds-canh-bao {
+  padding: 0 16px 12px;
+  min-height: calc(100% - 234px);
+  .item-group-day {
+    background-color: #ffffff;
+    padding: 0;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    ion-item-divider {
+      padding: 12px 16px;
+      border-radius: 12px;
+      background-color: #fff;
+      --inner-padding-end: 0;
+    }
+    ion-icon {
+      font-size: 14px;
+      color: var(--dark-700);
+    }
+    .span-number-day {
+      background-color: var(--alix-primary-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+    }
+    ion-label {
+      width: 72%;
+      margin: 0 16px;
+      font-size: 16px;
+      font-weight: 500;
+      // color: var(--dark-700);
+      color: var(--dark-700);
+    }
+    .card-content-day {
+      margin: 0;
+      padding: 0 0 5px;
+      box-shadow: none;
+      background-color: #fff;
+    }
+  }
+}
+
+.total-alarm-day {
+  font-size: 16px;
+  padding: 0 12px;
+  position: absolute;
+  right: 10%;
+}
+.item-canh-bao {
+  border-bottom: 1px solid var(--line-dark-mode);
+  --inner-padding-end: 0;
+  --padding-start: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  height: auto;
+  display: flex;
+  align-items: center;
+  --background: white;
+  margin: 0 3px 0 3px;
+  ion-card {
+    margin: 0;
+    box-shadow: none;
+    width: 100%;
+    min-height: 70px;
+    background-color: #fff;
+    .row-item-alarm {
+      align-items: center;
+      min-height: 70px;
+      justify-content: space-between;
+      i,
+      ion-icon {
+        font-size: 26px;
+        color: var(--color-warning);
+      }
+      .col-info {
+        ion-row:first-child {
+          flex-wrap: nowrap;
+        }
+        ion-row {
+          padding: 3px 5px;
+          span.ten-nha-vuon,
+          span.ten-zone {
+            font-weight: 500;
+            color: var(--dark-700);
+          }
+        }
+        .row-time-vp {
+          span {
+            font-size: 12px;
+            font-style: italic;
+          }
+        }
+      }
+      span.name-device {
+        font-weight: 500;
+        color: var(--dark-700);
+        font-size: 12px;
+      }
+    }
+  }
+  .ten-nha-vuon,
+  .ten-zone,
+  .ten-luat {
+    line-height: 18px;
+    padding: 0;
+
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    // max-width: 135px;
+  }
+}
+.card-content-day ion-item.item-canh-bao:last-child {
+  border-bottom: none;
+}
+// chua clear
+.item-danger {
+  ion-card {
+    .row-item-alarm {
+      i,
+      ion-icon {
+        // color: #c01c1c;
+        color: #e54846;
+        animation: warningAnimation 1s infinite;
+      }
+      .col-info {
+        ion-row {
+          span.ten-luat {
+            // color: #c01c1c;
+            color: #edae5e;
+          }
+        }
+        .row-time-vp {
+          span {
+            // color: #c01c1c;
+            color: #edae5e;
+          }
+        }
+      }
+      .col-time {
+      }
+    }
+  }
+}
+@keyframes warningAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+// da clear va chua xu ly
+.item-save {
+  // border: 1px solid #43484d;
+  // background-color: #e5e5e5c2;
+  ion-card {
+    .row-item-alarm {
+      .icon-check {
+        color: rgb(128, 204, 92);
+      }
+      .col-info {
+        ion-row {
+          span.ten-luat {
+            // color: #c01c1c;
+            color: #edae5e;
+          }
+        }
+        .row-time-vp {
+          span {
+            // color: #c01c1c; // light mode
+            color: #edae5e;
+          }
+        }
+      }
+      .col-time {
+      }
+    }
+  }
+}
+// da clear vp nguong duoi va chua xu ly
+.item-nguong-duoi {
+  ion-card {
+    .row-item-alarm {
+      .icon-check {
+        color: rgb(128, 204, 92);
+      }
+      .col-info {
+        ion-row {
+          span.ten-luat {
+            // color: #1f6fbb; // light mode
+            color: #64b5f6;
+          }
+        }
+        .row-time-vp {
+          span {
+            // color: #1f6fbb; // light mode
+            color: #64b5f6;
+          }
+        }
+      }
+      .col-time {
+      }
+    }
+  }
+}
+// da clear va da xu ly
+.item-da-clear-da-xy-ly {
+  ion-card {
+    .row-item-alarm {
+      i {
+        color: var(--dark-700);
+        font-size: 24px;
+      }
+      .col-info {
+        ion-row {
+          span.ten-luat {
+            color: var(--dark-700);
+          }
+        }
+        .row-time-vp {
+          span {
+            color: var(--dark-700);
+          }
+        }
+      }
+      .col-time {
+      }
+    }
+  }
+}
+.no-data {
+  color: var(--dark-700);
+  text-align: center;
+}
+.hidden-mess {
+  display: none;
+}
+@media only screen and (max-width: 320px) {
+  .item-da-clear-da-xy-ly,
+  .item-nguong-duoi,
+  .item-save,
+  .item-danger {
+    i,
+    ion-icon {
+      font-size: 20px !important;
+    }
+  }
+  .row-time-vp {
+    span {
+      font-size: 12px;
+    }
+  }
+}

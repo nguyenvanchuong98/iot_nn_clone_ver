@@ -1,0 +1,225 @@
+<ion-header>
+  <!-- <ion-toolbar color="toolbar">
+    <ion-buttons slot="start">
+      <ion-button>
+        <i
+          class="mdi mdi-menu"
+          style="color: #455a64; font-size: 23px;"
+        ></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button>
+        <i
+          class="mdi mdi-invert-colors mdi-transition1"
+          style="color: #455a64;; font-size: 23px; margin-left: -8px"
+        ></i>
+      </ion-button>
+      <ion-button>
+        <ion-icon
+          name="settings-outline"
+          style="color: #455a64;; font-size: 23px; margin-left: -7px"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar> -->
+  <ion-row class="title-home-account">
+    <ion-label class="title"> Quản trị </ion-label>
+  </ion-row>
+</ion-header>
+<ion-content [scrollEvents]="true"
+(ionScroll)="logScrolling($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-card class="ion-no-padding ion-no-margin info-user">
+      <ion-item lines="none" routerLink="/home/quan-tri/thong-tin-ca-nhan">
+        <ion-avatar slot="start" *ngIf="avatarBlobUrl else defaultImg">
+          <img [src]="avatarBlobUrl" />
+        </ion-avatar>
+
+        <ng-template #defaultImg>
+          <ion-avatar slot="start">
+            <img src="./assets/images/avatar-default.png" />
+          </ion-avatar>
+        </ng-template>
+
+        <ion-label>
+          <h2>{{nameUser}}</h2>
+          <p>{{roleName}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-card class="ion-no-padding ion-no-margin quan-ly-section">
+      <ion-item lines="none" routerLink="/home/quan-tri/tai-khoan">
+        <!-- <ion-icon src="./assets/images/icon-menu-quan-tri/quan-ly-tk.svg">
+        </ion-icon> -->
+        <i  class="mdi mdi-account-group-outline"></i>
+        <ion-label>
+          <h2>Quản lý tài khoản</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/home/quan-tri/vai-tro">
+        <!-- <ion-icon src="./assets/images/icon-menu-quan-tri/quan-ly-vai-tro.svg">
+        </ion-icon> -->
+        <i  class="mdi mdi-folder-account-outline"></i>
+        <ion-label>
+          <h2>Quản lý vai trò</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/home/quan-tri/dam-tom">
+        <!-- <ion-icon src="./assets/images/icon-menu-quan-tri/vuon-lan.svg">
+        </ion-icon> -->
+        <i  class="mdi mdi-movie-roll"></i>
+        <ion-label>
+          <h2>Quản lý nhà vườn</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" routerLink="/home/quan-tri/lich-su-truy-cap">
+        <!-- <ion-icon src="./assets/images/icon-menu-quan-tri/lich-su-truy-cap.svg">
+        </ion-icon> -->
+        <i  class="mdi mdi-history"></i>
+        <ion-label>
+          <h2>Lịch sử truy cập</h2>
+        </ion-label>
+      </ion-item>
+
+      <!-- <ion-item lines="none" routerLink="/home/quan-tri/bao-cao/du-lieu-giam-sat">
+        <i  class="mdi mdi-chart-areaspline"></i>
+        <ion-label>
+          <h2>Báo cáo dữ liệu giám sát</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/home/quan-tri/bao-cao/canh-bao">
+        <i  class="mdi mdi-alert-circle-outline"></i>
+        <ion-label>
+          <h2>Báo cáo cảnh báo</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/home/quan-tri/bao-cao/ket-noi-cam-bien">
+        <i  class="mdi mdi-lan-connect"></i>
+        <ion-label>
+          <h2>Báo cáo kết nối cảm biến</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/home/quan-tri/bao-cao/thong-bao">
+        <i  class="mdi mdi-bell-outline"></i>
+        <ion-label>
+          <h2>Báo cáo thông báo</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/home/quan-tri/bao-cao/tong-hop">
+        <i  class="mdi mdi-file-document-outline"></i>
+        <ion-label>
+          <h2>Báo cáo tổng hợp</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/home/quan-tri/bao-cao/lich-xuat-bao-cao">
+        <i  class="mdi mdi mdi-calendar-edit"></i>
+        <ion-label>
+          <h2>Đặt lịch xuất báo cáo</h2>
+        </ion-label>
+      </ion-item> -->
+      
+      <div class="accordion-list">
+        <ion-item lines="none"
+          [ngClass]="{'no-line': !openAccordion}"
+          (click)="toggleAccordionList()"
+        >
+          <i  class="mdi mdi-file-chart-outline"></i>
+          <ion-label>
+            <h2>Báo cáo</h2>
+          </ion-label>
+          <i *ngIf="!openAccordion else open" class="ph-caret-right-bold"></i>
+          <ng-template #open>
+            <i class="ph-caret-down-bold"></i>
+          </ng-template>
+        </ion-item>
+  
+        <div class="list">
+          <ion-list *ngIf="openAccordion" class="bao-cao-section">
+            <ion-item lines="none" detail="false" routerLink="/home/quan-tri/bao-cao/du-lieu-giam-sat">
+              <ion-label>
+                <i class="mdi mdi-chart-areaspline"></i>
+                <span>Báo cáo dữ liệu giám sát</span>
+              </ion-label>
+              <i class="mdi mdi-dots-horizontal"></i>
+            </ion-item>
+            <ion-item detail="false" lines="none" routerLink="/home/quan-tri/bao-cao/canh-bao">
+              <ion-label>
+                <i class="mdi mdi-alert-circle-outline"></i>
+                <span>Báo cáo cảnh báo</span>
+              </ion-label>
+              <i class="mdi mdi-dots-horizontal"></i>
+            </ion-item>
+            <ion-item detail="false" lines="none" routerLink="/home/quan-tri/bao-cao/ket-noi-cam-bien">
+              <ion-label>
+                <i class="mdi mdi-lan-connect"></i>
+                <span>Báo cáo kết nối cảm biến</span>
+              </ion-label>
+              <i class="mdi mdi-dots-horizontal"></i>
+            </ion-item>
+            <ion-item detail="false" lines="none" routerLink="/home/quan-tri/bao-cao/thong-bao">
+              <ion-label>
+                <i class="mdi mdi-bell-outline"></i>
+                <span>Báo cáo thông báo</span>
+              </ion-label>
+              <i class="mdi mdi-dots-horizontal"></i>
+            </ion-item>
+            <ion-item detail="false" lines="none" routerLink="/home/quan-tri/bao-cao/tong-hop">
+              <ion-label>
+                <i class="mdi mdi-file-document-outline"></i>
+                <span>Báo cáo tổng hợp</span>
+              </ion-label>
+              <i class="mdi mdi-dots-horizontal"></i>
+            </ion-item>
+            <ion-item detail="false" lines="none" routerLink="/home/quan-tri/bao-cao/hoat-dong-cua-thiet-bi">
+              <ion-label>
+                <i class="mdi mdi-timetable"></i>
+                <span>Báo cáo hoạt động của thiết bị</span>
+              </ion-label>
+              <i class="mdi mdi-dots-horizontal"></i>
+            </ion-item>
+            <ion-item detail="false" lines="none" routerLink="/home/quan-tri/bao-cao/lich-xuat-bao-cao">
+              <ion-label>
+                <i class="mdi mdi-calendar-edit"></i>
+                <span>Đặt lịch xuất báo cáo</span>
+              </ion-label>
+              <i class="mdi mdi-dots-horizontal"></i>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </ion-card>
+    <ion-row class = "btn-submit">
+      <ion-button class="btn-yellow ion-no-padding ion-no-margin"
+      (click)="userLogout()"
+        fill="clear">
+          Đăng Xuất
+      </ion-button>
+    </ion-row>
+    <!-- <ion-row class="btn-log-out ion-justify-content-start">
+      <ion-button (click)="userLogout()" fill="clear">
+        <ion-icon
+          src="./assets/images/icon-menu-quan-tri/Logout.svg"
+        ></ion-icon>
+        <span>Đăng xuất</span>
+      </ion-button>
+    </ion-row> -->
+  </ion-grid>
+  <app-footer-infor></app-footer-infor>
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-button class="ion-no-margin" fill="clear" (click)="goTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-button>
+</ion-fab>

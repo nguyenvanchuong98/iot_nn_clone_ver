@@ -1,0 +1,175 @@
+<ion-header>
+    <ion-toolbar class="ion-no-padding" class="header-page">
+        <!-- <ion-title class="ion-no-padding">Đổi mật khẩu </ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home/quan-tri/thong-tin-ca-nhan" text="">
+            </ion-back-button>
+        </ion-buttons> -->
+        <ion-buttons slot="start">
+            <ion-back-button mode="md" text="" defaultHref="/home/quan-tri" style="margin-left: -5px;"></ion-back-button>
+            <!-- <ion-button>
+                <i class="mdi mdi-menu" style="margin-left: -6px;"></i>
+            </ion-button> -->
+        </ion-buttons>
+        <ion-row class = "title">
+            <ion-label class="pagetitle">Đổi mật khẩu</ion-label>
+        </ion-row>
+        <!-- <ion-buttons slot="primary">
+            <ion-button>
+                <i class="mdi mdi-invert-colors mdi-transition1" style="margin-left: -8px;"></i>
+            </ion-button>
+            <ion-button>
+                <ion-icon name="settings-outline" style="margin-left: -7px;"></ion-icon>
+            </ion-button>
+        </ion-buttons> -->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <ion-grid>
+        
+    </ion-grid>
+    <ion-grid class = "main-content">
+        <ion-row style="margin-bottom: 20px;">
+            <ion-col>
+                <app-upload-avatar
+                        [avatarUrlLoad]="avatarBlobUrl"
+                        (avatarPick)="onAvatarPicked($event)">
+                </app-upload-avatar>
+            </ion-col>
+        </ion-row>
+        <form [formGroup]="formChangePass">
+            <!-- <h2>Mật khẩu cũ <span>*</span></h2> -->
+            <ion-row class="item-mk-cu password">
+                <ion-item lines="none">
+                    <i class="mdi mdi-lock-outline mdi-transition1 icon-lock icon-name" ></i>
+                    <ion-input placeholder = "Mật khẩu cũ *"
+                            formControlName="oldPass"
+                            [type]="showOldPassword? 'text' : 'password'"
+                    ></ion-input>
+                    <ion-icon class = "icon-name icon-eye" [name] = 'oldPassToggleIcon'
+                       (click)="showOldPass()" 
+                    ></ion-icon>
+                </ion-item>
+                <p *ngIf="formChangePass.get('oldPass').hasError('required') && formChangePass.get('oldPass').touched">
+                    Đây là trường bắt buộc!
+                </p>
+                <p *ngIf="formChangePass.get('oldPass').hasError('minlength') && formChangePass.get('oldPass').dirty || 
+                formChangePass.get('oldPass').hasError('pattern') && formChangePass.get('oldPass').dirty">
+                    Tối thiểu 06 ký tự!
+                </p>
+                <p *ngIf="formChangePass.get('oldPass').hasError('maxlength')">
+                    Tối đa 255 ký tự!
+                </p>
+            </ion-row>
+            <!-- <h2>Mật khẩu mới <span>*</span></h2> -->
+            <ion-row class="item-mk-moi password">
+                <ion-item lines="none">
+                    <i class="mdi mdi-lock-outline mdi-transition1 icon-lock icon-name"></i>
+                    <ion-input placeholder = "Mật khẩu mới *"
+                            formControlName="newPass"
+                            [type]="showNewPassword? 'text' : 'password'"
+                    ></ion-input>
+                    <ion-icon class = "icon-eye icon-name" [name] = 'newPassToggleIcon'
+                    (click)="showNewPass()" 
+                    ></ion-icon>
+                </ion-item>
+                <p *ngIf="formChangePass.get('newPass').hasError('required') && formChangePass.get('newPass').touched">
+                    Đây là trường bắt buộc!
+                </p>
+                <p *ngIf="formChangePass.get('newPass').hasError('minlength') && formChangePass.get('newPass').dirty || 
+                formChangePass.get('newPass').hasError('pattern') && formChangePass.get('newPass').dirty">
+                    Tối thiểu 06 ký tự!
+                </p>
+                <p *ngIf="formChangePass.get('newPass').hasError('maxlength')">
+                    Tối đa 255 ký tự!
+                </p>
+            </ion-row>
+            <!-- <h2>Xác nhận mật khẩu mới <span>*</span></h2> -->
+            <ion-row class="item-xac-nhan-mk password" style = "margin-bottom: 0;">
+                <ion-item lines="none">
+                    <i class="mdi mdi-lock-outline mdi-transition1 icon-lock icon-name"></i>
+                    <ion-input placeholder = "Xác nhận mật khẩu mới *"
+                            formControlName="confirmPass"
+                            [type]="showConfirmPassword? 'text' : 'password'"
+                    ></ion-input>
+                    <ion-icon class = "icon-eye icon-name"  [name] = 'confirmPassToggleIcon'
+                    (click)="showConfirmPass()" 
+                    ></ion-icon>
+                    <!-- <i [ngClass]="{'ph-eye-closed':confirmPassToggleIcon === 'ph-eye-closed', 'ph-eye': confirmPassToggleIcon === 'ph-eye'}"
+                       (click)="showConfirmPass()"
+                    ></i> -->
+                </ion-item>
+                <p *ngIf="formChangePass.get('confirmPass').hasError('required') && formChangePass.get('confirmPass').touched">
+                    Đây là trường bắt buộc!
+                </p>
+
+                <p *ngIf="formChangePass.get('confirmPass').hasError('minlength') && formChangePass.get('confirmPass').dirty 
+                    || formChangePass.get('confirmPass').hasError('pattern') && formChangePass.get('confirmPass').dirty">
+                    Tối thiểu 06 ký tự!
+                </p>
+                
+                <p *ngIf="formChangePass.get('confirmPass').hasError('maxlength')">
+                    Tối đa 255 ký tự!
+                </p>
+
+                <p *ngIf="formChangePass.get('confirmPass').hasError('notMatch')">
+                    Xác nhận mật khẩu mới không đúng!
+                </p>
+            </ion-row>
+        </form>
+    </ion-grid>
+    <ion-grid>
+        <ion-row class = "btn-row">
+            <ion-col style = "display: flex; justify-content: space-around;">
+                <ion-button class="btn-confirm-default"
+                            (click)="changePass()"
+                            [disabled]="formChangePass.invalid"
+                            expand="block">Xác nhận</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+    <ion-button class="ion-no-margin" fill="clear" (click)="scrollToTop()">
+        <i class="mdi mdi-chevron-up"></i>
+    </ion-button>
+</ion-fab>
+<!-- <ion-footer>
+    <ion-toolbar class="ion-no-padding">
+        <ion-row>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/giam-sat" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+                        <ion-label>Giám sát</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/dieu-khien" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+                        <ion-label>Điều khiển</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/camera" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/camera.svg"></ion-icon>
+                        <ion-label>Camera</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/quan-tri/menu" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+                        <ion-label>Quản trị</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-footer> -->

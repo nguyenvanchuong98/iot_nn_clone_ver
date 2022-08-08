@@ -1,0 +1,44 @@
+<ion-list class="ion-no-padding">
+  <!-- <ion-row class="tab-header">
+      <h2>Kịch bản điều khiển({{alarms.length}})</h2>
+      <ion-button class="btn-add-rpc ion-float-right" routerLink="/home/dieu-khien/them-moi-dieu-khien-tu-dong"
+        [queryParams]="{damTomId: damTomId}">
+        <ion-row class="ion-align-items-center">
+          <i style="margin-right: 4px;" class="ph-plus-circle"></i>
+          <ion-col>
+            <ion-label>Thêm kịch bản</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-button>
+  </ion-row> -->
+
+  <ion-card class="tab-card">
+    <ion-grid class="tab-card-grid ion-no-padding">
+      <!-- <ion-row *ngIf="!!isLoading" class="ion-justify-content-center">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-row> -->
+      <ng-container>
+        <ion-row class="tab-header">
+          <i class="mdi mdi-format-text icon-header"></i>
+          <h2>Kịch bản điều khiển({{alarms.length}})</h2>
+          <ion-button class="btn-add-rpc ion-float-right ion-no-padding ion-no-margin" fill="clear" routerLink="/home/dieu-khien/them-moi-dieu-khien-tu-dong"
+            [queryParams]="{damTomId: damTomId}">
+            <i class="mdi mdi-plus-circle"></i>
+              <!-- <ion-col>
+                <ion-label>Thêm kịch bản</ion-label>
+              </ion-col> -->
+          </ion-button>
+        </ion-row>
+        <ion-row *ngFor="let element of alarms;index as i;last as isLastEl" class="list-luat-item ion-no-padding ion-no-margin">
+          <ion-row class="ion-no-margin ion-no-padding border-bottom-notify">
+              <ion-label (click)="editAlarm(element)"><span>{{element.alarmType}}</span> <p>Từ {{element.fromTime}} đến {{element.toTime}}</p></ion-label>
+              <ion-toggle [ngModel]="alarms[i].dftAlarmRule.active" (ngModelChange)="onChangeAlarmStatus($event, i)"
+                  class="ion-no-margin ion-no-padding"
+              ></ion-toggle>
+          </ion-row>
+        </ion-row>
+      </ng-container>
+
+    </ion-grid>
+  </ion-card>
+</ion-list>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>861503370398-dpmv7v2uccr5l85qu334ia857pib4e77.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.861503370398-dpmv7v2uccr5l85qu334ia857pib4e77</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAwa9pUv7oBTlvc5jMpUHd6etcDP3JDmVE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>861503370398</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>vn.mobifoneglobal.nongnghiep</string>
+	<key>PROJECT_ID</key>
+	<string>iot-nong-nghiep-mobifone</string>
+	<key>STORAGE_BUCKET</key>
+	<string>iot-nong-nghiep-mobifone.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:861503370398:ios:98361d05cec87f7881f78f</string>
+</dict>
+</plist>

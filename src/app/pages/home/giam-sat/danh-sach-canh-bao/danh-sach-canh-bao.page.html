@@ -1,0 +1,351 @@
+<ion-header>
+    <ion-toolbar class="ion-no-padding" color="toolbar">
+        <ion-buttons slot="start">
+          <ion-back-button
+            mode="md"
+            text=""
+            defaultHref="/home/giam-sat"
+          ></ion-back-button>
+        </ion-buttons>
+        <ion-row class="title-home-account">
+            <ion-label class="title"> Danh sách cảnh báo </ion-label>
+            <div class="bell-notify">
+                <i class="mdi mdi-bell"></i>
+                <ion-badge [class.badge-one]="countAllAlarm < 10"
+                    [class.badge-two]="countAllAlarm >= 10">
+                    {{countAllAlarm}}
+                </ion-badge>
+            </div>
+        </ion-row>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <ion-grid class="grid-ds-canh-bao">
+        <ion-row class="row-select-vuon">
+            <ion-col size="10">
+                <ion-card>
+                    <ion-item lines="none">
+                        <i class="ph-map-pin-light"></i>
+                        <ion-label [hidden]="true">Chọn đầm</ion-label>
+                        <ion-select [interfaceOptions]="customActionSheetOptions" 
+                        *ngIf="dsDamTom" 
+                        [ngModel]="damTomId" 
+                        (ngModelChange)="changeDamTom($event)"
+                        okText="Xác nhận" 
+                        cancelText="Hủy bỏ"  
+                        interface="action-sheet">
+                            <ion-select-option value="all">Tất cả</ion-select-option>
+                            <ion-select-option
+                            *ngFor="let damtom of dsDamTom"
+                            [value]="damtom.id">{{damtom.name}}</ion-select-option>
+                        </ion-select>
+                        <span class="select-icon">
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </span>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+            <ion-col size="2" class="col-filter">
+                <ion-button fill="clear" (click)="onFilter()">
+                    <i class="ph-sliders-light"></i>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isFilterTime" class="row-date-time">
+            <ion-col size="6">
+                <ion-card class="card-start-date">
+                    <ion-item lines="none">
+                        <i class="ph-clock"></i>
+                        <ion-datetime display-format="DD/MM/YYYY HH:mm" picker-format="DD/MM/YYYY HH:mm"
+                            [ngModel]="fromDate" (ngModelChange)="startDateChange($event)" max={{currentDate}}
+                            doneText="Xác nhận" cancelText="Hủy bỏ"></ion-datetime>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+            <ion-col size="6">
+                <ion-card class="card-end-date">
+                    <ion-item lines="none">
+                        <i class="ph-clock"></i>
+                        <ion-datetime text-wrap display-format="DD/MM/YYYY HH:mm" picker-format="DD/MM/YYYY HH:mm"
+                            [ngModel]="toDate" (click)="filterDate()" (ngModelChange)="endDateChange($event)" max={{currentDate}}
+                            doneText="Xác nhận" cancelText="Hủy bỏ"></ion-datetime>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="row-validate">
+            <ion-label *ngIf="!datesValid()">
+                Khoảng thời gian không hợp lệ
+            </ion-label>
+        </ion-row>
+        <!-- button xu ly tat ca -->
+        <ion-row class="row-btn-xu-ly-all">
+            <ion-col>
+                <ion-button expand="block" (click)="xuLyAllCb()">
+                    <i id="checkcircle" class="ph-check-circle-light"></i>
+                    <ion-label class="xulylabel">Đánh dấu đã xử lý toàn bộ</ion-label>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <!-- update api v5 -->
+        <!-- canh bao chua clear cua ngay hien tai -->
+        <ion-item-group class="item-group-day" 
+        *ngIf="groupAlarmDayCurrent[0]?.alarmChuaClear.length > 0 || 
+                groupAlarmDayCurrent[0]?.alarmDaXuLy.length > 0 || 
+                groupAlarmDayCurrent[0]?.alarmChuaXyLy.length > 0">
+            <ion-item-divider color="light" sticky (click)="toggleAccordion(groupAlarmDayCurrent[0]?.time)">
+                <span class="span-number-day">
+                    {{groupAlarmDayCurrent[0].time | date: 'dd'}}
+                </span>
+                <ion-label>
+                    {{convertWeekDay(groupAlarmDayCurrent[0].time)}}, {{groupAlarmDayCurrent[0].time | date: 'dd/MM/YYYY'}}
+                </ion-label>
+
+                <ion-icon name="chevron-up-outline" *ngIf="groupAlarmDayCurrent[0].toggleAccordion"></ion-icon>
+                <ion-icon name="chevron-down-outline" *ngIf="!groupAlarmDayCurrent[0].toggleAccordion"></ion-icon>
+            </ion-item-divider>
+
+            <ion-card class="card-content-day" *ngIf="groupAlarmDayCurrent[0].toggleAccordion">
+                <!-- alarm chua clear -->
+                <ion-item *ngFor="let alarm of groupAlarmDayCurrent[0]?.alarmChuaClear"
+                lines="none"
+                class="item-canh-bao" 
+                [ngClass]= "{'item-danger': !alarm.clear ,
+                            'item-nguong-duoi': alarm.nguongVp === 'NGUONG_DUOI'}">
+                    <ion-card>
+                        <ion-row class="row-item-alarm">
+                            <!-- icon chua clear -->
+                            <ion-icon *ngIf="!alarm.clear" name="flash-outline"></ion-icon>
+                            <!-- icon mat ket noi -->
+                            <i *ngIf="alarm.clear && alarm.tenCanhBao === 'Mất kết nối thiết bị' " class="ph-warning"></i>
+                            
+                            <ion-col class="col-info" size="8">
+                                <!-- name dam tom - zone -->
+                                <ion-row>
+                                    <span class="ten-nha-vuon">{{alarm.tenDamTom}}</span>
+                                    <span class="ten-zone" *ngIf="alarm.zoneName !== null "> - {{alarm.zoneName}}</span>
+                                </ion-row>
+
+                                <!-- name luat vi pham -->
+                                <ion-row>
+                                    <span class="ten-luat">{{alarm.tenCanhBao}}</span>
+                                </ion-row>
+
+                                <!-- time vi pham va time clear-->
+                                <ion-row class="row-time-vp">
+                                    <span>{{ alarm.thoiGian | date: 'dd/MM/yyyy HH:mm' }} </span>&nbsp;
+                                    <span *ngIf="alarm.clearTime !== null "> - {{alarm.clearTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                </ion-row>
+                            </ion-col>
+
+                            <ion-col size="3">
+                                <!-- ten thiet bi -->
+                                <span class="name-device">{{alarm.deviceName}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card>
+                </ion-item>
+                <!-- alarm chua xu ly -->
+                <ion-item *ngFor="let alarm of groupAlarmDayCurrent[0]?.alarmChuaXyLy"
+                lines="none"
+                class="item-canh-bao" 
+                [ngClass]= "{'item-nguong-duoi': alarm.nguongVp === 'NGUONG_DUOI', 
+                            'item-da-clear-da-xy-ly': alarm.ack, 
+                            'item-save': alarm.clear && !alarm.ack }">
+
+                    <ion-card (click)="userAckAlarm(alarm, groupAlarmDayCurrent[0].time)">
+                        <ion-row class="row-item-alarm">
+                            <!-- icon mat ket noi -->
+                            <i *ngIf="alarm.clear && alarm.tenCanhBao === 'Mất kết nối thiết bị' " class="ph-warning"></i>
+                            <!-- icon da clear -->
+                            <i *ngIf="alarm.clear && alarm.tenCanhBao !== 'Mất kết nối thiết bị'" class="ph-check icon-check"></i>
+                            
+                            <ion-col class="col-info" size="8">
+                                <!-- name dam tom - zone -->
+                                <ion-row>
+                                    <span class="ten-nha-vuon">{{alarm.tenDamTom}}</span>
+                                    <span class="ten-zone" *ngIf="alarm.zoneName !== null "> - {{alarm.zoneName}}</span>
+                                </ion-row>
+
+                                <!-- name luat vi pham -->
+                                <ion-row>
+                                    <span class="ten-luat">{{alarm.tenCanhBao}}</span>
+                                </ion-row>
+
+                                <!-- time vi pham va time clear-->
+                                <ion-row class="row-time-vp">
+                                    <span>{{ alarm.thoiGian | date: 'dd/MM/yyyy HH:mm' }} </span>&nbsp;
+                                    <span *ngIf="alarm.clearTime !== null "> - {{alarm.clearTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                </ion-row>
+                            </ion-col>
+
+                            <ion-col size="3">
+                                <!-- ten thiet bi -->
+                                <span class="name-device">{{alarm.deviceName}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card>
+                </ion-item>
+                <!-- alarm da xu ly -->
+                <ion-item *ngFor="let alarm of groupAlarmDayCurrent[0]?.alarmDaXuLy"
+                lines="none"
+                class="item-canh-bao" 
+                [ngClass]= "{'item-da-clear-da-xy-ly': alarm.ack, 
+                            'item-save': alarm.clear && !alarm.ack }">
+                    <ion-card>
+                        <ion-row class="row-item-alarm">
+                            <!-- icon mat ket noi -->
+                            <i *ngIf="alarm.clear && alarm.tenCanhBao === 'Mất kết nối thiết bị' " class="ph-warning"></i>
+                            <!-- icon da clear -->
+                            <i *ngIf="alarm.clear && alarm.tenCanhBao !== 'Mất kết nối thiết bị'" class="ph-check icon-check"></i>
+                            
+                            <ion-col class="col-info" size="8">
+                                <!-- name dam tom - zone -->
+                                <ion-row>
+                                    <span class="ten-nha-vuon">{{alarm.tenDamTom}}</span>
+                                    <span class="ten-zone" *ngIf="alarm.zoneName !== null "> - {{alarm.zoneName}}</span>
+                                </ion-row>
+
+                                <!-- name luat vi pham -->
+                                <ion-row>
+                                    <span class="ten-luat">{{alarm.tenCanhBao}}</span>
+                                </ion-row>
+
+                                <!-- time vi pham va time clear-->
+                                <ion-row class="row-time-vp">
+                                    <span>{{ alarm.thoiGian | date: 'dd/MM/yyyy HH:mm' }} </span>&nbsp;
+                                    <span *ngIf="alarm.clearTime !== null "> - {{alarm.clearTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                </ion-row>
+                            </ion-col>
+
+                            <ion-col size="3">
+                                <!-- ten thiet bi -->
+                                <span class="name-device">{{alarm.deviceName}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card>
+                </ion-item>
+            </ion-card>
+            
+        </ion-item-group>
+
+        <!-- canh bao da clear -->
+        <ng-container *ngIf="alarmsClearTrueByDay?.length > 0">
+            <ion-item-group class="item-group-day" *ngFor="let day of alarmsClearTrueByDay, index as i">
+                <ion-item-divider color="light" sticky (click)="toggleAccordion(day.time)">
+                    <span class="span-number-day">
+                        {{day.time | date: 'dd'}}
+                    </span>
+                    <ion-label>
+                        {{convertWeekDay(day.time)}}, {{day.time | date: 'dd/MM/YYYY'}}
+                    </ion-label>
+    
+                    <ion-icon name="chevron-up-outline" *ngIf="day.toggleAccordion"></ion-icon>
+                    <ion-icon name="chevron-down-outline" *ngIf="!day.toggleAccordion"></ion-icon>
+                </ion-item-divider>
+    
+                <ion-card class="card-content-day" *ngIf="day.toggleAccordion" >
+                    <!-- alarm chua xu ly -->
+                    <ion-item *ngFor="let alarm of day.alarmChuaXyLy" lines="none" class="item-canh-bao"
+                    [ngClass]= "{'item-nguong-duoi': alarm.nguongVp === 'NGUONG_DUOI', 
+                                'item-save': alarm.clear && !alarm.ack,
+                                'item-da-clear-da-xy-ly': alarm.ack}">
+    
+                        <ion-card (click)="userAckAlarm(alarm, alarm.clearTime)">
+                            <ion-row class="row-item-alarm">
+                                <!-- icon mat ket noi -->
+                                <i *ngIf="alarm.clear && alarm.tenCanhBao === 'Mất kết nối thiết bị' " class="ph-warning"></i>
+                                <!-- icon da clear -->
+                                <i *ngIf="alarm.clear && alarm.tenCanhBao !== 'Mất kết nối thiết bị'" class="ph-check icon-check"></i>
+                                
+                                <ion-col class="col-info" size="8">
+                                    <!-- name dam tom - zone -->
+                                    <ion-row>
+                                        <span class="ten-nha-vuon">{{alarm.tenDamTom}}</span>
+                                        <span class="ten-zone" *ngIf="alarm.zoneName !== null "> - {{alarm.zoneName}}</span>
+                                    </ion-row>
+    
+                                    <!-- name luat vi pham -->
+                                    <ion-row>
+                                        <span class="ten-luat">{{alarm.tenCanhBao}}</span>
+                                    </ion-row>
+    
+                                    <!-- time vi pham va time clear-->
+                                    <ion-row class="row-time-vp">
+                                        <span>{{ alarm.thoiGian | date: 'dd/MM/yyyy HH:mm' }} </span>&nbsp;
+                                        <span *ngIf="alarm.clearTime !== null "> - {{alarm.clearTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                    </ion-row>
+                                </ion-col>
+    
+                                <ion-col size="3">
+                                    <!-- ten thiet bi -->
+                                    <span class="name-device">{{alarm.deviceName}}</span>
+                                </ion-col>
+                            </ion-row>
+    
+                        </ion-card>
+                    </ion-item>
+                    <!-- alarm da xu ly -->
+                    <ion-item *ngFor="let alarm of day.alarmDaXuLy" lines="none" class="item-canh-bao item-da-clear-da-xy-ly">
+                        <ion-card>
+                            <ion-row class="row-item-alarm">
+                                <!-- icon mat ket noi -->
+                                <i *ngIf="alarm.clear && alarm.tenCanhBao === 'Mất kết nối thiết bị' " class="ph-warning"></i>
+                                <!-- icon da clear -->
+                                <i *ngIf="alarm.clear && alarm.tenCanhBao !== 'Mất kết nối thiết bị'" class="ph-check icon-check"></i>
+                                
+                                <ion-col class="col-info" size="8">
+                                    <!-- name dam tom - zone -->
+                                    <ion-row>
+                                        <span class="ten-nha-vuon">{{alarm.tenDamTom}}</span>
+                                        <span class="ten-zone" *ngIf="alarm.zoneName !== null "> - {{alarm.zoneName}}</span>
+                                    </ion-row>
+    
+                                    <!-- name luat vi pham -->
+                                    <ion-row>
+                                        <span class="ten-luat">{{alarm.tenCanhBao}}</span>
+                                    </ion-row>
+    
+                                    <!-- time vi pham va time clear-->
+                                    <ion-row class="row-time-vp">
+                                        <span>{{ alarm.thoiGian | date: 'dd/MM/yyyy HH:mm' }} </span>&nbsp;
+                                        <span *ngIf="alarm.clearTime !== null "> - {{alarm.clearTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                    </ion-row>
+                                </ion-col>
+    
+                                <ion-col size="3">
+                                    <!-- ten thiet bi -->
+                                    <span class="name-device">{{alarm.deviceName}}</span>
+                                </ion-col>
+                            </ion-row>
+    
+                        </ion-card>
+                    </ion-item>
+                </ion-card>
+            </ion-item-group> 
+        </ng-container>
+        
+        <p id="noData" class="hidden-mess no-data">Không có dữ liệu</p>
+
+        <ion-infinite-scroll #infiniteScroll threshold="55%" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loading-text="Đang tải dữ liệu...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-grid>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+</ion-content>
+<ion-fab 
+    vertical="bottom" 
+    horizontal="end" 
+    slot="fixed"
+    class="custom-ion-fab"
+    *ngIf="isGoTop" (click)="goTop()">
+    <ion-fab-button>
+        <i class="mdi mdi-chevron-up"></i>
+    </ion-fab-button>
+</ion-fab>

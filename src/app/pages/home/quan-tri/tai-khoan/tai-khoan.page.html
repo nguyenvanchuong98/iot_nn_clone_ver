@@ -1,0 +1,123 @@
+<ion-header>
+  <!-- <ion-toolbar class="header-page">
+        <ion-title class="ion-no-padding">Danh sách tài khoản</ion-title>
+        <ion-buttons slot="start" (click)="buttonBack()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-buttons>
+        <ion-buttons slot="end" (click)="themMoiTk()">
+            <i class="ph-plus"></i>
+        </ion-buttons>
+    </ion-toolbar> -->
+
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Danh sách tài khoản </ion-label>
+      <ion-button class="ion-no-padding ion-no-margin" fill="clear" (click)="themMoiTk()">
+        <i class="mdi mdi-account-plus"></i>
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
+  <ion-row class="section-search">
+    <!-- <i class="mdi mdi-magnify"></i> -->
+    <ion-searchbar class="ion-no-padding" [(ngModel)]="txtSearch"
+      (ngModelChange)="findItems($event)"
+      placeholder="Nhập họ tên, số điện thoại, email"
+    ></ion-searchbar>
+  </ion-row>
+</ion-header>
+
+<ion-content [scrollEvents]="true"
+(ionScroll)="logScrolling($event)">
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText=""> </ion-refresher-content>
+  </ion-refresher> -->
+  <ion-grid class="main-content">
+    <div *ngIf="!usersList || isLoading" class="ion-text-center">
+      <ion-spinner>{{message}}</ion-spinner>
+    </div>
+
+    <div *ngIf="usersList" class="section-ds-tk">
+      <div *ngIf="usersList.length<=0 && !isLoading" class="ion-text-center">
+        <span>{{message}}</span>
+      </div>
+      <ion-list>
+        <!--                <ion-item *ngFor="let user of usersList" slot="start" detail='true'-->
+        <!--                          [routerLink]="['/','home','quan-tri','tai-khoan','thong-tin-tai-khoan',user.id.id]">-->
+        <!--                    <ion-label>-->
+        <!--                        <h2><b>{{user.firstName}}</b></h2>-->
+        <!--                        <p>Vai trò : {{user.name!=='' ? user.name : ' Chưa có' }}</p>-->
+        <!--                        <p>Số điện thoại : {{user.phone}}</p>-->
+        <!--                    </ion-label>-->
+        <!--                </ion-item>-->
+        <ion-row
+          class="row-tai-khoan"
+          *ngFor="let user of usersList,index as i"
+        >
+          <ion-avatar>
+            <!-- <img src="assets/images/avatar-default.png" /> -->
+            <ion-img [src]="user.urlAvatar"></ion-img>
+          </ion-avatar>
+          <div
+            [routerLink]="['/','home','quan-tri','tai-khoan','thong-tin-tai-khoan',user.userId]"
+            class="info-tai-khoan"
+          >
+            <h2>{{user.firstName}}</h2>
+            <div>
+              <!-- <i class="ph-user-gear" ></i> -->
+              <i class="mdi mdi-briefcase-outline prefix"></i>
+              <span
+                >{{ getRoleUser(user) !== '' ? getRoleUser(user) : 'Chưa có'
+                }}</span
+              >
+            </div>
+            <div>
+              <!-- <i class="ph-phone"></i> -->
+              <i class="mdi mdi-cellphone"></i>
+              <span>{{user.phone !== '' ? user.phone : 'Chưa có' }}</span>
+            </div>
+            <div>
+              <!-- <i class="ph-envelope-open"></i> -->
+              <i class="mdi mdi-email-outline"></i>
+              <span
+                >{{user.phone + '@gmail.com' == user.email ||
+                user.phone.slice(1) + '@gmail.com' == user.email ? "Chưa có"
+                : user.email}}</span
+              >
+            </div>
+          </div>
+          <div class="ion-align-self-center toggle-tai-khoan">
+            <ion-toggle class="ion-no-padding"
+              (ionChange)="activateTaiKhoan($event, user)"
+              checked="{{user.active}}"
+            ></ion-toggle>
+            <!-- <div class="switch danger medium">
+                              <label>
+                                <input checked type="checkbox">
+                                <span class="lever"></span>
+                              </label>
+                            </div> -->
+          </div>
+        </ion-row>
+      </ion-list>
+      <ion-infinite-scroll threshold="5%" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data..."
+        >
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </ion-grid>
+</ion-content>
+<ion-fab class="custom-ion-fab ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-fab-button class="ion-no-margin" fill="clear" (click)="goTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>

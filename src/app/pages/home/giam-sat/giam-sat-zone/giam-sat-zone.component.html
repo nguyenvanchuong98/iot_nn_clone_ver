@@ -1,0 +1,97 @@
+<ion-card class="card-zone">
+  <!-- name zone -->
+  <ion-card-header class="card-header" (click)="toggleAccordion()">
+    <ion-row>
+      <i class="mdi mdi-waves icon-circle-header"></i>
+
+      <span>{{zoneSensor?.name}}</span>
+
+      <ion-icon name="chevron-up-outline" *ngIf="accordionExpanded"></ion-icon>
+      <ion-icon name="chevron-down-outline" *ngIf="!accordionExpanded"></ion-icon>
+    </ion-row>    
+  </ion-card-header>
+
+  <ion-card-content class="card-content" *ngIf="accordionExpanded">
+    <ion-row>
+      <!-- list device sensor -->
+      <ion-col *ngFor="let device of zoneSensor.listDevices" size="4">
+        <ion-card (click)="duLieuCamBien(device)">
+          <!-- icon device-->
+          <ion-row class="row-icon">
+            <!-- 3 trang thai: vp - ko vp - mat ket noi -->
+            <ion-col class="col-icon">
+              <ion-img *ngIf="device.lastestSensorData.alarm === false && device.lastestSensorData.value !== null"
+                          [src]="telemetryIcons[device.dftDeviceType]['safeTy']" 
+                          class="icon-safety">
+              </ion-img>
+              <ion-img *ngIf="device.lastestSensorData.alarm === false && device.lastestSensorData.value === null"
+                          [src]="telemetryIcons[device.dftDeviceType]['disconnected']"
+                          class="icon-disconnected">
+              </ion-img>
+              <ion-img *ngIf="device.lastestSensorData.alarm === true && device.lastestSensorData.nguongViPham === 'GREATER_OR_EQUAL'"
+                          [src]="telemetryIcons[device.dftDeviceType]['alarm']" 
+                          class="icon-warning">
+              </ion-img>
+              <ion-img *ngIf="device.lastestSensorData.alarm === true && device.lastestSensorData.nguongViPham === 'LESS_OR_EQUAL'"
+                          [src]="telemetryIcons[device.dftDeviceType]['nguongDuoi']" 
+                          class="icon-warning">
+              </ion-img>
+            </ion-col>
+          </ion-row>
+
+          <!-- value device and unit -->
+          <ion-row class="row-value-data">
+            <!-- 3 trang thai: vp - ko vp - mat ket noi -->
+            <ion-col class="col-value-data">
+              <ion-label *ngIf="device.lastestSensorData.value !== null && device.lastestSensorData.alarm === false" 
+                          class="value-number-safety">
+                    {{device.lastestSensorData.value}} {{telemetryIcons[device.dftDeviceType]['unit']}}
+              </ion-label>
+
+              <ion-label *ngIf="device.lastestSensorData.alarm === true && device.lastestSensorData.nguongViPham === 'GREATER_OR_EQUAL'"
+                        class="value-number-warning">
+                    {{device.lastestSensorData.value}} {{telemetryIcons[device.dftDeviceType]['unit']}}
+              </ion-label>
+
+              <ion-label *ngIf="device.lastestSensorData.alarm === true && device.lastestSensorData.nguongViPham === 'LESS_OR_EQUAL'"
+                        class="value-number-nguong-duoi">
+                    {{device.lastestSensorData.value}} {{telemetryIcons[device.dftDeviceType]['unit']}}
+              </ion-label>
+
+              <ion-label *ngIf="device.lastestSensorData.value === null" 
+                          class="value-number-disconnected">
+                      Mất kết nối
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <!-- name device -->
+          <ion-row class="row-label-device">
+            <!-- 4 trang thai: vp nguong tren - vp nguong duoi - ko vp - mat ket noi -->
+            <ion-col>
+              <ion-label *ngIf="device.lastestSensorData.value !== null && device.lastestSensorData.alarm === false" 
+                          class="label-device-safety">
+                          {{!!device.label ? device.label : device.name}}
+              </ion-label>
+
+              <ion-label *ngIf="device.lastestSensorData.alarm === true && device.lastestSensorData.nguongViPham === 'GREATER_OR_EQUAL'"
+                        class="label-device-warning">
+                        {{!!device.label ? device.label : device.name}}
+              </ion-label>
+
+              <ion-label *ngIf="device.lastestSensorData.alarm === true && device.lastestSensorData.nguongViPham === 'LESS_OR_EQUAL'" 
+                          class="label-device-nguong-duoi">
+                          {{!!device.label ? device.label : device.name}}
+              </ion-label>
+
+              <ion-label *ngIf="device.lastestSensorData.value === null" 
+                          class="label-device-disconnected">
+                          {{!!device.label ? device.label : device.name}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

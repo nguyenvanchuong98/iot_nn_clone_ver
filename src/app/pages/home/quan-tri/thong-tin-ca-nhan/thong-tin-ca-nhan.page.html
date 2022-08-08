@@ -1,0 +1,197 @@
+<ion-header>
+    <ion-toolbar class="ion-no-padding" color="toolbar">
+        <ion-buttons class="back-arrow" slot="start">
+          <ion-button (click)="buttonBack()">
+            <i class="mdi mdi-arrow-left" data-page=""></i>
+          </ion-button>
+        </ion-buttons>
+        <ion-row class="title-home-account">
+          <ion-label class="title">Thông tin cá nhân</ion-label>
+        </ion-row>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <ion-grid *ngIf="isFetching" class = "main-content">
+        <ion-row>
+            <ion-col class="ion-text-center">
+                <ion-spinner></ion-spinner>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="!isFetching">
+        <ion-row style="margin-bottom: 20px;">
+            <ion-col>
+                <app-upload-avatar
+                        [avatarUrlLoad]="avatarBlobUrl"
+                        (avatarPick)="onAvatarPicked($event)">
+                </app-upload-avatar>
+            </ion-col>
+        </ion-row>
+        <form [formGroup]="formUser">
+            <div class="form-user-info">
+                <ion-row class = "row-input">
+                    
+                    <ion-item class="form-user-item" lines="none">
+                        <i class="mdi mdi-account-outline"></i>
+                        <ion-input style = "font-size: 16px;"
+                                formControlName="firstName" placeholder = "Họ tên *"
+                        ></ion-input>
+                    </ion-item>
+
+                    <p *ngIf="formUser.get('firstName').value.trim()== '' && formUser.get('firstName').dirty">
+                        Đây là trường bắt buộc!
+                    </p>
+
+                    <p *ngIf="formUser.get('firstName').hasError('maxlength')">
+                        Tối đa 255 ký tự!
+                    </p>
+                </ion-row>
+                <ion-row class = "row-input">
+                    
+                    <ion-item class="form-user-item" lines="none">
+                        <i class="mdi mdi-account-box-outline"></i>
+                        <ion-input style = "font-size: 16px;"
+                                formControlName="userName" placeholder = "Tên đăng nhập *"
+                        ></ion-input>
+                    </ion-item>
+
+                    <p *ngIf="formUser.get('userName').value.trim()== '' && formUser.get('userName').dirty">
+                        Đây là trường bắt buộc!
+                    </p>
+
+                    <p *ngIf="formUser.get('userName').hasError('userName')">
+                        Tối đa 255 ký tự!
+                    </p>
+                </ion-row>
+                <ion-row class = "row-input">
+                    <ion-item class="form-user-item" lines="none" >
+                        <i class="mdi mdi-briefcase-outline prefix icon-name"></i>
+                        <ion-input 
+                                style = "font-size: 16px;"
+                                formControlName="role" readonly [ngStyle] = "{'font-weight': fontWeight}"
+                        ></ion-input>
+                    </ion-item>
+                </ion-row>
+
+                <ion-row class = "row-input">
+                        <ion-item class="form-user-item" lines="none">
+                            <!-- <ion-input
+                                    formControlName="phoneNumber"
+                                    (ionChange)="changeNumberPhone()"
+                            ></ion-input> -->
+                            <i class="mdi mdi-cellphone"></i>
+                            <ion-input style = "font-size: 16px;"
+                                    formControlName="phoneNumber"
+                                    inputmode="tel"
+                                    (keydown)="changeNumberPhone($event)" placeholder = "Số điện thoại *"
+                            ></ion-input>
+                        </ion-item>
+
+                        <p *ngIf="formUser.get('phoneNumber').hasError('required') && formUser.get('phoneNumber').dirty">
+                            Đây là trường bắt buộc!
+                        </p>
+
+                        <p *ngIf="formUser.get('phoneNumber').hasError('pattern')">
+                            Số điện thoại không đúng định dạng!
+                        </p>
+
+                        <!-- <p *ngIf="formUser.get('phoneNumber').hasError('maxlength')">
+                            Số điện thoại không đúng định dạng!
+                        </p> -->
+
+                        <p *ngIf="isPhoneExist">
+                            Số điện thoại đã tồn tại!
+                        </p>
+                </ion-row>
+
+                <ion-row class = "row-input" style = "margin-bottom: 0;">
+                    <ion-item class="form-user-item" lines="none">
+                        <i class="mdi mdi-email-outline"></i>
+                        <ion-input style = "font-size: 16px;"
+                                formControlName="email"
+                                placeholder = "Địa chỉ Email"
+                                inputmode = "email"
+                                (keydown)="changeEmail($event)"
+                        ></ion-input>
+                    </ion-item>
+
+                    <p *ngIf="formUser.get('email').hasError('required') && formUser.get('email').dirty">
+                        Đây là trường bắt buộc!
+                    </p>
+
+                    <p *ngIf="formUser.get('email').hasError('pattern')">
+                        Email không đúng định dạng!
+                    </p>
+
+                    <p *ngIf="isEmailExist">
+                        Email đã tồn tại!
+                    </p>
+
+                </ion-row>
+            </div>
+        </form>
+
+        <!-- <div class="doi-mat-khau ion-align-self-center"> -->
+            <ion-row class = "ion-no-padding btn-group">                
+                <ion-button class="btn-confirm-default ion-no-padding ion-no-margin"
+                (click)="updateUser()" fill = 'clear'
+                [disabled]='formUser.invalid || !formUser.dirty || formUser.get("firstName").value.trim()== "" '
+                expand="block">Cập nhật</ion-button>
+                
+                <ion-button 
+                routerLink="/home/quan-tri/thong-tin-ca-nhan/doi-mat-khau" 
+                class = "btn-yellow ion-no-padding ion-no-margin" 
+                fill = "clear">
+                    Đổi mật khẩu
+                </ion-button>
+                <!-- <i class="ph-caret-right"></i> -->
+
+            </ion-row>
+        <!-- </div> -->
+        
+    </ion-grid>
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+    <ion-button class="ion-no-margin" fill="clear" (click)="scrollToTop()">
+      <i class="mdi mdi-chevron-up"></i>
+    </ion-button>
+ </ion-fab>
+<!-- <ion-footer>
+    <ion-toolbar class="ion-no-padding">
+        <ion-row>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/giam-sat" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+                        <ion-label>Giám sát</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/dieu-khien" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+                        <ion-label>Điều khiển</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/camera" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/camera.svg"></ion-icon>
+                        <ion-label>Camera</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+            <ion-col size="3" class="ion-no-padding">
+                <ion-button class="ion-no-margin" routerLink="/home/quan-tri/menu" expand="block" fill="clear">
+                    <div class="custom-button-content">
+                        <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+                        <ion-label>Quản trị</ion-label>
+                    </div>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-footer> -->

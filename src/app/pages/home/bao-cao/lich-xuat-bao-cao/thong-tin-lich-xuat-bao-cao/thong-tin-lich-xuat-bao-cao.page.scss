@@ -1,0 +1,343 @@
+ion-content {
+  // --background: #d7d8da;
+  i {
+    font-size: 20px;
+    color: var(--dark-700);
+  }
+}
+ion-header {
+  // background-color: #d7d8da;
+  ion-back-button {
+    --color: var(--dark-700) !important;
+  }
+  ion-toolbar{
+    margin-bottom: 16px;
+    margin-top: 32px;
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        // margin-top: 7px;
+        i,ion-icon{
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+ion-grid {
+  // padding: 0 16px 38px;
+  padding: 0px 16px 44px 16px;
+  p {
+    margin: 4px 0 0 0;
+    color: #d91f2c;
+    font-size: 12px;
+  }
+  .input-area {
+    margin: 12px 0;
+    ion-item {
+      width: 100%;
+      --border-radius: 8px;
+      --background: #ffffff;
+      --padding-start: 0;
+      --inner-padding-start: 12px;
+      --inner-padding-end: 12px;
+      font-size: 16px;
+      line-height: 24px;
+      ion-input {
+        line-height: 24px;
+        font-size: 16px;
+        --placeholder-font-weight: 500;
+        --placeholder-color: var(--dark-700);
+        --padding-start: 12px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+      ion-textarea {
+        line-height: 24px;
+        font-size: 16px;
+        --placeholder-font-weight: 500;
+        --placeholder-color: var(--dark-700);
+        --padding-start: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+      i {
+        color: var(--dark-700);;
+        font-size: 20px;
+        margin-left: 3px;
+        // margin-right: 10px;
+      }
+    }
+  }
+  .input-area:first-child{
+    margin-top: 0;
+  }
+  .role {
+    position: relative;
+    // ion-select::part(icon) {
+    //   display: none;
+    // }
+    ion-select {
+      width: 100%;
+      max-width: 100%;
+      padding: 0;
+      padding-left: 38px;
+      font-size: 16px;
+      font-weight: 500;
+      height: 48px;
+      color: var(--dark-700);
+      padding-right: 15px;
+      --placeholder-opacity: 0.6;
+      --placeholder-color: var(--dark-700);
+    }
+    ion-item {
+      --background-activated: white;
+    }
+    .select-icon {
+      pointer-events: none;
+      position: absolute;
+      right: 15px;
+      top: 14px;
+      z-index: 10000;
+      background: white;
+      flex: 1;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+// nguoi nhan bao cao
+.user {
+  flex-grow: 1;
+  display: flex;
+  overflow: auto;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 36px;
+  color: var(--dark-700);
+  opacity: 0.6;
+}
+.user-item:first-child {
+  margin: 0;
+}
+.user-item {
+  display: flex;
+  border: 1px solid #727272;
+  padding: 3px 5px 3px 0;
+  background-color: #dddddd;
+  border-radius: 3px;
+  margin-left: 5px;
+  position: relative;
+  z-index: 9999;
+  i {
+    position: unset;
+    margin: 0;
+  }
+}
+.down-icon {
+  display: flex;
+  align-items: center;
+  width: 30px;
+}
+// lap lai
+ion-card {
+  padding: 16px;
+  box-shadow: none;
+  i {
+    margin-right: 12px;
+    color: var(--dark-700);
+  }
+  .row-item {
+    justify-content: space-between;
+    align-items: center;
+    ion-label {
+      color: var(--dark-700);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 48px;
+      display: flex;
+    }
+    ion-item {
+      border: 1px solid var(--line-dark-mode);
+      border-radius: 8px;
+      ion-select {
+        padding: 0;
+        padding-right: 15px;
+        text-align: center;
+      }
+      // span{
+      //   top: 11px;
+      // }
+    }
+  }
+  .pick-hour {
+    margin-top: 12px;
+    justify-content: space-between;
+    .date-send{
+      width: 197px;
+    }
+    ion-item {
+      border: 1px solid var(--line-dark-mode);
+      border-radius: 8px;
+      --inner-padding-end: 0;
+      --background-activated: white;
+      ion-datetime {
+        padding: 0;
+        padding-right: 16px;
+        color: var(--dark-700);
+        font-weight: 500;
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+      }
+      i {
+        position: absolute;
+        left: 16px;
+      }
+      .select-icon {
+        pointer-events: none;
+        position: absolute;
+        right: 13px;
+        top: 11px;
+        z-index: 10000;
+        background: white;
+        flex: 1;
+        width: 20px;
+        height: 20px;
+        i{
+          position: unset;
+        }
+      }
+      .fake-mark-space1{
+        position: absolute;
+        right: 50px;
+        top: 29px;
+        z-index: 10000;
+        background: var(--background-input-dark-mode) !important;
+        flex: 1;
+        width: 30px;
+        height: 10px;
+      }
+      .fake-mark-space2{
+        position: absolute;
+        right: 100px;
+        top: 29px;
+        z-index: 10000;
+        background: var(--background-input-dark-mode) !important;
+        flex: 1;
+        width: 30px;
+        height: 10px;
+      }
+    }
+  }
+}
+.btn-submit {
+  margin: 20px 0 40px 0px;
+}
+
+.day-of-week-btn-active {
+  width: 12.5%;
+  .container {
+    border-radius: 50%;
+    background: #3d85cc;
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+  }
+
+  .text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    /* Surface/White */
+    color: #ffffff;
+  }
+}
+
+.day-of-week-btn {
+  width: 12.5%;
+  .container {
+    border-radius: 50%;
+    background: #ffffff;
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    border: 1px solid rgba(83, 89, 95, 0.2);
+  }
+}
+.text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  /* Surface/White */
+  color: var(--dark-700);
+}
+@media only screen and (max-width: 360px) {
+  .pick-hour{
+    .date-send{
+      width: 192px !important;
+      .select-icon{
+        right: 11px !important;
+      }
+    }
+  } 
+}
+// ChuongNV Den day

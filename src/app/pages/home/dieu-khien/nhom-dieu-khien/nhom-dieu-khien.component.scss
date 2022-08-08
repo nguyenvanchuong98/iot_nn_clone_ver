@@ -1,0 +1,170 @@
+ion-grid {
+  padding: 0;
+}
+ion-title {
+  font-weight: 500;
+  font-size: 18px;
+}
+ion-col {
+  padding: 0;
+}
+ion-list {
+  background: none;
+}
+i {
+  font-size: 22px;
+  color: var(--dark-700);
+}
+ion-item {
+  background: #ffffff;
+  border-radius: 8px;
+  ion-select {
+    text-align: left;
+    color: var(--dark-700);
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px;
+  }
+}
+
+//them nhom dieu khien
+.tab-header {
+  padding: 0 8px;
+  margin-bottom: 12px;
+  align-items: center;
+  justify-content: space-between;
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--dark-700);
+    font-weight: 500;
+  }
+  ion-button.them-nhom-dieu-khien {
+    height: unset;
+    --padding-start: 0;
+    --padding-end: 0;
+    margin: 0;
+    i {
+      font-size: 20px;
+      color: var(--dark-700);
+    }
+  }
+}
+
+.hold-card {
+  position: relative;
+}
+.card-nhom-dieu-khien {
+  height: 145px;
+  margin: 0;
+  background: #ffffff;
+  // box-shadow: 0px 0px 8px rgba(50, 50, 71, 0.08),
+  //   0px 8px 16px rgba(50, 50, 71, 0.06);
+  box-shadow: none;
+  border-radius: 8px;
+  // ChuongNV
+  // align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  ion-card-header {
+    padding: 20px 0 4px 0;
+    display: flex;
+    justify-content: center;
+  }
+  ion-img {
+    width: 44px;
+    height: 44px;
+  }
+  ion-card-content {
+    padding: 0 8px 8px;
+  }
+  ion-card-title {
+    text-align: center;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--dark-700);
+    //text overflow 2 line
+    display: -webkit-box;
+    max-height: 45px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  p {
+    margin: 3px auto;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    // color: #34c759;
+    color: var(--alix-primary-color);
+  }
+  .button-dieu-khien {
+    padding: 0 17px;
+    height: auto;
+    margin: 0;
+
+    // font-size: 62px; color: #34C759;
+    // background-color: #34C759;
+    i {
+      color: #34c759;
+      font-size: 62px;
+      background-color: #ffffff;
+      // border: 1px solid #000000;
+      // border-radius: 50%;
+    }
+  }
+}
+//button 3 dot vertical
+.button-3-dot {
+  width: 40px;
+  margin: 0;
+  position: absolute;
+  top: 0px;
+  right: -2px;
+  z-index: 2;
+}
+ion-button::part(native) {
+  padding: 0;
+}
+//rotate for nhom dieu khien dang chay
+.banh-rang-quay {
+  width: 44px;
+  height: 44px;
+}
+#outline {
+  animation: arrow 4s linear infinite;
+  transform-origin: center;
+}
+#banh-rang {
+  animation: gear 3s linear infinite;
+  transform-origin: center;
+}
+@keyframes gear {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes arrow {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+.haspaddingright {
+  padding-right: 6px;
+  padding-bottom: 12px;
+}
+.haspaddingleft {
+  padding-left: 6px;
+  padding-bottom: 12px;
+}

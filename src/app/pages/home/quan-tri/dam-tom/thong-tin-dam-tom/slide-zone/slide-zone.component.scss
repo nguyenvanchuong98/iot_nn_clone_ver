@@ -1,0 +1,138 @@
+.table-zone {
+  // background-color: #f4f4f4;
+  border-radius: 10px;
+  margin: 14px 0 0 0;
+  padding: 0;
+  .table-zone-header {
+    padding: 20px 16px;
+    border-bottom: 1px solid;
+    background-color: #d7d8da;
+    border-radius: 8px 8px 0 0;
+    ion-col {
+      padding: 0;
+      text-align: center;
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--dark-700);
+      }
+    }
+  }
+  .table-zone-content {
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    ion-col {
+      padding: 0;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }
+    .col-stt {
+      p {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--dark-600);
+      }
+    }
+    .col-ten-zone {
+    }
+    .col-tac-vu {
+      justify-content: right;
+      .btn-edit,
+      .btn-delete {
+        margin: 0;
+        width: 22px;
+        height: 22px;
+        --padding-start: 0;
+        --padding-end: 0;
+        i,
+        ion-icon {
+          font-size: 20px;
+          color: var(--dark-700);
+        }
+      }
+      .btn-edit {
+        margin-right: 18px;
+      }
+      .btn-delete {
+      }
+    }
+  }
+  .table-zone-content:last-child {
+    border: none;
+  }
+}
+.grid-footer {
+  padding: 0;
+}
+.no-data {
+  justify-content: center;
+  background: #334248;
+  border-radius: 0 0 8px 8px;
+  .messageWarning {
+    font-size: 16px;
+  }
+}
+// reorder item zone
+.list-content-table {
+  background-color: #f4f4f4;
+  border-radius: 0 0 10px 10px;
+  .card-item {
+    box-shadow: none;
+    margin: 0;
+    ion-item {
+      --background: #f4f4f4;
+      --inner-padding-end: 16px;
+      --inner-padding-start: 16px;
+      border-bottom: 1px solid #d6d6d6;
+      ion-col {
+        padding: 0;
+      }
+      .col-stt {
+        text-align: center;
+        p {
+          font-family: "Inter var";
+          font-size: 16px;
+          color: var(--dark-700);
+          font-weight: 500;
+        }
+      }
+      .col-name-zone {
+        text-align: center;
+        ion-label {
+          font-family: "Inter var";
+          font-size: 16px;
+          color: var(--dark-700);
+          font-weight: 500;
+        }
+      }
+      .col-tac-vu {
+        text-align: right;
+      }
+      .btn-edit,
+      .btn-delete {
+        margin: 0;
+        width: 22px;
+        height: 22px;
+        --padding-start: 0;
+        --padding-end: 0;
+        i,
+        ion-icon {
+          font-size: 20px;
+          color: var(--dark-700);
+        }
+      }
+      .btn-edit {
+        margin-right: 16px;
+      }
+    }
+  }
+  .card-item:last-child {
+    ion-item {
+      border-bottom: none;
+    }
+  }
+}

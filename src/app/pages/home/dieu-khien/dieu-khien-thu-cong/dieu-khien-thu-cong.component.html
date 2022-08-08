@@ -1,0 +1,391 @@
+<!-- <ion-list  > -->
+  <!--    dieu khien thiet bi-->
+  <!-- <ion-row *ngIf="isLoadingFinish" class="ion-justify-content-between">
+    <div>
+      <h2>Điều khiển thiết bị</h2>
+    </div>
+    <div class="quan-ly-nhom">
+      <ion-button fill="clear" (click)="goToQuanLyNhom()" class="quan-ly-nhom-btn">
+        <ion-icon name="layers-outline"></ion-icon>
+        Quản lý nhóm
+      </ion-button>
+    </div>
+  </ion-row> -->
+  
+<!--  update api dieu khien thu cong -->
+<!-- <ng-container *ngIf="isLoadingFinish">
+  <ng-container *ngFor="let zone of listZoneLoaded">
+    <ion-row *ngIf="zone.rpcDeviceList.length > 0" class="section-zone">
+      <h2 class="zone-label">{{zone.zoneName}}</h2>
+    </ion-row>
+    <ion-row style="margin: 0 -4px 0 -4px;">
+      <ng-container *ngFor="let device of zone.rpcDeviceList, index as i"> -->
+        <!--           dieu khien thiet bi -->
+        <!-- <ion-col size="4">
+          <div class="hold-card" [id]=device.deviceId>
+            <ion-button [disabled]="device.statusDevice !== 1 && device.statusDevice !== 0" class="button-3-dot"
+                        fill="clear" (click)="presentPrompt(device, device.statusDevice === 1 ? 0 : 1)">
+              <i [ngClass]="{'white':device.statusDevice === 1, 'black': device.statusDevice !== 1 && device.statusDevice !== 0}"
+                class="ph-dots-three-vertical"></i>
+            </ion-button>
+            <ion-card [ngClass]="{'card-on': device.statusDevice === 1, 
+                                    'card-off': device.statusDevice === 0, 
+                                    'card-mat-ket-noi': device.statusDevice !== 1 && device.statusDevice !== 0}">
+              <ion-card-header mode="md"> -->
+                <!--                            thiet bi dang tat-->
+                <!-- <ion-row class="ion-justify-content-center " *ngIf="device.statusDevice === 0">
+                  <ion-button *ngIf="!CheckLoadingRPC(device.deviceId)" (click)="onControl(1, device, i)"
+                              class="button-on" fill="clear">
+                    <ion-img *ngIf="!CheckLoadingRPC(device.deviceId)" src="./assets/images/button-on.svg"></ion-img>
+                  </ion-button>
+
+                  <ion-spinner *ngIf="CheckLoadingRPC(device.deviceId)" class="spinner-loading" name="bubbles">
+                  </ion-spinner>
+
+                </ion-row> -->
+
+                <!--                            thiet bi dang bat-->
+                <!-- <ion-row class="ion-justify-content-center" *ngIf="device.statusDevice === 1">
+                  <ion-button *ngIf="!CheckLoadingRPC(device.deviceId)" (click)="onControl(0, device, i)" fill="clear"
+                              class="button-off">
+                    <ion-img *ngIf="!CheckLoadingRPC(device.deviceId)" src="./assets/images/button-off.svg"></ion-img>
+                  </ion-button>
+
+                  <ion-spinner *ngIf="CheckLoadingRPC(device.deviceId)" class="spinner-loading" name="bubbles">
+                  </ion-spinner>
+                </ion-row> -->
+
+                <!--                            button mat ket noi-->
+                <!-- <ion-row class="ion-justify-content-center"
+                         *ngIf="device.statusDevice !== 1 && device.statusDevice !== 0">
+                  <ion-button disabled fill="clear" class="button-mat-ket-noi">
+                    <ion-img src="./assets/images/alarm 1.svg"></ion-img>
+                  </ion-button>
+                </ion-row> -->
+              <!-- </ion-card-header> -->
+
+              <!-- <ion-card-content>
+                <ng-container *ngIf="!CheckLoadingRPC(device.deviceId)">
+                  <ion-card-title *ngIf="device.label !== null">
+                    {{device.label | titlecase}}
+                  </ion-card-title>
+                  <ion-card-title *ngIf="device.label == null">
+                    {{device.tenThietBi | titlecase}}
+                  </ion-card-title>
+                  <ion-row>
+                    <ion-col>
+                      <p class="title-status-on" *ngIf="device.statusDevice === 1">
+                        Đang bật</p>
+                      <p class="title-status-off" *ngIf="device.statusDevice === 0">
+                        Đang tắt</p>
+                      <p *ngIf="device.statusDevice !== 1 && device.statusDevice !== 0">
+                        Mất kết nối</p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <p class="time-on" *ngIf="device.statusDevice === 1">
+                        {{caculationTimeDevice(device.statusTime)}}</p>
+                      <p class="time-off" *ngIf="device.statusDevice === 0">
+                        {{caculationTimeDevice(device.statusTime)}}</p>
+                    </ion-col>
+                  </ion-row>
+                </ng-container>
+                <ng-container *ngIf="CheckLoadingRPC(device.deviceId)">
+                  <p class="dang-xy-ly">Đang xử lý</p>
+                </ng-container>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ng-container>
+    </ion-row>
+  </ng-container>
+</ng-container> -->
+<!-- </ion-list> -->
+
+<!-- update giao dien v2 -->
+
+<ion-grid class="grid-container">
+  <ng-container *ngIf="isLoadingFinish">
+    <ion-row class="row-title">
+      <h3>Điều khiển thiết bị</h3>
+      <ion-button fill="clear" (click)="goToQuanLyNhom()">
+        <i class="mdi mdi-plus-circle"></i>
+      </ion-button>
+    </ion-row>
+  
+    <ion-grid *ngFor="let zoneRpc of damTomSelectedInput?.listZoneRpc">
+      <div *ngIf="(zoneRpc?.rpcRemList.length > 0 || zoneRpc?.rpcDeviceList.length > 0) && zoneRpc?.zoneName !== 'Danh sách rèm'">
+        <ion-row class="row-name-zone">
+          <h4>{{zoneRpc?.zoneName}}</h4>
+        </ion-row>
+    
+        <ion-row class="row-list-device">
+          <ion-col size="4" *ngFor="let rpc of zoneRpc?.rpcDeviceList, index as i">
+            <!-- 3 card: bat/tat/matketnoi -->
+            <ion-card class="card-default" 
+            [id]="rpc.deviceId"
+            [ngClass]="{'card-on': rpc.statusDevice === 1, 
+                        'card-off': rpc.statusDevice === 0, 
+                        'card-disconnected': rpc.statusDevice !== 1 && rpc.statusDevice !== 0
+                      }">
+              <!-- row status -->
+              <ion-row class="row-status">
+                <!-- <i *ngIf="rpc.statusDevice === 1 || rpc.statusDevice === 0"
+                class="mdi mdi-checkbox-blank-circle"></i> -->
+    
+                <!-- <i *ngIf="rpc.statusDevice !== 1 && rpc.statusDevice !== 0" 
+                class="mdi mdi-wifi-off"></i> -->
+    
+                <ion-button fill="clear" 
+                [disabled]="rpc.statusDevice !== 1 && rpc.statusDevice !== 0"
+                (click)="presentPrompt(rpc, rpc.statusDevice === 1 ? 0 : 1)">
+                  <i class="mdi mdi-dots-vertical three-dot"></i>
+                </ion-button>
+              </ion-row>
+    
+              <!-- row icon -->
+              <ion-row class="row-icon">
+                <ion-col>
+                  <ion-button fill="clear" 
+                  *ngIf="rpc.statusDevice === 1" 
+                  (click)="onControl(0, rpc, i)">
+                    <ion-img  
+                    [src]="iconRpc[rpc.deviceType]['iconOn']"></ion-img>
+                  </ion-button>
+                  
+                  <ion-button fill="clear" 
+                  *ngIf="rpc.statusDevice === 0" 
+                  (click)="onControl(1, rpc, i)">
+                    <ion-img 
+                    [src]="iconRpc[rpc.deviceType]['iconOff']"></ion-img>
+                  </ion-button>
+                  
+                  <ion-button fill="clear" disabled style="opacity: 1;">
+                    <ion-img *ngIf="rpc.statusDevice !== 1 && rpc.statusDevice !== 0"
+                    [src]="iconRpc[rpc.deviceType]['iconMkn']"></ion-img>
+                  </ion-button>
+                  
+                </ion-col>
+              </ion-row>
+    
+              <!-- spinner khi bat/tat -->
+              <!-- <ion-row *ngIf="CheckLoadingRPC(rpc.deviceId)" class="row-spinner">
+                <ion-spinner 
+                [ngClass]="{'spinner-loading-on': rpc.statusDevice === 1, 
+                            'spinner-loading-off': rpc.statusDevice === 0}"
+                name="bubbles">
+                </ion-spinner>
+              </ion-row> -->
+              
+    
+              <!-- row status time -->
+              <ion-row class="row-status-time" >
+                <ion-col>
+                  <ion-label>
+                    {{caculationTimeDevice(rpc.statusTime)}}
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+    
+              <!-- row name device -->
+              <ion-row class="row-label-device">
+                <ion-col>
+                  <ion-label>
+                    {{!!rpc?.label ? rpc?.label : rpc?.tenThietBi}}
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+    
+              <!-- <ion-row *ngIf="CheckLoadingRPC(rpc.deviceId)" class="dang-xy-ly">
+                <p>Đang xử lý</p>
+              </ion-row> -->
+    
+            </ion-card>
+    
+          </ion-col>
+        </ion-row>
+  
+        <!-- list rem -->
+        <ion-row class="row-list-device">
+          <ion-col size="4" *ngFor="let rpc of zoneRpc.rpcRemList">
+            <ion-card class="card-default card-rem" [id]="rpc.id">
+                <!-- row status -->
+                <ion-row class="row-status">
+                  <ion-button fill="clear" 
+                  [disabled]="rpc.rpcPullDevice.statusDevice === -1 || rpc.rpcPushDevice.statusDevice === -1"
+                  (click)="settingRem(rpc)">
+                    <i class="mdi mdi-dots-vertical three-dot"></i>
+                  </ion-button>
+                </ion-row>
+      
+                <!-- row icon -->
+                <ion-row class="row-icon">
+                  <ion-col>
+                    <ion-button fill="clear" 
+                    (click)="controlRem(rpc)" 
+                    [disabled]="rpc.rpcPullDevice.statusDevice === -1 || 
+                    rpc.rpcPushDevice.statusDevice === -1 || 
+                    (rpc.pauseStatus >= 1 && rpc.pauseStatus <= 99)">
+
+                      <ion-img *ngIf="getStatusRem(rpc) !== 'Mất kết nối' && 
+                      (rpc.pauseStatus >=1 && rpc.pauseStatus <= 100)" 
+                      [src]="iconRpc[rpc?.deviceType]['iconRai']">
+                      </ion-img>
+
+                      <ion-img *ngIf="getStatusRem(rpc) !== 'Mất kết nối' && rpc.pauseStatus === 0" 
+                        [src]="iconRpc[rpc?.deviceType]['iconThuDung']">
+                      </ion-img>
+
+                      <!-- Mat ket noi rem -->
+                      <ion-img *ngIf="getStatusRem(rpc) === 'Mất kết nối' && rpc.pauseStatus === 0" 
+                        [src]="iconRpc[rpc?.deviceType]['iconThuMkn']">
+                      </ion-img>
+
+                      <ion-img *ngIf="getStatusRem(rpc) === 'Mất kết nối' && rpc.pauseStatus > 0" 
+                        [src]="iconRpc[rpc?.deviceType]['iconRaiMkn']">
+                      </ion-img>
+
+                      <!-- <ion-img *ngIf="getStatusRem(rpc) === 'Mất kết nối' && (rpc.pauseStatus === 100)" 
+                        [src]="iconRpc[rpc?.deviceType]['iconRaiMkn']">
+                      </ion-img>
+                      <ion-img *ngIf="getStatusRem(rpc) === 'Dừng' &&
+                      (rpc.pauseStatus < 100 && rpc.pauseStatus > 0 || rpc.pauseStatus === 0)" 
+                        [src]="iconRpc[rpc?.deviceType]['iconThuDung']">
+                      </ion-img>
+                      <ion-img *ngIf="getStatusRem(rpc) === 'Dừng' && (rpc.pauseStatus === 100)" 
+                        [src]="iconRpc[rpc?.deviceType]['iconRai']">
+                      </ion-img> -->
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+      
+                <!-- row status time -->
+                <ion-row class="row-status-time" >
+                  <ion-col>
+                    <ion-label>
+                      {{caculationTimeDevice(rpc.latestTimeAction)}}
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+    
+                <ion-row class="row-progress-rem">
+                  <p>{{rpc.pauseStatus}}%</p>
+                  <ion-progress-bar [value]="rpc.pauseStatus/100"></ion-progress-bar>
+                </ion-row>
+    
+                <ion-row class="row-status-rem">
+                  <ion-label>Trạng thái: {{getStatusRem(rpc)}}</ion-label>
+                </ion-row>
+      
+                <!-- row name device -->
+                <ion-row class="row-label-device">
+                  <ion-col>
+                    <ion-label>
+                      {{rpc?.name}}
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+      
+            </ion-card>
+    
+          </ion-col>
+        </ion-row>
+      </div>
+      
+      
+    </ion-grid>
+
+    <ion-row class="row-title">
+      <h3>Danh sách thiết bị rèm</h3>
+    </ion-row>
+    <ion-row class="row-list-device">
+      <ion-col size="4" *ngFor="let rpc of listRpcRem, index as i">
+        <ion-card class="card-default card-rem" [id]="rpc.id">
+            <!-- row status -->
+            <ion-row class="row-status">
+              <ion-button fill="clear" 
+              [disabled]="rpc.rpcPullDevice.statusDevice === -1 || rpc.rpcPushDevice.statusDevice === -1"
+              (click)="settingRem(rpc)">
+                <i class="mdi mdi-dots-vertical three-dot"></i>
+              </ion-button>
+            </ion-row>
+  
+            <!-- row icon -->
+            <ion-row class="row-icon">
+              <ion-col>
+                <ion-button fill="clear" 
+                (click)="controlRem(rpc)" 
+                [disabled]="rpc.rpcPullDevice.statusDevice === -1 || 
+                rpc.rpcPushDevice.statusDevice === -1 || 
+                (rpc.pauseStatus >= 1 && rpc.pauseStatus <= 99)">
+                
+                <ion-img *ngIf="getStatusRem(rpc) !== 'Mất kết nối' && 
+                (rpc.pauseStatus >=1 && rpc.pauseStatus <= 100)" 
+                [src]="iconRpc[rpc?.deviceType]['iconRai']">
+                </ion-img>
+
+                <ion-img *ngIf="getStatusRem(rpc) !== 'Mất kết nối' && rpc.pauseStatus === 0" 
+                  [src]="iconRpc[rpc?.deviceType]['iconThuDung']">
+                </ion-img>
+
+                <!-- Mat ket noi rem -->
+                <ion-img *ngIf="getStatusRem(rpc) === 'Mất kết nối' && rpc.pauseStatus === 0" 
+                  [src]="iconRpc[rpc?.deviceType]['iconThuMkn']">
+                </ion-img>
+
+                <ion-img *ngIf="getStatusRem(rpc) === 'Mất kết nối' && rpc.pauseStatus > 0" 
+                  [src]="iconRpc[rpc?.deviceType]['iconRaiMkn']">
+                </ion-img>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+  
+            <!-- row status time -->
+            <ion-row class="row-status-time" >
+              <ion-col>
+                <ion-label>
+                  {{caculationTimeDevice(rpc.latestTimeAction)}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="row-progress-rem">
+              <p>{{rpc.pauseStatus}}%</p>
+              <ion-progress-bar [value]="rpc.pauseStatus/100"></ion-progress-bar>
+            </ion-row>
+
+            <ion-row class="row-status-rem">
+              <ion-label>Trạng thái: {{getStatusRem(rpc)}}</ion-label>
+            </ion-row>
+  
+            <!-- row name device -->
+            <ion-row class="row-label-device">
+              <ion-col>
+                <ion-label>
+                  {{rpc?.name}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+  
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="mess-no-data">
+      <p  *ngIf="damTomSelectedInput?.listZoneRpc.length === 0">Không có dữ liệu!</p>
+    </ion-row>
+  </ng-container>
+</ion-grid>
+
+<ion-grid class="grid-nhom-dk">
+  <!--    nhom dieu khien header-->
+  <app-nhom-dieu-khien 
+  #nhomDk 
+  [damTomId]="damTomId" 
+  [isLoadingDataFinish]="isLoadingFinish"
+  >
+  </app-nhom-dieu-khien>
+</ion-grid>

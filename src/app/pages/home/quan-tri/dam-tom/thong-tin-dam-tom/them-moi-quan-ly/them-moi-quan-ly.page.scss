@@ -1,0 +1,211 @@
+ion-header {
+  // background-color: #d7d8da;
+  ion-back-button {
+    --color: var(--dark-700) !important;
+  }
+  ion-toolbar{
+    margin-bottom: 16px;
+    margin-top: 32px;
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,ion-icon{
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+  .search-dam {
+    --inner-padding-end: 0;
+    border-radius: 8px;
+    margin: 0 16px 16px;
+    ion-searchbar {
+      --background: #ffffff;
+      padding-left: 0px;
+      padding-right: 0px;
+      height: 48px;
+      --placeholder-color: var(--dark-700);
+      --placeholder-font-weight: 500;
+    }
+  }
+}
+ion-content {
+  font-family: "Inter var" !important;
+  .grid-content {
+    padding: 0 16px 16px;
+    color: var(--dark-700);
+    min-height: calc(100% - 234px);
+  }
+  ion-list {
+    margin: 0;
+    background-color: unset;
+    ion-item {
+      background-color: white;
+    }
+  }
+}
+.chon-ng-ql {
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 10px;
+  .chon-ng-ql-header {
+    margin: 0 0 15px 0;
+    display: flex;
+    align-items: center;
+    i {
+      font-size: 20px;
+      display: inline-block;
+      background: var(--alix-primary-color);
+      color: #fff;
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+    }
+    span {
+      padding: 0 25px;
+      color: var(--dark-700);
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+  .chon-ng-ql-content {
+    ion-col {
+      padding: 0 15px;
+
+      ion-list {
+        letter-spacing: normal;
+        color: var(--dark-700);
+        ion-card {
+          box-shadow: unset;
+          margin-top: 16px;
+          --ion-background-color: #ffffff;
+          ion-item {
+            --inner-padding-end: 0;
+            padding-left: 16px;
+            ion-checkbox {
+              // --background-checked: ;
+              // --border-color: ;
+              --size: 20px;
+              margin: 12px 0;
+            }
+            ion-row {
+              align-items: center;
+              // border-bottom: 1px solid rgba(83, 89, 95, 0.2);
+              width: 90%;
+              padding: 12px 0 12px 25px;
+              ion-label {
+                font-size: 16px;
+                line-height: 24px;
+                white-space: normal;
+                word-break: break-word;
+              }
+            }
+          }
+          // ion-item:last-child {
+          //   ion-row {
+          //     // border: none;
+          //   }
+          // }
+        }
+      }
+    }
+  }
+}
+.row-title {
+  h3 {
+    color: var(--dark-700);
+    margin: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 36px;
+    position: relative;
+  }
+  h3::before {
+    content: "";
+    height: 1px;
+    display: block;
+    width: 20px;
+    background-color: var(--alix-primary-color);
+    position: absolute;
+    top: 36px;
+    margin: 7px 0 0 0;
+  }
+  h3::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    margin: 10px 0 0px 0;
+    background-color: var(--alix-primary-color);
+  }
+}
+ion-footer {
+  position: unset;
+  z-index: unset;
+  ion-toolbar {
+    padding-top: 2px;
+    ion-row {
+      ion-col {
+        .custom-button-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          ion-icon {
+            margin-top: 2px;
+            margin-bottom: 2px;
+            font-size: 30px;
+            font-weight: 400;
+            max-width: 100%;
+          }
+          ion-label {
+            font-size: 10px;
+            min-height: 11px;
+            margin-bottom: 1px;
+            text-align: center;
+            font-weight: 500;
+            color: #8c8c8c;
+          }
+        }
+      }
+    }
+  }
+}

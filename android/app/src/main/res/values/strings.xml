@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">IoT Nông Nghiệp</string>
+    <string name="title_activity_main">IoT Nông Nghiệp</string>
+    <string name="package_name">vn.mobifoneglobal.nongnghiep</string>
+    <string name="custom_url_scheme">vn.mobifoneglobal.nongnghiep</string>
+</resources>

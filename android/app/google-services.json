@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "861503370398",
+    "project_id": "iot-nong-nghiep-mobifone",
+    "storage_bucket": "iot-nong-nghiep-mobifone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861503370398:android:85594547139a538181f78f",
+        "android_client_info": {
+          "package_name": "nongnghiep.mobifoneglobal.vn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861503370398-ob5hufc28b7dnfsbd6jn7bm493202v50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd_a_a_HwfbsNlKzr8OgZ6ReXRMG2uiJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861503370398-ob5hufc28b7dnfsbd6jn7bm493202v50.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "861503370398-ff5gcsiesrn4j9bm64gadb0sjv3j68pt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nongnghiep.mobifoneglobal.vn"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861503370398:android:1cf7f3730a53c4a581f78f",
+        "android_client_info": {
+          "package_name": "vn.mobifoneglobal.nongnghiep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861503370398-ob5hufc28b7dnfsbd6jn7bm493202v50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd_a_a_HwfbsNlKzr8OgZ6ReXRMG2uiJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861503370398-ob5hufc28b7dnfsbd6jn7bm493202v50.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "861503370398-ff5gcsiesrn4j9bm64gadb0sjv3j68pt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nongnghiep.mobifoneglobal.vn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

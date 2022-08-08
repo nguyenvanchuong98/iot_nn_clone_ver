@@ -1,0 +1,39 @@
+<!--<ion-card style="margin:0 auto" color="light">-->
+<!--    <ion-card-content>-->
+
+<!--        -->
+<!--    </ion-card-content>-->
+<!--</ion-card>-->
+
+<div class="avatar-background">
+    <ion-avatar class="avatar-user" *ngIf="avatarUrlLoad else defaultImg" (click)="showActionSheetOption()">
+        <img [src]="avatarUrlLoad">
+        <ion-button class="camera-bottom-right" [ngClass]="{'camera-bottom-right-default': !avatarUrlLoad}" fill="clear" >
+            <!-- <i class="ph-camera"></i> -->
+            <i class="mdi mdi-pencil "></i>
+        </ion-button>
+    </ion-avatar>
+
+    <!-- <ion-button class="camera-bottom-right" [ngClass]="{'camera-bottom-right-default': !avatarUrlLoad}" fill="clear" (click)="showActionSheetOption()">
+        <i class="ph-camera"></i>
+    </ion-button> -->
+    
+    <ng-template #defaultImg>
+        <ion-avatar class="avatar-user" (click)="showActionSheetOption()">
+            <img src="./assets/images/avatar-default.png">
+            <ion-button class="camera-bottom-right" [ngClass]="{'camera-bottom-right-default': !avatarUrlLoad}" fill="clear">
+                <!-- <i class="ph-camera"></i> -->
+                <i class="mdi mdi-pencil"></i>
+            </ion-button>
+        </ion-avatar>
+    </ng-template>
+
+    
+    
+    <input
+            type="file"
+            accept="image/jpeg/png"
+            *ngIf="usePicker"
+            #avatarPicker
+            (change)="chosenFile($event)">
+</div>

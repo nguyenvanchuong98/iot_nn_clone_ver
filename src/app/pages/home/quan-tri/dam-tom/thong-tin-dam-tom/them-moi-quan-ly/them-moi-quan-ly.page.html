@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+        <ion-back-button mode="md" text="" defaultHref="/home/quan-tri/dam-tom/thong-tin-dam-tom"></ion-back-button>
+        <!-- <ion-button>
+            <i class="mdi mdi-menu" style="margin-left: -8px;"></i>
+        </ion-button> -->
+    </ion-buttons>
+    <ion-row class="title-home-account">
+        <ion-label class="title"> Thêm mới người quản lý </ion-label>
+    </ion-row>
+  </ion-toolbar>
+  <!-- search bar -->
+  <ion-item
+  style="position: relative"
+  lines="none"
+  class="search-dam ion-no-padding">
+  <ion-searchbar 
+  showCancelButton="never" 
+  placeholder="Họ tên người dùng" 
+  type="text"
+  debounce="500"
+  (ionChange)="getItems($event)"
+  ></ion-searchbar>
+  </ion-item>
+
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid class="grid-content">
+    <ion-list *ngIf="!items" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+    </ion-list>
+
+    <p *ngIf="isnotFind" class="ion-text-center">
+      {{notFind}}
+    </p>
+
+    <!-- chon ng quan ly -->
+    <ion-grid *ngIf="items && !isnotFind" class="chon-ng-ql">
+      <h4 class="chon-ng-ql-header">
+        <i class="mdi mdi-select"></i>
+        <span> Chọn người</span>
+      </h4>
+      <ion-row class="chon-ng-ql-content">
+        <ion-col>
+          <ion-list>
+            <!-- <ion-item *ngIf="isnotFind" detail="false" lines="none"
+            class="ion-no-padding ion-no-margin">
+              <ion-row class="form-child">
+                <ion-label style="text-align: center;">{{notFind}}</ion-label>
+              </ion-row>
+            </ion-item> -->
+            <ion-card class="ion-no-margin ion-no-padding">
+              <ion-item
+              *ngFor="let item of items"
+                detail="false" lines="none"
+                class="ion-no-padding ion-no-margin">
+                <ion-checkbox class="ion-no-padding" mode="md" (ionChange)="selectMember(item)" [(ngModel)]="item.isChecked" checked={{item.isChecked}}></ion-checkbox>
+                <ion-row class="ion-no-margin ion-no-padding border-bottom-notify">
+                  <ion-label>{{item.firstName}}</ion-label>
+                </ion-row>
+              </ion-item>
+            </ion-card>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-row *ngIf="items && !isnotFind" class="ion-justify-content-center" style="margin: 24px 0 68px;">
+      <ion-button
+          class="btn-confirm-default"
+          (click)="onCreateUser()"
+          >Xác nhận</ion-button
+        >
+    </ion-row>
+  
+    <ion-infinite-scroll threshold="5%" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-grid>
+</ion-content>
+<ion-fab 
+vertical="bottom" 
+horizontal="end" 
+slot="fixed"
+class="custom-ion-fab"
+*ngIf="isGoTop" (click)="goTop()">
+  <ion-fab-button>
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-row>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/giam-sat" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+            <ion-label>Giám sát</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/dieu-khien" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+            <ion-label>Điều khiển</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/camera" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/camera.svg"></ion-icon>
+            <ion-label>Camera</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/quan-tri/menu" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+            <ion-label>Quản trị</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->

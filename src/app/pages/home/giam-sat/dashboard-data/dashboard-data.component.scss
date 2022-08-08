@@ -1,0 +1,467 @@
+ion-card {
+  box-shadow: none;
+}
+.favCard {
+  // width: 98%;
+  height: auto;
+  border-radius: 10px;
+  margin: 16px 16px 16px 16px;
+  // box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
+  // margin-top: 12px;
+  // margin-bottom: 12px;
+  background: #ffffff;
+  ion-item {
+    --background: #ffffff;
+  }
+  // font-family: SF Pro Display;
+}
+
+ion-content {
+  --ion-background-color: #eceff5;
+}
+
+ion-segment-button {
+  --indicator-box-shadow: transparent !important;
+  font-weight: 400;
+  --background: white;
+  --color: rgba(45, 48, 51, 0.5);
+  --background-checked: #ebf5ff !important;
+  --indicator-color: transparent !important; /* this solution */
+  height: 40px;
+  ion-label {
+    margin: 0px 15px;
+  }
+}
+
+.devider {
+  border: 1px solid rgba(83, 89, 95, 0.2);
+}
+
+.segment-button-checked {
+  font-weight: 600;
+  --color: #3d85cc;
+}
+
+.gscardlabelheader {
+  padding-top: 20%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+.segment-label {
+  font-size: 16px;
+  min-width: auto !important;
+}
+
+.giam-sat-header {
+  padding-top: 0 !important;
+}
+
+.ionbtnwarning {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  position: static;
+  // width: 343px;
+  height: 48px;
+  left: 0px;
+  top: 0px;
+  padding: 0px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  border: 1.5px solid #d91f2c;
+}
+
+.labelwarning {
+  // font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  // line-height: 24px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+  color: #d91f2c;
+}
+
+.ionbtnsafe {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  position: static;
+  // width: 343px;
+  height: 48px;
+  left: 0px;
+  top: 0px;
+  padding: 0px;
+  border: 1.5px solid #34c759;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  // margin: 0px 16px;
+}
+
+.safelabel {
+  // font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  // line-height: 24px
+  // flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+  color: #34c759;
+}
+
+.label {
+  position: static;
+  // width: 55px;
+  // height: 24px;
+  // left: 12px;
+  // top: 12px;
+  // font-family: SF Pro Display;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 10px;
+}
+
+.segment {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 2px;
+  // position: absolute;
+  // width: 375px;
+  // height: 49px;
+  left: 0px;
+  top: 0px;
+  overflow-x: scroll;
+  --background: #ffffff;
+}
+.table-row {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.ion-color-gslistbg {
+  --ion-color-base: var(--ion-color-gslistbg);
+}
+.ion-color-gstext {
+  --ion-color-base: var(--ion-color-gstext);
+}
+
+.ion-color-warningbtn {
+  --ion-color-base: var(--ion-color-warningbtn);
+}
+
+.ion-color-safebtn {
+  --ion-color-base: var(--ion-color-safebtn);
+}
+
+#notifications-badge {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  right: 0;
+  top: 8px;
+  background: #d91f2c;
+  box-shadow: 0px 0px 8px rgb(217 31 44 / 50%);
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 1px;
+  border-radius: 50%;
+}
+
+.badge-one {
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  right: -5px;
+  font-size: 0.6em;
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
+
+.badge-two {
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  right: -5px;
+  font-size: 0.6em;
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
+
+.badge-segment-one {
+  background-color: red;
+  position: absolute;
+  // top: 0px;
+  right: -7px;
+  font-size: 0.6em;
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
+
+.badge-segment-two {
+  background-color: red;
+  position: absolute;
+  // top: 0px;
+  right: -10px;
+  font-size: 0.5em;
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
+
+.h3label {
+  position: static;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #43484d;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 5px 4px 0;
+  word-wrap: break-word !important;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.devicelabel {
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  max-height: 60px;
+  color: #43484d;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 4px 8px;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.telcard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: static;
+  min-height: 122px;
+  background: #ffffff;
+  border-radius: 8px;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 1;
+  margin: 4px 4px;
+  height: 94%;
+}
+
+.telcardmkn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: static;
+  min-height: 122px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 1;
+  margin: 4px 4px;
+  height: 94%;
+}
+
+.devicenumber {
+  position: static;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+#deviceicon {
+  height: 24px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 24px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px;
+}
+
+.camcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  position: static;
+  min-height: 84px;
+  background: #ffffff;
+  border: 1px solid rgba(83, 89, 95, 0.2);
+  box-sizing: border-box;
+  border-radius: 12px;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+  // margin: 0px 8px 8px 0px;
+  margin: 4px 4px;
+  height: 96%;
+  // width: 98%;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.matketnoilabel {
+  position: static;
+  height: 24px;
+  left: 0px;
+  top: 0px;
+  padding-top: 4px;
+  padding-left: 8px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(45, 48, 51, 0.5);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 2px 0px;
+  padding-top: 5px;
+}
+
+.camName {
+  font-style: normal;
+  max-height: 72px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #43484d;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 4px 8px;
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.statusTime {
+  position: static;
+  height: 22px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.37px;
+  color: #6f7780;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.listCam {
+  margin: 16px 16px 16px 8px;
+}
+
+.inlistCam {
+  margin: 0px;
+}
+
+.dulieucambienlabel,
+.zoneLabel {
+  position: static;
+  height: 24px;
+  left: 0px;
+  top: 0px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px 7px 4px;
+}
+.zoneLabel {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  i {
+    align-items: center;
+    padding-right: 10px;
+    font-size: 24px;
+  }
+  span {
+    margin: 0;
+    display: inline-block;
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+  }
+}
+.xemtatca {
+  position: static;
+  height: 20px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  color: #3d85cc;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 4px 7px 0px;
+}
+
+.fullscreen {
+  min-height: calc(80vh - 10px);
+}

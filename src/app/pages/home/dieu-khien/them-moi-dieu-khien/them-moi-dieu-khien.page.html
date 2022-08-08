@@ -1,0 +1,257 @@
+<ion-header>  
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="buttonBack()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Thêm điều khiển</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list class="list-radio-button">
+    <ion-radio-group value="rem" mode="md" [(ngModel)]="optionSelected">
+      <ion-item>
+        <ion-label>Thiết bị khác</ion-label>
+        <ion-radio slot="start" value="another"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Rèm</ion-label>
+        <ion-radio slot="start" value="rem"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <!-- Rem -->
+  <ion-grid *ngIf="optionSelected === 'rem'" class="container-rem">
+    <form [formGroup]="themMoiDKForm">
+      <ion-row class="checkbox-control-rem">
+        <ion-radio-group (ionChange)="changePullPush($event)" formControlName="optionControl">
+          <ion-item lines="none">
+            <ion-label>
+              Rải rèm
+            </ion-label>
+            <ion-radio mode="md" slot="start" color="primary" value="PUSH"></ion-radio>
+          </ion-item>
+  
+          <ion-item lines="none">
+            <ion-label>
+              Thu rèm
+            </ion-label>
+            <ion-radio mode="md" slot="start" color="primary" value="PULL"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-row>
+      <ion-row class="select-device">
+        <ion-select 
+          [interfaceOptions]="customPopoverOptions" 
+          interface="popover"
+          okText="Xác nhận"
+          cancelText="Hủy bỏ"
+          placeholder="Chọn thiết bị"
+          formControlName="idDevice"
+          >
+
+          <div *ngFor="let zone of deviceZones">
+            <ion-select-option 
+            *ngIf="zone.rpcRemList.length > 0"
+            [disabled]="true"
+            class="option-zone" 
+            [value]="zone.zoneName">
+                {{zone.zoneName}}
+            </ion-select-option>
+
+            <div *ngIf="themMoiDKForm.get('optionControl').value === 'PUSH'">
+              <ion-select-option 
+              [disabled]="dv.disable"
+              class="zone-device-item"
+              *ngFor="let dv of zone.rpcRemList" 
+              [value]="dv.rpcPushId">
+                  {{dv.name}}
+              </ion-select-option>
+            </div>
+            <div *ngIf="themMoiDKForm.get('optionControl').value === 'PULL'">
+              <ion-select-option 
+              [disabled]="dv.disable"
+              class="zone-device-item"
+              *ngFor="let dv of zone.rpcRemList" 
+              [value]="dv.rpcPullId">
+                  {{dv.name}}
+              </ion-select-option>
+            </div>
+
+          </div>
+          
+        </ion-select>
+      </ion-row>
+      <ion-row class="row-ty-le-control">
+        <span>
+          {{titlePullPush}} (%)
+        </span>
+        <ion-item lines="none">
+          <ion-input 
+          formControlName="percentControl"
+          (ionChange)="changePercentInput($event)" 
+          inputmode="numeric" 
+          type="number">
+        </ion-input>
+        </ion-item>
+        <p id="error" class="mess-error hidden">Nhập trong khoảng 0 đến 100</p>
+      </ion-row>
+
+      <ion-row class="row-select-percent">
+        <ion-radio-group 
+        #radioGroup 
+        allowEmptySelection="true" 
+        name="radioGroupControl"
+        (ionChange)="changeRadioPercent($event)">
+          <ion-item 
+          *ngFor="let percent of listPercent" 
+          lines="none">
+            <ion-label>{{percent}}%</ion-label>
+            <ion-radio 
+            slot="start" 
+            [value]="percent"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-row>
+
+      <!-- <ion-row class="row-time">
+        <span>Thời gian</span>
+        <ion-item lines="none" class="item-datetime">
+          <ion-label>{{msToTime()}}</ion-label>
+        </ion-item>
+      </ion-row> -->
+
+    </form>
+  </ion-grid>
+
+  <!-- Thiet bi khac -->
+  <ion-grid class="main-grid" *ngIf="optionSelected === 'another'">
+      <form [formGroup]="themMoiDKForm" *ngIf="themMoiDKForm && !isDeviceLoading">
+        <ion-row class="input-area role">
+          <ion-item
+              lines="none"
+              class="ion-text-center item-with-border"
+              style="font-weight: bold"
+            >
+              <ion-icon src='assets/icon/device-tablet-speaker.svg'></ion-icon>
+              <ion-label [hidden]="true">Chọn thiết bị *</ion-label>
+              <ion-select  [interfaceOptions]="customPopoverOptions" interface="popover" *ngIf="!isDeviceLoading"
+                formControlName="idDevice"
+                placeholder="Chọn thiết bị *"
+                okText="Xác nhận"
+                cancelText="Hủy bỏ"
+              >
+                <div *ngFor="let zone of deviceZones">
+                  <ion-select-option
+                    *ngIf="zone.rpcDeviceList.length > 0"
+                    [disabled]="true"
+                    class="zone-item-disable"
+                    [value]="zone.zoneName"
+                    >{{ zone.zoneName }}
+                  </ion-select-option>
+                  <ion-select-option 
+                    [disabled]='dv.disable'
+                    class="zone-device-item"
+                    *ngFor="let dv of zone.rpcDeviceList"
+                    [value]="dv.deviceId"
+                    >{{ dv.label ? dv.label : dv.tenThietBi }}</ion-select-option
+                  >
+                </div>
+              </ion-select>
+              <span class="select-icon">
+                <!-- <ion-icon src="assets/icon/caret-down.svg"></ion-icon> -->
+                <i class="mdi mdi-chevron-down"></i>
+              </span>
+            </ion-item>
+        </ion-row>
+
+        <!--    toggle bat tat thiet bi -->
+        <ion-row class="input-area row-on-off">
+          <i class="mdi mdi-repeat"></i>
+          <ion-label class="su-kien-label">{{themMoiDKForm.get('toggleOnOff').value==true?'Bật thiết bị':'Tắt thiết bị'}}</ion-label>
+          <ion-toggle formControlName="toggleOnOff"></ion-toggle>
+        </ion-row>
+        <!--    thuc hien sau khi kich hoat -->
+        <ion-card class="set-time">
+          <ion-row class="tab-header">
+            <i class="mdi mdi-power icon-header"></i>
+            <span>Điều khiển *</span>
+          </ion-row>
+          <ion-row class="child-time">
+            <ion-label>Thực hiện sau</ion-label>
+            <div class="custom-ion-datetime-occur">
+              <i class="ph-clock activeLoopOption"></i>
+              <ion-datetime formControlName="timeAfterActivated" placeholder="00 : 00 : 00"
+                displayFormat="HH : mm : ss" doneText="Xác nhận" cancelText="Hủy bỏ">
+              </ion-datetime>
+            </div>
+          </ion-row>
+          <!-- Chi co thiet bi thi moi chon cac muc thoi gian duoi -->
+            <ion-row class="child-time">
+              <ion-label>Thực hiện trong</ion-label>
+              <ion-checkbox mode="md" formControlName="checkBoxDoIn"
+                (ionChange)="checkBoxOption1()">
+              </ion-checkbox>
+              <div class="custom-ion-datetime-occur">
+                <i  [ngClass]="{'activeLoopOption':  isEnabledTitle, 'inactiveLoopOption': !isEnabledTitle}" class="ph-clock"></i>
+                <!-- <ion-datetime formControlName="timeCallback" placeholder="Chọn thời gian"
+                  displayFormat="HH giờ : mm pḩút : ss giây" doneText="Xác nhận" cancelText="Hủy bỏ">
+                </ion-datetime>
+                <span class="fake-mark">
+                  <span class="fake-mark1">
+                    <span class="fake-mark2">
+                    </span>
+                  </span>
+                </span> -->
+                <ion-datetime formControlName="timeDoIn" placeholder="00 : 00 : 00"
+                  displayFormat="HH : mm : ss" doneText="Xác nhận" cancelText="Hủy bỏ">
+                </ion-datetime>
+              </div>
+            </ion-row>
+  
+            <ion-row class="child-time">
+              <ion-label [ngClass]="{'activeLoopOption':  isEnabledTitle, 'inactiveLoopOption': !isEnabledTitle}">
+                Lặp lại sau
+              </ion-label>
+              <ion-checkbox class="loopCheckbox" mode="md" formControlName="loopOption"
+                (ionChange)="checkBoxOption2()">
+              </ion-checkbox>
+              <div class="custom-ion-datetime-occur">
+                <i [ngClass]="{'activeLoopOption':  isEnabledText, 'inactiveLoopOption': !isEnabledText}" class="ph-clock"></i>
+                <ion-datetime formControlName="timeLoopAfter" placeholder="00 : 00 : 00"
+                  displayFormat="HH : mm : ss" doneText="Xác nhận" cancelText="Hủy bỏ">
+                </ion-datetime>
+              </div>
+            </ion-row>
+  
+            <ion-row class="child-time">
+              <ion-label [ngClass]="{'activeLoopOption':  isEnabledText, 'inactiveLoopOption': !isEnabledText}">Số lần lặp lại</ion-label>
+              <ion-row class="row-loop-count">
+                <ion-select  [interfaceOptions]="customPopoverOptions1" interface="popover" name="loopCount" formControlName="loopCount" class="ion-no-padding selector">
+                  <ion-select-option *ngFor="let number of numberSelect" [value]="number">{{number}}
+                  </ion-select-option>
+                </ion-select>
+                <div class="fake-white"></div>
+              </ion-row>
+            </ion-row>
+        </ion-card>
+      </form>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="action">
+      <!-- <ion-button class="btn-yellow ion-no-margin" (click)="buttonBack()" fill="clear">
+        <ion-label>Hủy bỏ</ion-label>
+      </ion-button> -->
+      <ion-button class="btn-confirm-default ion-no-margin" (click)="onSubmit()" 
+      [disabled]='themMoiDKForm.invalid' >
+        <ion-label>Xác nhận</ion-label>
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>

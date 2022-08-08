@@ -1,0 +1,316 @@
+ion-header {
+  // background-color: #d7d8da;
+  .title-home-account {
+    justify-content: space-between;
+    margin-bottom: 16px; // Man con can margin bottom
+    margin-top: 32px;
+    ion-button {
+      height: unset;
+      i {
+        color: #455a64;
+        font-size: 23px;
+        margin-right: 24px;
+      }
+    }
+    // ChuongNV 11/9/2021
+    .title {
+      color: #455a64;
+      text-transform: none;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 36px;
+      position: relative;
+      margin: 0 0 0 16px;
+    }
+
+    .title::before {
+      display: block;
+      position: absolute;
+      content: " ";
+      height: 1px;
+      width: 20px;
+      margin: 7px 0 0px 0;
+      background: #64b5f6;
+      top: 36px;
+    }
+
+    .title::after {
+      display: block;
+      position: relative;
+      content: " ";
+      height: 1px;
+      width: 40px;
+      margin: 10px 0 0px 0;
+      background: #64b5f6;
+    }
+  }
+}
+ion-fab {
+  // margin-bottom: 50px;
+  margin-bottom: -5px;
+  ion-button {
+    background: #64b5f6;
+    height: 40px;
+    padding: 0px;
+    text-align: center;
+    width: 40px;
+    border-radius: 32px;
+  }
+  i {
+    color: #fff;
+    line-height: 40px;
+    font-size: 1.2rem;
+  }
+}
+ion-col {
+  padding: 0;
+}
+ion-slides {
+  // height: 120vh;
+  z-index: 0;
+}
+
+//select option dam tom
+// .wrap_content {
+//   height: 100%;
+//   ion-row{
+//     height: 100%;
+//     ion-slides{
+//       height: 100%;
+//       ion-slide{
+//         height: 100%;
+//       }
+//     }
+//   }
+// }
+.loading-data {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+.select-icon {
+  pointer-events: none;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 10px;
+  top: 12px;
+  z-index: 10000;
+  background: #ffffff;
+  min-width: 10%;
+  flex: 1;
+  text-align: right;
+  i,
+  ion-icon {
+    font-size: 20px;
+    color: var(--dark-700);
+  }
+}
+
+ion-item {
+  --background-activated: var(--background-content-dark-mode);
+  --padding-start: 10px;
+  --border-radius: 8px;
+  ion-select {
+    text-align: left;
+    color: var(--dark-700);
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    --padding-start: 10px;
+    height: 48px;
+  }
+  // ion-select::part(icon) {
+  //   display: none;
+  //   visibility: hidden;
+  // }
+  i {
+    font-size: 20px;
+    color: var(--dark-700);
+  }
+}
+.row-choose-vuon{
+  background-color: var(--background-content-dark-mode) !important;
+}
+// Segment lua chon
+form{
+  background-color: var(--background-content-dark-mode);
+  .segement-row{
+    margin: 0 16px;
+    background-color: var(--background-content-dark-mode);
+  }
+}
+ion-segment {
+  // margin-top: 16px;
+  // height: 40px;
+  // background: none;
+  height: 66px;
+  // background: #e8e8e8;
+  border-radius: unset;
+  padding: 16px 0;
+  ion-segment-button {
+    --indicator-box-shadow: transparent !important;
+    // border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    border-radius: 50px;
+    --background: white;
+    --color: var(--dark-700);
+    font-weight: 500;
+    //--background-checked: linear-gradient(to right, #2d2e87, #0083CB)!important;
+    --background-checked: #64b5f6;
+    --color-checked: #ffffff;
+    --indicator-color: transparent !important;
+    min-width: fit-content;
+    margin: 0;
+    margin-right: 8px;
+    margin-bottom: 16px;
+    height: 35px;
+  }
+  ion-segment-button::before {
+    content: none;
+  }
+  ion-segment-button:last-child {
+    margin-right: 0;
+  }
+}
+
+ion-badge {
+  --background: var(--color-warning);
+  margin: 0 0 0 7px;
+  position: relative;
+  top: 2px;
+}
+//custom modal
+.my-custom-modal-css .modal-wrapper {
+  --height: 80%;
+  margin-top: 50%;
+}
+//code old Dung
+ion-select {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.segment-label {
+  font-size: 16px;
+  min-width: auto !important;
+}
+ion-modal ion-backdrop {
+  visibility: hidden;
+}
+
+ion-content div.scroll-content {
+  background-color: transparent;
+}
+.col-select {
+  padding: 0 16px;
+  background: #e8e8e8;
+}
+.choose-device {
+  ion-item {
+    width: 100%;
+  }
+}
+.row-pick-time {
+  margin: 12px 0;
+  ion-col:first-child {
+    // padding-right: 5px;
+    padding: 0 6px 0 0;
+  }
+  ion-col:last-child {
+    // padding-left: 5px;
+    padding: 0 0 0 6px;
+  }
+  ion-item {
+    font-size: 14px;
+    --padding-start: 6px;
+    --inner-padding-end: 0;
+    ion-datetime {
+      width: 100%;
+      text-align: center;
+      font-size: 15px;
+      color: var(--dark-700);
+    }
+    i {
+      padding-right: 3px;
+      font-size: 20px;
+      color: var(--dark-700);
+    }
+  }
+  @media screen and (min-width: 414px) {
+    ion-col {
+      ion-item {
+        --padding-start: 12px !important;
+      }
+    }
+  }
+}
+.picktime-history {
+  position: static;
+  background: #ffffff;
+  border-radius: 8px;
+  ion-item {
+    --background: #ffffff;
+  }
+}
+.reportbtn {
+  margin: 8px 0 0 0px;
+  width: 100%;
+  padding: 0 0 0 8px;
+  height: 48px;
+}
+.btnclick {
+  --background: #ffffff;
+}
+.btnnotclick {
+  --background: #3d85cc;
+}
+.box-filter-time {
+  padding: 0 16px;
+  background-color: #e8e8e8;
+  padding-bottom: 8px;
+  p {
+    color: #d91f2c;
+    font-size: 12px;
+  }
+}
+.hide_slideTC {
+  height: 400px;
+}
+.display_slideTC {
+  height: unset;
+}
+.hide_slideTD {
+  height: 400px;
+}
+.display_slideTD {
+  height: unset;
+  // min-height: 100%;
+  // // hien thi info footer ben duoi
+  // width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
+}
+.hide_slideHG {
+  height: 400px;
+}
+.display_slideHG {
+  height: unset;
+}
+.hide_slideLS {
+  display: none;
+}
+.display_slideLS {
+  display: block;
+}
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  overflow: hidden;
+}
+.fake-swipe{
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}

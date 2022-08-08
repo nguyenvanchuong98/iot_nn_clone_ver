@@ -1,0 +1,105 @@
+ion-card {
+  box-shadow: none;
+  // background-color: #ffffff;
+  background-color: var(--background-input-dark-mode);
+  ion-col {
+    padding: 0;
+    text-align: center;
+    height: 96%;
+  }
+}
+.card-camera {
+  margin: 8px;
+  .card-header {
+    padding: 12px 16px;
+    ion-row {
+      position: relative;
+      align-items: center;
+    }
+    .icon-circle-header {
+      background-color: var(--alix-primary-color);
+      color: #ffffff;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      text-align: center;
+      line-height: 36px;
+      font-size: 20px;
+    }
+    span {
+      font-size: 16px;
+      padding-left: 15px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      // color: rgb(30, 41, 59);
+      color: var(--dark-700);
+      line-height: 24px;
+    }
+    ion-icon {
+      position: absolute;
+      right: 0;
+      top: 10px;
+      font-size: 14px;
+      color: var(--dark-700);
+    }
+  }
+  .container-header {
+    position: relative;
+
+    .btn-3-dot {
+      margin: 0;
+      position: absolute;
+      height: unset;
+      right: 10%;
+      top: 28%;
+      color: var(--dark-700);
+      i {
+        font-size: 24px;
+      }
+    }
+  }
+  .card-content {
+    padding: 10px 12px 30px;
+    min-height: 175px;
+    ion-card {
+      margin: 0;
+      padding: 16px 8px;
+      // border: 1.5px solid #e3e2e2;
+      // background-color: rgb(241, 245, 249);
+      background-color: var(--background-content-dark-mode);
+      margin: 6px;
+      height: 96%;
+    }
+    .row-icon,
+    .row-name {
+      justify-content: center;
+    }
+    .row-icon {
+      i {
+        font-size: 30px;
+        background-color: var(--alix-primary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+      }
+    }
+
+    .row-name {
+      ion-label {
+        padding: 8px 0 0;
+        font-size: 16px;
+        // color: #1e293b;
+        color: var(--dark-700);
+        letter-spacing: -0.4px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

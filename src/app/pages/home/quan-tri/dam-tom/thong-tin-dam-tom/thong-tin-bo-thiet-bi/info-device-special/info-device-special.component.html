@@ -1,0 +1,182 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="huy()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Thông tin thiết bị đặc biệt</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="grid-container">
+
+    <form [formGroup]="formEditRem">
+      <ion-row class="row-name">
+        <ion-item lines="none">
+          <i class="mdi mdi-clipboard-text"></i>
+          <ion-input
+            formControlName="nameSpecialDevice"
+            placeholder="Tên thiết bị đặc biệt *"
+            required>
+          </ion-input>
+        </ion-item>
+        <!-- Validate ten dam tom -->
+        <p class="mess-error" *ngIf="formEditRem.get('nameSpecialDevice').value.trim()==''
+                                    && formEditRem.get('nameSpecialDevice').touched">
+          Đây là trường bắt buộc!
+        </p>
+
+        <p  *ngIf="formEditRem.get('nameSpecialDevice').value.length > 255" class="mess-error">
+          Tối đa 255 ký tự!
+        </p>
+      </ion-row>
+    </form>
+
+  
+      <ion-grid class="grid-chon-thiet-bi">
+        <ion-row class="row-title">
+          <h3>
+            <i class="mdi mdi-select"></i>
+            Chọn thiết bị *
+          </h3>
+        </ion-row>
+
+        <ion-row class="row-rai-rem">
+          <h3>Rải rèm</h3>
+          <ion-select 
+          [interfaceOptions]="customActionSheetOptions" 
+          okText="Xác nhận"
+          cancelText="Hủy bỏ"
+          [placeholder]= "deviceRaiRem.tenThietBi"
+          [ngModel]="deviceRaiRem.deviceId"
+          (ngModelChange)="addRaiRem($event)">
+
+          <div *ngFor="let zone of listZoneRem">
+            <ion-select-option 
+            [disabled]="true"
+            class="option-zone" 
+            [value]="zone.zoneName">
+                {{zone.zoneName}}
+            </ion-select-option>
+
+            <ion-select-option 
+            class="option-device-rem" 
+            *ngFor="let rem of zone.rpcDeviceList" 
+            [value]="rem.deviceId">
+                {{!!rem.label ? rem.label : rem.tenThietBi}}
+            </ion-select-option>
+          </div>
+        </ion-select>
+        </ion-row>
+
+        <ion-row class="row-thu-rem">
+          <h3>Thu rèm</h3>
+          <ion-select 
+            [interfaceOptions]="customActionSheetOptions" 
+            [placeholder]="deviceThuRem.tenThietBi"
+            okText="Xác nhận" 
+            cancelText="Hủy bỏ" 
+            [ngModel]="deviceThuRem.deviceId"
+            (ngModelChange)="addThuRem($event)">
+            <div *ngFor="let zone of listZoneRem">
+              <ion-select-option 
+              [disabled]="true"
+              class="option-zone" 
+              [value]="zone.zoneName">
+                  {{zone.zoneName}}
+              </ion-select-option>
+  
+              <ion-select-option 
+              class="option-device-rem" 
+              *ngFor="let rem of zone.rpcDeviceList" 
+              [disabled]="!zone?.zoneChecked || rem.isChecked"
+              [value]="rem.deviceId">
+                  {{!!rem.label ? rem.label : rem.tenThietBi}}
+              </ion-select-option>
+            </div>
+          </ion-select>
+        </ion-row>
+      </ion-grid>
+  
+      <ion-grid class="grid-thiet-lap-time">
+        <h3>
+          <ion-icon name="alarm-outline"></ion-icon>
+          Thiết lập thời gian
+        </h3>
+        <!-- <ion-row class="row-time-run">
+          <p>{{msToTime(settingDeviceSpecial.timeProcess)}}</p>
+        </ion-row>
+  
+        <ion-row class="ion-justify-content-center">
+          <ion-button *ngIf="isResetTime" (click)="resetTime()" class="btn-reset">
+            Đặt lại
+          </ion-button>
+
+          <ion-button *ngIf="isStopTime" (click)="stopTime()" class="btn-confirm-default">
+            Dừng
+          </ion-button>
+          
+          <ion-button *ngIf="isContinue" (click)="continueTime()" class="btn-continue">
+            Tiếp tục
+          </ion-button>
+        </ion-row> -->
+  
+        <ion-row class="row-total-time">
+          <h4>Thiết lập thời gian *</h4>
+          <!-- <ion-item lines="none">
+            <p>{{msToTime(settingDeviceSpecial.totalTime)}}</p>
+          </ion-item> -->
+
+          <form [formGroup]="formEditRem">
+            <ion-row>
+              <ion-datetime 
+                formControlName="totalTime" 
+                placeholder="00 : 00 : 00"
+                presentation="time"
+                displayFormat="HH : mm : ss" 
+                hour-values="0"
+                [minuteValues]="minuteValues"
+                doneText="Xác nhận" 
+                cancelText="Hủy bỏ">
+              </ion-datetime>
+            </ion-row>
+          </form>
+
+          <!-- <ion-button
+          fill="clear"
+          (click)="resetSlider()">
+            <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+          </ion-button> -->
+        </ion-row>
+
+        <!-- <ion-row class="row-ranger">
+          <ion-item lines="none">
+            <ion-range 
+            [(ngModel)]="settingDeviceSpecial.totalTime"
+            min="0" 
+            [max]="maxTime" 
+            color="secondary" 
+            step="1000">
+              <ion-label slot="start">{{msToTime(settingDeviceSpecial.totalTime)}}</ion-label>
+              <ion-label slot="end">{{msToTime(30*60*1000)}}</ion-label>
+            </ion-range>
+          </ion-item>
+        </ion-row> -->
+  
+      </ion-grid>
+  
+      <ion-row class="row-submit">
+        <ion-button 
+        [disabled]="formEditRem.get('nameSpecialDevice').value.trim()==''
+        || formEditRem.get('nameSpecialDevice').value.length > 255 
+        || deviceRaiRem === undefined 
+        || deviceThuRem === undefined "
+        class="btn-confirm-default" (click)="onSubmit()">Xác nhận</ion-button>
+      </ion-row>
+    
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,16 @@
+{
+  "appId": "nongnghiep.mobifoneglobal.vn",
+  "appName": "IoT Nông Nghiệp",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "PushNotifications": {
+      "presentationOptions": ["bagde","sound","alert"]
+    }
+  },
+  "cordova": {}
+}

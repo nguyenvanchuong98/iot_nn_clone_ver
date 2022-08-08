@@ -1,0 +1,509 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/home/dieu-khien">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Thêm mới kịch bản</ion-title>
+  </ion-toolbar> -->
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/dieu-khien"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title"> Thêm mới kịch bản </ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true"
+(ionScroll)="logScrolling($event)">
+  <ion-grid class="main-grid">
+    <ion-row  style="margin: 24px 0;" *ngIf="!!isLoadingInit||!!isLoadingZone" class="ion-justify-content-center">
+      <ion-spinner></ion-spinner>
+    </ion-row>
+    <form [formGroup]="form" *ngIf="form">
+      <ion-row class="input-area">
+        <ion-item lines="none">
+          <i class="mdi mdi-file-document icon-header"></i>
+          <ion-input
+            trimWhiteSpace formControlName="name" placeholder="Tên kịch bản *"
+          ></ion-input>
+        </ion-item>
+        <p
+        *ngIf="validate('name', 'maxlength')"
+        >
+         Tối đa 255 ký tự!
+        </p>
+        <p
+        *ngIf="validate('name', 'required')"
+        >
+          Đây là trường bắt buộc
+        </p>
+        <p
+        *ngIf="isExistName&&!validate('name', 'required')"
+        >
+        Tên kịch bản đã tồn tại!
+        </p>
+        <!-- <p *ngIf="form.get('reportScheduleName').hasError('maxlength')">
+          Tối đa 255 ký tự
+        </p> -->
+      </ion-row>
+      
+      <ion-card class="condition-card">
+        <ion-row class="tab-header">
+          <i class="mdi mdi-thermometer-lines icon-header"></i>
+          <span>Điều kiện môi trường</span>
+          <ion-button [disabled]='!!isLoadingInit||!!isLoadingZone' class="btn-add-rpc ion-float-right ion-no-padding ion-no-margin" fill="clear" (click)="presentModalThemMoiSuKien()">
+            <i class="mdi mdi-plus-circle"></i>
+          </ion-button>
+        </ion-row>
+        <ion-row style="padding-bottom: 5px;" *ngIf="suKien.length > 0" class="row-su-kien">
+          <ion-col class="ion-no-padding col-listicon" size="10">
+            <div class="icon-device" *ngFor="let element of suKien;">
+              <ion-img 
+              [src]="telemetryIcon[element.duLieuCamBien]['icon']"></ion-img>
+            </div>
+          </ion-col>
+          <ion-col class="ion-no-padding col-action" (click)="showLstDKMT = !showLstDKMT" size="2">
+            <i *ngIf="showLstDKMT" class="ph-caret-up-bold"></i>
+            <i *ngIf="!showLstDKMT" class="ph-caret-down-bold"></i>
+          </ion-col>
+        </ion-row>
+        <ng-container *ngIf="showLstDKMT">
+          <ion-row *ngFor="let element of suKien;index as i;" class="row-su-kien">
+            <ion-col class="ion-no-padding" size="2">
+              <ion-img 
+              [src]="telemetryIcon[element.duLieuCamBien]['icon']"></ion-img>         
+            </ion-col>
+            <ion-col size="8" (click)="editSuKien(i)" class="ion-align-self-center">
+              <ion-label class="su-kien-name-label">{{getSuKienDisplay(element)}}</ion-label>
+            </ion-col>
+            <ion-col size="2" class="ion-no-padding ion-align-self-center">
+              <ion-row class="ion-justify-content-end">
+                <!-- <i class="ph-gear-six edit-btn" (click)="editSuKien(i)"></i> -->
+                <!-- <i class="ph-trash-fill delete-btn" (click)="deleteSuKien(i)"></i> -->
+                <ion-icon name="trash" (click)="deleteSuKien(i)"></ion-icon>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ng-container>
+      </ion-card>
+      
+      <ion-card class="condition-card">
+        <ion-row class="tab-header">
+          <i class="mdi mdi-gauge-full icon-header"></i>
+          <span>Điều kiện thiết bị</span>
+          <ion-button [disabled]='!!isLoadingInit||!!isLoadingZone' 
+          class="btn-add-rpc ion-float-right ion-no-padding ion-no-margin" 
+          fill="clear" 
+          (click)="presentModalThemMoiDKTB()">
+            <i class="mdi mdi-plus-circle"></i>
+          </ion-button>
+        </ion-row>
+        <ion-row style="padding-bottom: 5px;" *ngIf="dieuKienTB.length > 0" class="row-su-kien">
+          <ion-col class="ion-no-padding col-listicon" size="10">
+            <div class="icon-device" *ngFor="let element of dieuKienTB;">
+              <!-- thiet bi khac -->
+              <div *ngIf="element.deviceType !== 'REM'">
+                <ion-img *ngIf="element.trangThai" 
+                [src]="iconRpc[element.deviceType]['iconOn']"></ion-img>
+                <ion-img *ngIf="!element.trangThai" 
+                [src]="iconRpc[element.deviceType]['iconOff']"></ion-img>
+              </div>
+              <!-- thiet bi rem -->
+              <div *ngIf="element.deviceType === 'REM'">
+                <ion-img *ngIf="checkConditionShowIconRem(element) === 'rai'"
+                  [src]="iconRpc[element.deviceType]['iconRai']">
+                </ion-img>
+                <ion-img *ngIf="checkConditionShowIconRem(element) === 'thu'"
+                  [src]="iconRpc[element.deviceType]['iconThu']">
+                </ion-img>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="ion-no-padding col-action" (click)="showLstDKTB = !showLstDKTB" size="2">
+            <i *ngIf="showLstDKTB" class="ph-caret-up-bold"></i>
+            <i *ngIf="!showLstDKTB" class="ph-caret-down-bold"></i>
+          </ion-col>
+        </ion-row>
+        <ng-container *ngIf="showLstDKTB">
+          <ion-row *ngFor="let element of dieuKienTB;index as i;" class="row-su-kien">
+            <!-- icon button thiet bi khac -->
+            <ion-col class="ion-no-padding" size="2" *ngIf="element.deviceType !== 'REM'">
+              <ion-button class="ion-no-padding ion-no-margin" fill="clear" 
+              *ngIf="element.trangThai" 
+              (click)="onChangeTrangThai(element)">
+                <ion-img  
+                [src]="iconRpc[element.deviceType]['iconOn']"></ion-img>
+              </ion-button>
+              
+              <ion-button class="ion-no-padding" fill="clear" 
+              *ngIf="!element.trangThai" 
+              (click)="onChangeTrangThai(element)">
+                <ion-img 
+                [src]="iconRpc[element.deviceType]['iconOff']"></ion-img>
+              </ion-button>              
+            </ion-col>
+            <!-- icon button thiet bi rem -->
+            <ion-col class="ion-no-padding" size="2" *ngIf="element.deviceType === 'REM'">
+              <ion-img *ngIf="checkConditionShowIconRem(element) === 'rai'"
+                [src]="iconRpc[element.deviceType]['iconRai']">
+              </ion-img>
+              <ion-img *ngIf="checkConditionShowIconRem(element) === 'thu'"
+                [src]="iconRpc[element.deviceType]['iconThu']">
+              </ion-img>
+            </ion-col>
+            <!-- label thiet bi khac -->
+            <ion-col size="8" 
+            (click)="editDKTB(i)" 
+            class="ion-align-self-center" 
+            *ngIf="element.deviceType !== 'REM'">
+              <ion-label class="su-kien-name-label">
+                {{getRpcLabel(element.labelTB)}} {{element.trangThai==true?' đang bật':' đang tắt'}}
+              </ion-label>
+            </ion-col>
+            <!-- label thiet bi rem -->
+            <ion-col size="8" 
+            (click)="editDKTB(i)" 
+            class="ion-align-self-center" 
+            *ngIf="element.deviceType === 'REM'">
+              <ion-label class="su-kien-name-label">
+                {{getNameRemFromNamePull(element.labelTB)}} {{convertSignCompare(element.compare)}} {{element.percent}}%
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="2" class="ion-no-padding ion-align-self-center">
+              <ion-row class="ion-justify-content-end">
+                <!-- <i class="ph-trash-fill delete-btn" (click)="deleteDKTB(element,i)"></i> -->
+                <ion-icon name="trash" (click)="deleteDKTB(element,i)"></ion-icon>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ng-container>
+      </ion-card>
+
+      <ion-card class="set-time">
+        <ion-row class="tab-header">
+          <i class="mdi mdi-timer icon-header"></i>
+          <span>Điều kiện thời gian</span>
+          <ion-button class="btn-add-rpc ion-float-right ion-no-padding ion-no-margin" fill="clear" (click)="showTimeOption = !showTimeOption">
+            <i *ngIf="showTimeOption" class="ph-caret-up-bold"></i>
+            <i *ngIf="!showTimeOption" class="ph-caret-down-bold"></i>
+          </ion-button>
+        </ion-row>
+        <ion-row *ngIf="showTimeOption" class="child-time">
+          <ion-label>Xảy ra trong</ion-label>
+          <div class="custom-ion-datetime-occur">
+            <i class="ph-clock"></i>
+            <ion-datetime formControlName="duration" placeholder="00 : 00 : 00"
+              displayFormat="HH : mm : ss" doneText="Xác nhận" cancelText="Hủy bỏ">
+            </ion-datetime>
+          </div>
+        </ion-row>
+        <!-- Tu -> den -->
+        <ion-row *ngIf="showTimeOption" class="row-item">
+          <ion-col class="ion-no-padding">
+            <ion-row>
+              <ion-label class="su-kien-label">Từ</ion-label>
+              <div class="wrap-datetime" style="margin-right: 8px;">
+                <i class="ph-clock"></i>
+                <ion-datetime formControlName="scheduleStart" placeholder="00 : 00"
+                  displayFormat="HH : mm" doneText="Xác nhận" cancelText="Hủy bỏ">
+                </ion-datetime>
+              </div>
+            </ion-row>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-row>
+              <ion-label class="su-kien-label">Đến</ion-label>
+              <div class="wrap-datetime">
+                <i class="ph-clock"></i>
+                <ion-datetime formControlName="scheduleEnd" placeholder="00 : 00"
+                  displayFormat="HH : mm" doneText="Xác nhận" cancelText="Hủy bỏ">
+                </ion-datetime>
+              </div>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <p *ngIf="checkValidTime()"
+        >
+          Khoảng thời gian không hợp lệ
+        </p>
+
+        <!-- Vao cac ngay -->
+        <ion-row *ngIf="showTimeOption" class="child-time">
+          <ion-label>Vào các ngày</ion-label>
+        </ion-row>
+        <ion-row *ngIf="showTimeOption" class="pick-day ion-justify-content-between">
+          <div class="day-of-week-btn" [ngClass]="{
+            'day-of-week-btn': !scheduleDayOfWeek['1'],
+            'day-of-week-btn-active': scheduleDayOfWeek['1']
+          }" (click)="toggleDayOfWeek('1')
+          ">
+            <div class="container">
+              <div class="text">T2</div>
+            </div>
+          </div>
+        
+          <div class="day-of-week-btn" [ngClass]="{
+            'day-of-week-btn': !scheduleDayOfWeek['2'],
+            'day-of-week-btn-active': scheduleDayOfWeek['2']
+          }" (click)="toggleDayOfWeek('2')
+          ">
+            <div class="container">
+              <div class="text">T3</div>
+            </div>
+          </div>
+        
+          <div class="day-of-week-btn" [ngClass]="{
+            'day-of-week-btn': !scheduleDayOfWeek['3'],
+            'day-of-week-btn-active': scheduleDayOfWeek['3']
+          }" (click)="toggleDayOfWeek('3')
+          ">
+            <div class="container">
+              <div class="text">T4</div>
+            </div>
+          </div>
+        
+          <div class="day-of-week-btn" [ngClass]="{
+            'day-of-week-btn': !scheduleDayOfWeek['4'],
+            'day-of-week-btn-active': scheduleDayOfWeek['4']
+          }" (click)="toggleDayOfWeek('4')
+          ">
+            <div class="container">
+              <div class="text">T5</div>
+            </div>
+          </div>
+        
+          <div class="day-of-week-btn" [ngClass]="{
+            'day-of-week-btn': !scheduleDayOfWeek['5'],
+            'day-of-week-btn-active': scheduleDayOfWeek['5']
+          }" (click)="toggleDayOfWeek('5')
+          ">
+            <div class="container">
+              <div class="text">T6</div>
+            </div>
+          </div>
+        
+          <div class="day-of-week-btn" [ngClass]="{
+            'day-of-week-btn': !scheduleDayOfWeek['6'],
+            'day-of-week-btn-active': scheduleDayOfWeek['6']
+          }" (click)="toggleDayOfWeek('6')
+          ">
+            <div class="container">
+              <div class="text">T7</div>
+            </div>
+          </div>
+        
+          <div class="day-of-week-btn" [ngClass]="{
+            'day-of-week-btn': !scheduleDayOfWeek['7'],
+            'day-of-week-btn-active': scheduleDayOfWeek['7']
+          }" (click)="toggleDayOfWeek('7')
+          ">
+            <div class="container">
+              <div class="text">CN</div>
+            </div>
+          </div>
+        
+        </ion-row>
+      </ion-card>
+
+      <ion-card class="control-card">
+        <ion-row class="tab-header">
+          <i class="mdi mdi-power icon-header"></i>
+          <span>Điều khiển *</span>
+          <ion-button [disabled]='!!isLoadingInit||!!isLoadingZone' *ngIf="!isGroupRpcControl" fill="clear" class="btn-add-rpc ion-no-padding ion-no-margin" 
+          (click)="presentModalThemMoiRpc()" >
+            <i class="mdi mdi-plus-circle"></i>
+          </ion-button>
+        </ion-row>
+        <ion-row style="padding-bottom: 5px;" *ngIf="dieuKhien.length > 0 " class="row-su-kien">
+          <ion-col class="ion-no-padding col-listicon" size="10">
+            <div class="icon-device" *ngFor="let element of dieuKhien">
+              <!-- Thanh icon dieu khien thiet bi khac-->
+              <div *ngIf="element.deviceType !== 'REM' && element.typeRpc !== 'group-rpc'">
+                <ion-img *ngIf="element.valueControl" 
+                [src]="iconRpc[element.deviceType]['iconOn']"></ion-img>
+                <ion-img *ngIf="!element.valueControl" 
+                [src]="iconRpc[element.deviceType]['iconOff']"></ion-img>
+              </div>
+
+              <!-- Thanh icon dieu khien rem -->
+              <div *ngIf="element.deviceType === 'REM'">
+                <ion-img *ngIf="element.pullPush === 'PUSH'" 
+                [src]="iconRpc[element.deviceType]['iconRai']"></ion-img>
+                <ion-img *ngIf="element.pullPush === 'PULL'" 
+                [src]="iconRpc[element.deviceType]['iconThu']"></ion-img>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="ion-no-padding col-action" (click)="showLstDieuKhien = !showLstDieuKhien" size="2">
+            <i *ngIf="showLstDieuKhien" class="ph-caret-up-bold"></i>
+            <i *ngIf="!showLstDieuKhien" class="ph-caret-down-bold"></i>
+          </ion-col>
+        </ion-row>
+
+        <ng-container *ngIf="showLstDieuKhien || dieuKhien[0]?.typeRpc === 'group-rpc'">
+          <div *ngFor="let element of dieuKhien; index as i;">
+            <!-- name rpc -->
+            <ion-row  style="margin-bottom: 12px;" *ngIf="isGroupRpcControl" (click)="editRpc(i)" class="control-name">
+              <ion-label class="ten-dieu-khien-label">
+                {{getDieuKhienDisplay(element)}}
+              </ion-label>
+              <ion-icon name="trash" (click)="deleteRpc(element,i)"></ion-icon>
+            </ion-row>
+
+            <!-- rpc -->
+            <ion-row *ngIf="element.typeRpc === 'rpc'" class="control-name">
+              <ion-col class="ion-no-padding" size="2">
+                <ion-button class="ion-no-padding ion-no-margin" fill="clear" 
+                *ngIf="element.valueControl" 
+                (click)="onChangeTrangThaiDK(element)">
+                  <ion-img  
+                  [src]="iconRpc[element.deviceType]['iconOn']"></ion-img>
+                </ion-button>
+                
+                <ion-button class="ion-no-padding ion-no-margin" fill="clear" 
+                *ngIf="!element.valueControl" 
+                (click)="onChangeTrangThaiDK(element)">
+                  <ion-img 
+                  [src]="iconRpc[element.deviceType]['iconOff']"></ion-img>
+                </ion-button>              
+              </ion-col>
+              <ion-col class="ion-no-padding" (click)="toggleAccordionList(element)" size="10">
+                <ion-label class="ten-dieu-khien-label">{{getDieuKhienDisplay(element)}}</ion-label>
+                <i *ngIf="element.openAccordition && element.typeRpc === 'rpc'" class="ph-caret-up-bold"></i>
+                <i *ngIf="!element.openAccordition && element.typeRpc === 'rpc'" class="ph-caret-down-bold"></i>
+              </ion-col>
+              <!-- <ng-template #open>
+                <i class="ph-caret-down-bold"></i>
+              </ng-template> -->
+            </ion-row>
+
+            <ion-row *ngIf="element.typeRpc === 'rpc' && element.openAccordition" class="row-dieu-khien">
+              <ion-col size="10" class="ion-no-padding" (click)="editRpc(i)">
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">Thực hiện sau</ion-label>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">
+                      {{convertLongToDate(element.delayTime)}}</ion-label>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">Thực hiện trong</ion-label>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">
+                      {{element.callbackOption?convertLongToDate(element.timeCallback):''}}</ion-label>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">Lặp lại sau
+                    </ion-label>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">
+                      {{element.loopOption?convertLongToDate(element.loopTimeStep):''}}</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">Số lần lặp lại
+                    </ion-label>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">
+                      {{element.loopCount?element.loopCount+' lần':''}}</ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <ion-col class="ion-no-padding" style="justify-content: end;
+              display: flex;" size="2">
+                <ion-icon name="trash" (click)="deleteRpc(element,i)"></ion-icon>
+              </ion-col>
+            </ion-row>
+
+            <!-- rem -->
+            <ion-row *ngIf="element.typeRpc === 'rem'" class="control-name">
+              <ion-col class="ion-no-padding" size="2">
+                <div *ngIf="element.pullPush === 'PUSH'">
+                  <ion-img [src]="iconRpc[element.deviceType]['iconRai']"></ion-img>
+                </div>
+
+                <div *ngIf="element.pullPush === 'PULL'">
+                  <ion-img [src]="iconRpc[element.deviceType]['iconThu']"></ion-img>             
+                </div>
+              </ion-col>
+              <ion-col 
+              class="ion-no-padding" 
+              size="8"
+              (click)="editRpc(i)">
+                <ion-label class="ten-dieu-khien-label">
+                  {{getDieuKhienDisplay(element)}} {{element.percent}}%
+                </ion-label>
+                <!-- <i *ngIf="element.openAccordition && element.typeRpc === 'rem'" class="ph-caret-up-bold"></i>
+                <i *ngIf="!element.openAccordition && element.typeRpc === 'rem'" class="ph-caret-down-bold"></i> -->
+              </ion-col>
+              <ion-col 
+              class="ion-no-padding" 
+              style="justify-content: end; display: flex;" 
+              size="2">
+                <ion-icon name="trash" (click)="deleteRpc(element,i)"></ion-icon>
+              </ion-col>
+            </ion-row>
+
+            <!-- <ion-row *ngIf="element.typeRpc === 'rem' && element.openAccordition" class="row-dieu-khien">
+              <ion-col size="10" class="ion-no-padding" (click)="editRpc(i)">
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">Tỷ lệ</ion-label>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">
+                      {{element.percent}}</ion-label>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">Thời gian</ion-label>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-label class="dieu-khien-info-label">
+                      {{element.timePredict}}</ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row> -->
+          </div>
+        </ng-container>
+        <!-- <ion-row class="add-btn">
+          <ion-button [disabled]='!!isLoadingInit||!!isLoadingZone' *ngIf="!isGroupRpcControl" fill="clear" class="ion-no-padding" (click)="presentModalThemMoiRpc()" >
+              <i class="mdi mdi-plus-circle"></i>
+          </ion-button>
+        </ion-row> -->
+    </ion-card>
+    </form>
+  </ion-grid>
+  <ion-row class="action">
+    <ion-button class="btn-confirm-default ion-no-margin" [disabled]="isLoadingInit||isLoadingZone||!isFormValid()" (click)="submit()">
+      <ion-label>Xác nhận</ion-label>
+    </ion-button>
+  </ion-row>
+</ion-content>
+<ion-fab class="custom-ion-fab ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-fab-button class="ion-no-margin" fill="clear" (click)="goTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>

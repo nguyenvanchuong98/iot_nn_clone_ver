@@ -1,0 +1,21 @@
+<ion-item lines='none'>
+  <ion-icon *ngIf="!!icon" class="telemetry-icon" [src]="icon"></ion-icon>
+
+  <ng-container *ngIf="!!options[0]?.icon">
+    <ng-container *ngFor="let element of options">
+      <ion-icon *ngIf="element.value === control.value" class="telemetry-icon" [src]="element.icon">
+      </ion-icon>
+    </ng-container>
+  </ng-container>
+  <ion-label [hidden]="true">{{this.header}}</ion-label>
+  <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [disabled]="disable" [formControl]="control" [ngClass]="{'icon-left': !!icon || !!options[0]?.icon}"
+    [placeholder]="placeholder" okText="Xác nhận" cancelText="Hủy bỏ"
+    [ngStyle]="!!fontSize ? {fontSize: fontSize}: {}">
+    <ion-select-option *ngFor="let element of options" [value]="element.value">{{element.display}}
+    </ion-select-option>
+  </ion-select>
+  <span class="select-icon">
+    <!-- <ion-icon src="assets/icon/caret-down.svg"></ion-icon> -->
+    <i class="mdi mdi-chevron-down"></i>
+  </span>
+</ion-item>

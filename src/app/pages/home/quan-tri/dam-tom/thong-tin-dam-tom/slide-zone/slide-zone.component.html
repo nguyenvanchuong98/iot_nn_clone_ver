@@ -1,0 +1,83 @@
+<ion-grid class="table-zone">
+  <!-- header -->
+  <ion-row class="table-zone-header">
+    <ion-col size="2">
+      <h3>STT</h3>
+    </ion-col>
+    <ion-col size="7">
+      <h3>Phân vùng</h3>
+    </ion-col>
+    <ion-col size="3">
+      <h3>Tác vụ</h3>
+    </ion-col>
+  </ion-row>
+  <!-- content -->
+  <ng-container *ngIf="listZoneLoaded.length >= 1">
+    <!-- list khong reoder -->
+    <!-- <ion-row  class="table-zone-content" *ngFor="let zone of listZoneLoaded; index as i;"> -->
+      <!-- stt -->
+      <!-- <ion-col size="2" class="col-stt"> -->
+        <!-- <p>{{i+1}}</p> -->
+      <!-- </ion-col> -->
+      <!-- list zone -->
+      <!-- <ion-col size="7" class="col-ten-zone"> -->
+        <!-- {{zone.name}} -->
+      <!-- </ion-col> -->
+      <!-- tac vu -->
+      <!-- <ion-col size="3" class="col-tac-vu">
+        <ion-button fill="clear" class="btn-edit" (click)="openCapnhap(zone.id)">
+          <i _ngcontent-ahn-c217="" class="mdi mdi-circle-edit-outline"></i>
+        </ion-button>
+        <ion-button fill="clear" class="btn-delete" (click)="deleteZone(zone.id,zone.name)">
+          <i class="ph-trash"></i>
+        </ion-button>
+      </ion-col> -->
+    <!-- </ion-row> -->
+
+    <ion-list class="list-content-table">
+      <ion-reorder-group (ionItemReorder)="reorderItems($event)" disabled="false">
+        
+        <ion-card class="card-item" *ngFor="let zone of listZoneLoaded; index as i;">
+          <ion-item  class="ion-no-padding" lines="none" detail="false">
+            <ion-col size="2" class="col-stt">
+              <p>{{i+1}}</p>
+            </ion-col>
+    
+            <ion-col class="col-name-zone" size="7">
+              <ion-reorder>
+                <ion-label>{{zone.name}}</ion-label>
+              </ion-reorder>
+            </ion-col>
+            
+            <ion-col size="3" class="col-tac-vu">
+              <ion-button fill="clear" class="btn-edit" (click)="openCapnhap(zone.id)">
+                <!-- <i class="mdi mdi-circle-edit-outline"></i> -->
+                <i class="mdi mdi-square-edit-outline"></i>
+              </ion-button>
+        
+              <ion-button fill="clear" class="btn-delete" (click)="deleteZone(zone.id,zone.name)">
+                <!-- <i class="ph-trash"></i> -->
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-item>
+        </ion-card>
+        
+      </ion-reorder-group>
+    </ion-list>
+  </ng-container>
+
+  <ion-row class="no-data" *ngIf="listZoneLoaded.length === 0">
+    <p class="messageWarning">Không có dữ liệu</p>
+  </ion-row>
+</ion-grid>
+
+<ion-grid class="grid-footer">
+  <ion-row class="ion-justify-content-center" style="margin:24px 0;">
+    <ion-button
+      (click)="openThemMoi()"
+      class="btn-confirm-default">
+      Thêm Phân Vùng
+    </ion-button>
+  </ion-row>
+</ion-grid>

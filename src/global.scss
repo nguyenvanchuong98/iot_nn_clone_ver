@@ -1,0 +1,761 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import "./theme/phosphor.scss";
+
+//import font mdi
+@import "~@mdi/font/css/materialdesignicons.css";
+
+:root {
+  /** giamsat **/
+  --ion-color-gslistheader: #9b9054;
+  --ion-color-gslistheader-rgb: 244, 245, 248;
+  --ion-color-gslistheader-contrast: #000000;
+  --ion-color-gslistheader-contrast-rgb: 0, 0, 0;
+  --ion-color-gslistheader-shade: #d7d8da;
+  --ion-color-gslistheader-tint: #f5f6f9;
+}
+
+.searchbar-input-container.sc-ion-searchbar-ios {
+  height: 48px;
+}
+
+ion-searchbar {
+  .searchbar-input-container {
+    input {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px !important;
+      padding: 0px 10px 0px 44px !important;
+      // margin: 0px 4px;
+    }
+    .searchbar-search-icon.sc-ion-searchbar-ios {
+      left: 12px !important;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+/** ChuongNV
+*Chinh fontsize cho text alert
+**/
+.my-alert-custom-class {
+  .alert-message {
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.408px;
+    color: var(--dark-700);
+  }
+}
+// check box ion-select hinh vuong
+.alert-checkbox-icon {
+  border-radius: unset !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+.alert-checkbox-inner {
+  left: 7px !important;
+  top: 2px !important;
+}
+/**
+* Viettd
+* hien thi full text label ion option select
+* man hinh them,thong tin lich xuat bao cao
+*/
+button.ion-select-option-text-wrap
+  > div
+  > div.alert-radio-label.sc-ion-alert-md {
+  padding-left: 52px;
+  padding-right: 26px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  -ms-flex: 1;
+  flex: 1;
+  color: var(--ion-color-step-850, #262626);
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+}
+
+/**
+* Viettd
+* hien thi nghiêng placeholder text tìm kiếm tài khoản,vai trò
+*/
+.place-holder-italic .searchbar-input.sc-ion-searchbar-ios,
+.searchbar-input.sc-ion-searchbar-md {
+  font-style: italic;
+}
+
+//.modal-wrapper {
+//  --width: 80%;
+//  --height: 40%;
+//  position: absolute;
+//}
+
+//custom modal page dieu khien - ngocbich
+.my-custom-modal-css {
+  .modal-wrapper,
+  .modal-shadow {
+    --height: 55%;
+    // background: #ffffff;
+    position: absolute;
+    border-radius: 20px 20px 0px 0px;
+    bottom: 0;
+  }
+}
+.group-control-modal-css .modal-wrapper {
+  --height: 100%;
+  margin-top: 135%;
+  background: #ffffff;
+  border-radius: 20px 20px 0px 0px;
+}
+.group-control-modal-css {
+  .modal-wrapper,
+  .modal-shadow {
+    margin-top: 135%;
+    border-radius: 20px 20px 0px 0px;
+  }
+
+  .modal-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+    --color: #43484d !important;
+  }
+
+  .dismiss-button {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    --color: #3d85cc;
+    -webkit-margin-start: 0px;
+    margin-inline-start: 0px;
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-right: 10px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid rgba(83, 89, 95, 0.2);
+  }
+}
+
+//header toolbar
+.ios ion-toolbar:first-of-type {
+  padding-top: 0px !important;
+  --border-width: 0 !important;
+}
+.ios .gs-toolbar {
+  margin-top: 32px;
+}
+ion-header {
+  .title-home-account {
+    ion-button {
+      margin-top: 0px !important;
+    }
+    .title {
+      font-size: 20px !important;
+    }
+  }
+}
+// .ios ion-header {
+//   padding-top: 16px;
+// }
+
+.them-moi-su-kien-modal {
+  .modal-wrapper,
+  // ChuongNV - Modal height 100%
+  // .modal-shadow {
+  //   margin-top: 67px;
+  //   border-radius: 20px 20px 0px 0px;
+  // }
+
+  .modal-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+    --color: #43484d !important;
+  }
+
+  .dismiss-button {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    --color: #3d85cc;
+    -webkit-margin-start: 0px;
+    margin-inline-start: 0px;
+    -webkit-margin-end: 0px;
+    margin-inline-end: 0px;
+    margin-right: 10px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid rgba(83, 89, 95, 0.2);
+  }
+}
+
+.error-label {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.custom-ion-datetime {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-datetime {
+    border: 1px solid rgba(83, 89, 95, 0.2);
+    box-sizing: border-box;
+    border-radius: 8px;
+    color: #43484d;
+    --placeholder-color: #43484d;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    text-align: center;
+  }
+
+  ion-datetime:active {
+    background-color: #ffffff;
+  }
+
+  .fake-minus-1 {
+    position: absolute;
+    z-index: 10000;
+
+    .fake-minus-2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .fake-minus-3 {
+        color: #43484d;
+        background-color: #ffffff;
+        width: 35px;
+        text-align: center;
+        position: absolute;
+        pointer-events: none;
+
+        left: -9px;
+
+        @media only screen and (max-width: 320px) {
+          left: -4px;
+        }
+      }
+    }
+  }
+
+  .fake-minus-4 {
+    position: absolute;
+    z-index: 10000;
+
+    .fake-minus-5 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .fake-minus-6 {
+        color: #43484d;
+        background-color: #ffffff;
+        width: 35px;
+        text-align: center;
+        position: absolute;
+        pointer-events: none;
+
+        left: 21px;
+
+        @media only screen and (max-width: 420px) {
+          left: 21px;
+        }
+
+        @media only screen and (max-width: 320px) {
+          display: none;
+        }
+      }
+    }
+  }
+}
+ion-footer {
+  background-color: #ffffff;
+}
+ion-button {
+  height: 48px;
+}
+//custom action sheet dieu khien thu cong, chon nha vuon, chon zone
+.my-custom-action-sheet,
+.custom-action-sheet-zone {
+  --color: var(--dark-700);
+  --button-color: var(--dark-700);
+  --button-background-selected: var(--background-content-dark-mode);
+  --button-background: var(--background-input-dark-mode);
+  .action-sheet-title {
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid var(--line-dark-mode);
+    font-size: 18px;
+    position: sticky;
+    top: 0;
+    background-color: var(--background-input-dark-mode);
+    z-index: 10000;
+    font-weight: 500;
+    color: var(--title-dark-mode);
+    padding: 25px 25px 20px;
+  }
+  .action-sheet-button {
+    font-size: 16px;
+    font-weight: normal;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--line-dark-mode);
+  }
+  .action-sheet-button:last-child {
+    border-bottom: unset;
+  }
+  .ion-select-option-text-wrap-disable {
+    background: #cccc;
+    text-align: left;
+  }
+  .action-sheet-cancel {
+    display: none;
+  }
+  .action-sheet-group {
+    margin: auto 10%;
+    background-color: var(--background-input-dark-mode);
+  }
+  .action-sheet-group.sc-ion-action-sheet-ios:first-child {
+    margin-top: auto;
+  }
+  .action-sheet-group-cancel {
+    margin-bottom: 0;
+  }
+  .action-sheet-group.sc-ion-action-sheet-ios:last-child {
+    margin-bottom: 0;
+  }
+  .action-sheet-group.sc-ion-action-sheet-ios {
+    border-radius: 10px;
+  }
+  .action-sheet-container.sc-ion-action-sheet-ios {
+    padding: 0;
+  }
+  .action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-ios {
+    display: none;
+  }
+}
+//custom ion-alert info gateways
+.infoGateway {
+  .alert-wrapper.sc-ion-alert-ios {
+    background-color: #ffffff;
+    border-radius: 10px;
+    min-width: 290px;
+  }
+  .alert-head {
+    padding: 25px 20px 10px;
+    // border-bottom: 1px solid #d9d9d9;
+    h2 {
+      margin: 0;
+      text-align: left;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--dark-900);
+      position: relative;
+    }
+    h2::before {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background-color: #42a5f5;
+      display: block;
+      top: 120%;
+      position: absolute;
+    }
+    h2::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 1px;
+      background-color: #42a5f5;
+      position: absolute;
+      top: 140%;
+    }
+  }
+  .alert-message {
+    padding: 6px 20px 25px;
+    text-align: left;
+    p {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark-600);
+    }
+  }
+}
+//custom alert info device
+.infoDeviceCustomAlert {
+  .alert-head {
+    padding: 0;
+  }
+  .alert-message {
+    padding-bottom: 0;
+    text-align: left;
+    p {
+      font-size: 14px;
+    }
+  }
+}
+// custom alert choose device
+.alertChooseDevice {
+  .alert-wrapper.sc-ion-alert-ios {
+    min-width: 325px;
+    min-height: auto;
+    max-height: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  .alert-head {
+    padding: 25px 20px 10px;
+    // border-bottom: 1px solid #d9d9d9;
+    h2 {
+      margin: 0;
+      text-align: left;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--dark-900);
+      position: relative;
+    }
+    h2::before {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background-color: #42a5f5;
+      display: block;
+      top: 120%;
+      position: absolute;
+    }
+    h2::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 1px;
+      background-color: #42a5f5;
+      position: absolute;
+      top: 140%;
+    }
+  }
+  .alert-radio-group.sc-ion-alert-ios,
+  .alert-checkbox-group.sc-ion-alert-ios {
+    border-top: none;
+    max-height: 366px;
+    padding-bottom: 32px;
+  }
+  .alert-checkbox-icon.sc-ion-alert-ios {
+    margin-left: 30px;
+    border-radius: 3px;
+    width: 20px;
+    height: 20px;
+  }
+  [aria-checked="true"].sc-ion-alert-ios
+    .alert-checkbox-inner.sc-ion-alert-ios {
+    left: 7px;
+    top: 2px;
+  }
+  .alert-message.sc-ion-alert-ios:empty {
+    padding-bottom: 10px;
+  }
+  .alert-message.sc-ion-alert-ios {
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--dark-900);
+    font-weight: 500;
+  }
+  .alert-button-group.sc-ion-alert-ios {
+    justify-content: center;
+    padding: 10px;
+  }
+  .alert-button.sc-ion-alert-ios {
+    border-radius: 38px;
+    height: 35px;
+    font-size: 14px;
+    letter-spacing: normal;
+    font-weight: 500;
+    color: #fff;
+    border-top: none;
+  }
+  button.alert-button.ion-focusable.ion-activatable.sc-ion-alert-ios {
+    background-color: var(--alix-primary-color);
+    max-width: 35%;
+    min-width: 35%;
+    margin-left: 5px;
+  }
+  button.alert-button.ion-focusable.ion-activatable.alert-button-role-cancel.sc-ion-alert-ios {
+    background-color: #ffc107;
+    border-right: none;
+    margin-right: 5px;
+    margin-left: 0;
+    min-width: 28%;
+    max-width: 28%;
+  }
+  .alert-checkbox-label.sc-ion-alert-ios {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark-900);
+  }
+}
+//custom modal info device trong info gateways
+.custom-modal-info-device {
+  .modal-wrapper,
+  .modal-shadow {
+    --height: 60%;
+    margin-top: auto;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .modal-shadow {
+    margin-top: 72%;
+  }
+}
+app-thong-tin-thiet-bi {
+  height: 100%;
+}
+// NB - custom modal thiet lap dk thu cong
+.modal-thiet-lap-dk-thu-cong {
+  .modal-wrapper,
+  .modal-shadow {
+    --height: 60%;
+    margin-top: auto;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .modal-shadow {
+    margin-top: 72%;
+  }
+}
+
+// NB - btn go top
+.btnScrollTop {
+  position: fixed;
+  z-index: 100;
+  right: 15px;
+  bottom: 60px;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  --border-radius: 50%;
+  // --box-shadow: 0 3px 23px 0 rgb(0 0 0 / 14%), 0 1px 27px 0 rgb(0 0 0 / 12%),
+  //   0 3px 1px -1px rgb(0 0 0 / 10%);
+  --background: var(--alix-primary-color);
+  --background-activated: #64b5f6;
+  --padding-start: 0;
+  --padding-end: 0;
+  ion-icon {
+    color: white;
+    font-size: 18px;
+  }
+}
+.custom-ion-fab {
+  // margin-bottom: 46px;
+  ion-fab-button {
+    height: 40px;
+    width: 40px;
+    --background: var(--alix-primary-color);
+    --background-activated: #64b5f6;
+    --box-shadow: none;
+    ion-icon {
+      font-size: 18px;
+    }
+    i {
+      color: #fff;
+      line-height: 40px;
+      font-size: 1.2rem;
+    }
+  }
+}
+// NB - btn default
+.btn-confirm-default {
+  --border-radius: 38px;
+  height: 38px;
+  --background: var(--alix-primary-color);
+  --background-activated: #47acfc;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  font-family: Inter var;
+  letter-spacing: normal;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff; //ChuongNV
+  margin: 0 auto; //ChuongNV
+}
+.btn-yellow {
+  --border-radius: 38px;
+  height: 38px;
+  --background: var(--yellow-color);
+  --padding-start: 24px;
+  --padding-end: 24px;
+  font-family: Inter var;
+  letter-spacing: normal;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff; //ChuongNV
+  margin: 0 auto; //ChuongNV
+}
+// NB - custom icon searchbar
+ion-searchbar
+  .searchbar-input-container
+  .searchbar-search-icon.sc-ion-searchbar-ios {
+  left: 12px !important;
+  top: 14px;
+  width: 20px;
+  height: 20px;
+}
+// fix ion-refresh
+// ion-refresher.refresher-active {
+//   background: var(--background-content-dark-mode) !important;
+// }
+
+// NB - special device
+.custom-action-sheet-special-device {
+  .option-device-rem {
+    padding-left: 20px;
+    height: 30px;
+  }
+  .option-zone {
+    height: 32px;
+  }
+}
+
+// ChuongNV - custom ion-select interface popover
+.my-custom-popover{
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.3);
+  .popover-arrow{
+    display: none !important;
+  }
+  .popover-wrapper{
+    width: 100%;
+    margin: auto 10%;
+    .popover-content{
+      width: 100%;
+      position: unset;
+      overflow-y: scroll;
+      max-height: 60vh;
+      .list-header-inner{
+        min-height: unset !important;
+        width: 100%;
+        text-align: center;
+      }
+      ion-list{
+        background: var(--background-input-dark-mode);
+      }
+      ion-list-header{
+        padding-inline-start: 0;
+        margin: 0 auto;
+        padding-top: 12px;
+        padding-bottom: 7px;
+        align-items: center !important;
+        color: var(--dark-700);
+        font-size: 17px;
+        font-weight: 600;
+        // background: var(--background-input-dark-mode) !important;
+        width: fit-content;
+        // position: sticky;
+        // top: 0;
+        // z-index: 8888;
+      }
+      ion-item:first-child{
+        border-top: 1px solid;
+      }
+      ion-item{
+        text-align: center;
+        --inner-padding-start: 32px;
+        --padding-start: 0 !important;
+        color: var(--dark-700);
+        font-size: 15px;
+      }
+      .item-radio-checked{
+        --background: var(--background-content-dark-mode) !important;
+      }
+      .zone-item-disable{
+        text-align: unset;
+        --inner-padding-start: 12px;
+      }
+    }
+  }
+}
+.my-custom-popover1{
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.3);
+  .popover-arrow{
+    display: none !important;
+  }
+  .popover-wrapper{
+    .popover-content{
+      --min-width: 250px;
+      --max-width: 270px;
+      position: unset;
+      overflow-y: scroll;
+      max-height: 60vh;
+      .list-header-inner{
+        min-height: unset !important;
+        width: 100%;
+        text-align: center;
+      }
+      ion-list{
+        background: var(--background-input-dark-mode);
+      }
+      ion-list-header{
+        padding-inline-start: 0;
+        margin: 0 auto;
+        padding-top: 12px;
+        padding-bottom: 7px;
+        align-items: center !important;
+        color: var(--dark-700);
+        font-size: 17px;
+        font-weight: 600;
+        // background: var(--background-input-dark-mode) !important;
+        width: fit-content;
+      }
+      ion-item:first-child{
+        border-top: 1px solid;
+      }
+      ion-item{
+        --inner-padding-start: 32px;
+        --padding-start: 0 !important;
+        color: var(--dark-700);
+        font-size: 15px;
+      }
+      .item-radio-checked{
+        --background: var(--background-content-dark-mode) !important;
+      }
+      .zone-item-disable{
+        --inner-padding-start: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+<ion-header>
+  <!-- <ion-toolbar class="header-page">
+        <ion-title class="ion-no-padding">Danh sách tài khoản</ion-title>
+        <ion-buttons slot="start" (click)="buttonBack()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-buttons>
+        <ion-buttons slot="end" (click)="themMoiTk()">
+            <i class="ph-plus"></i>
+        </ion-buttons>
+    </ion-toolbar> -->
+
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/menu"
+      ></ion-back-button>
+      <!-- <ion-button>
+        <i
+          class="mdi mdi-menu"
+          style="color: #455a64;; font-size: 23px; margin-left: -8px"
+        ></i>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Danh sách vai trò</ion-label>
+      <ion-button class="ion-no-padding ion-no-margin" fill="clear"  [routerLink]="['/','home','quan-tri','vai-tro','them-moi-vai-tro']">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-row>
+    <!-- <ion-buttons slot="primary">
+      <ion-button>
+        <i
+          class="mdi mdi-invert-colors mdi-transition1"
+          style="color: #455a64;; font-size: 23px; margin-left: -8px"
+        ></i>
+      </ion-button>
+      <ion-button>
+        <ion-icon
+          name="settings-outline"
+          style="color: #455a64;; font-size: 23px; margin-left: -7px"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+  <ion-row class="section-search">
+    <!-- <i class="mdi mdi-magnify"></i> -->
+    <ion-searchbar class="ion-no-padding" (ionChange)="findItems($event)" 
+    placeholder="Nhập tên vai trò"></ion-searchbar>
+  </ion-row>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+<!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+ <ion-refresher-content  pullingText="" 
+  >
+ </ion-refresher-content>
+</ion-refresher> -->
+  
+ <ion-grid class = "main-content">
+     
+    <div class="section-ds-tk">
+         <div *ngIf="vaiTroList.length<=0 && !isLoading" class="ion-text-center">
+             <p>{{message}}</p>
+         </div>
+         <ion-list>  
+          <ion-row class="row-tai-khoan" *ngFor="let vaiTro of vaiTroList">
+              <div [routerLink]="['/','home','quan-tri','vai-tro','thong-tin-vai-tro',vaiTro.id]"  class="info-tai-khoan">
+                  <h2>{{vaiTro.name}}</h2>
+              </div>
+              <div class="ion-align-self-center toggle-tai-khoan">
+                <i class="ph-caret-right icon-arrow" 
+                (click)="clickArrow(vaiTro.id)" ></i>
+              </div>
+          </ion-row>
+      </ion-list>
+         <ion-infinite-scroll threshold="5%" (ionInfinite)="loadMore($event)">
+             <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+             </ion-infinite-scroll-content>
+         </ion-infinite-scroll>
+     </div>
+ </ion-grid>
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end" >
+  <ion-button class="ion-no-margin" fill="clear" (click)="scrollToTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-button>
+</ion-fab>

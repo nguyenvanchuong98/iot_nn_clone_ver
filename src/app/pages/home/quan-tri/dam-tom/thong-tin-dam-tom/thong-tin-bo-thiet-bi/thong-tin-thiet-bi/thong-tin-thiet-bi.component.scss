@@ -1,0 +1,144 @@
+ion-toolbar {
+  --background: #d7d8da;
+  --min-height: 45px;
+  --border-color: rgb(69 90 100);
+  --border-width: 1px;
+  --border-style: none none solid none;
+  --color: unset;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  h2 {
+    height: 100%;
+    margin: 0;
+    padding-top: 0;
+    text-align: center;
+    color: #43484d;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+  }
+  ion-img {
+    width: 15%;
+    position: absolute;
+    top: 0;
+    left: 42%;
+  }
+  ion-button {
+    --color: #3d85cc;
+    margin: 0;
+    --background: none;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --padding-end: 15px;
+    --background-activated: none;
+    --color-activated: rgba(61, 133, 204, 0.64);
+    --color-focused: rgba(61, 133, 204, 0.64);
+    line-height: 17px;
+    font-size: 16px;
+  }
+  ion-button.btn-huy {
+    --padding-start: 15px;
+  }
+  ion-title {
+    color: var(--dark-700);
+  }
+}
+ion-col {
+  padding: 0;
+}
+
+.name-device {
+  margin: 40px 0 0 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  .btn-info-device {
+    background: var(--background-content-dark-mode);
+    margin: 0;
+    position: absolute;
+    right: 6%;
+    top: -21%;
+    z-index: 10;
+    i {
+      font-size: 23px;
+      color: var(--dark-700);
+    }
+  }
+  ion-item {
+    --background: unset;
+    ion-label {
+      font-size: 16px;
+      margin: 0;
+      font-weight: bold;
+    }
+    span {
+      color: #cf3c4f;
+    }
+    width: 80%;
+    ion-input {
+      font-size: 14px;
+    }
+  }
+}
+.zone-device {
+  margin: 5px 0 0 0;
+  justify-content: center;
+  ion-item {
+    --background: unset;
+    width: 80%;
+    ion-label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    ion-select {
+      font-size: 14px;
+    }
+  }
+}
+.active-device {
+  margin: 10px 0 0 0;
+  justify-content: center;
+  ion-item {
+    width: 80%;
+    --border-style: none;
+    ion-label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+.row-validate {
+  justify-content: start;
+  width: 70%;
+  margin: auto;
+}
+.errorMess {
+  color: #d91f2c;
+  font-size: 12px;
+  margin: 5px 0 0 0;
+}
+.row-type-device {
+  justify-content: center;
+  padding: 0 5px;
+  ion-col {
+    padding: 0;
+    h3 {
+      width: 80%;
+      font-size: 16px;
+      margin: auto;
+      font-weight: bold;
+      line-height: 24px;
+      padding: 16px 16px 0;
+    }
+    ion-item {
+      width: 80%;
+      margin: auto;
+      --background: unset;
+      --padding-start: 16px;
+      font-size: 14px;
+      ion-select {
+        width: 100%;
+      }
+    }
+  }
+}

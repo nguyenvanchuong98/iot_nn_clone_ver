@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-toolbar class="ion-no-padding" color="toolbar">
+        <ion-buttons slot="start">
+            <ion-back-button mode="md" text="" defaultHref="/home/quan-tri/menu" style="color: var(--dark-700);"></ion-back-button>
+        </ion-buttons>
+        <ion-row class="title-home-account">
+            <ion-label class="title"> Báo cáo dữ liệu giám sát </ion-label>
+        </ion-row>
+    </ion-toolbar>
+    <ion-row class="row-select-vuon">
+        <ion-col class="ion-no-padding">
+            <ion-item lines="none">
+            <i class="ph-map-pin-light"></i>
+            <ion-select [interfaceOptions]="customActionSheetOptions" 
+            [(ngModel)]="damTomIdSelected" 
+            (ngModelChange)="changeDamTom($event)"
+            okText="Xác nhận" 
+            cancelText="Hủy bỏ"  
+            interface="action-sheet">
+                <ion-select-option
+                    *ngFor="let damtom of dsDamTom"
+                    [value]="damtom.id">{{damtom.name}}
+                </ion-select-option>
+            </ion-select>
+            <span class="select-icon">
+                <ion-icon name="chevron-down-outline"></ion-icon>
+            </span>
+            </ion-item>
+        </ion-col>
+        </ion-row>
+    <ion-row class="date-time-row">
+        <ion-col size='6' class="col-filter-time" style="padding-right: 4px;">
+            <ion-item lines="none">
+                <i class="mdi mdi-clock-outline" ></i>
+                <ion-datetime cancelText="Hủy bỏ" doneText="Xác nhận" (ngModelChange)="fromDateChange($event)" [(ngModel)]="startTs" name="dateFrom" [max]="maxFromTo" display-format="DD/MM/YYYY" picker-format="DD:MM:YYYY"></ion-datetime>
+            </ion-item>
+        </ion-col>
+        <ion-col size='6' class="col-filter-time" style="padding-left: 4px;">
+            <ion-item lines="none">
+                <i class="mdi mdi-clock-outline"></i>
+                <ion-datetime cancelText="Hủy bỏ" (ngModelChange)="toDateChange($event)" doneText="Xác nhận" [(ngModel)]="endTs" name="dateTo" [max]="now" [min]="startTs" display-format="DD/MM/YYYY" picker-format="DD:MM:YYYY">
+                </ion-datetime>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row class="invalid" *ngIf="!checkValidDate()">
+        <ion-label>Khoảng thời gian không hợp lệ</ion-label>
+    </ion-row>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+
+        <ion-row>
+            <ion-col>
+                <div>
+                    <div echarts [options]="tempChartOption" class="temp-chart"></div>
+                </div>
+                <div>
+                    <div echarts [options]="humChartOption" class="hum-chart"></div>
+                </div>
+                <div>
+                    <div echarts [options]="luxChartOption" class="lux-chart"></div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
+<ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end">
+    <ion-button class="ion-no-margin" fill="clear" (click)="goTop()">
+        <i class="mdi mdi-chevron-up"></i>
+    </ion-button>
+</ion-fab>

@@ -1,0 +1,131 @@
+.background-login {
+  padding: 0;
+  background-image: url("/assets/images/bg-vuon-lan.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top -30px right 0px;
+}
+.form-login {
+  padding: 0 32px;
+  position: relative;
+  top: 140px;
+  background: var(--background-content-dark-mode) !important;
+  border-radius: 32px 32px 0px 0px;
+}
+//ion-img::part(image){
+//  margin: 26px auto 0;
+//  width: 68%;
+//}
+ion-img {
+  margin: 26px auto 0;
+  width: 68%;
+}
+h1 {
+  font-size: 24px;
+  line-height: 40px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  margin: 32px 0px 24px;
+  text-align: center;
+  color: var(--dark-700);
+}
+.custom-item-border-default {
+  // border: 1px solid rgba(83, 89, 95, 0.2);
+  --border-radius: 8px;
+}
+i {
+  margin-right: 8px;
+  font-size: 24px;
+  color: var(--dark-700);
+}
+ion-item {
+  // --background: #ffffff;
+  --color: var(--dark-700);
+  font-weight: 500;
+  ion-input {
+    --padding-bottom: 13px;
+    --padding-top: 13px;
+    --padding-end: 8px;
+    --placeholder-color: var(--dark-700);
+    input {
+      padding-top: var(--padding-top);
+      padding-bottom: var(--padding-bottom);
+      padding-right: var(--padding-end);
+    }
+  }
+  ion-checkbox {
+    width: 16.5px;
+    height: 16.5px;
+    margin-right: 15px;
+  }
+  // ion-checkbox::part(container) {
+  //   border-radius: unset;
+  //   border-width: 1.5px;
+  // }
+  // ion-checkbox::part(mark) {
+  //   stroke: #3d85cc;
+  //   stroke-width: 2.5px;
+  // }
+  // ion-checkbox.checkbox-checked::part(container) {
+  //   border-radius: unset;
+  //   border-width: 1.5px;
+  //   border-color: #3d85cc;
+  //   background-color: #ebf5ff;
+  // }
+}
+ion-button {
+  font-weight: 500;
+  --border-radius: 8px;
+  --color: #ffffff;
+}
+.button-disabled {
+  --background: #f5f5f5;
+  --border-color: rgba(45, 48, 51, 0.5);
+  --border-radius: 8px;
+  --color: rgba(45, 48, 51, 0.5);
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+.luuDangNhap {
+  margin: 5px 0;
+
+  ion-item::part(native) {
+    padding-left: 0 !important;
+  }
+  ion-item {
+    --padding-start: 0px;
+    --background: unset !important;
+    ion-checkbox {
+      margin-right: 8px;
+    }
+    ion-label {
+      margin: 0;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--dark-700);
+    }
+  }
+}
+a {
+  text-decoration: none;
+  color: var(--dark-700);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+.text-status-wrong {
+  font-size: 14px;
+  line-height: 18px;
+  color: #d91f2c;
+  margin: 4px 0 0;
+}
+.sc-ion-input-ios-h {
+  --placeholder-color: rgba(45, 48, 51, 0.5);
+  --placeholder-font-style: initial;
+  --placeholder-font-weight: initial;
+}
+ion-icon {
+  font-size: 24px;
+  color: var(--dark-700);
+  margin-right: 6px;
+}

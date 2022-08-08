@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nhóm điều khiển {{name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-item lines="none">
+      <ion-label >
+        <b>Bật thiết bị trong</b>
+      </ion-label>
+      <ion-checkbox slot="start"></ion-checkbox>
+    </ion-item>
+    <ion-row>
+      <ion-item class="time-pick-center ion-no-padding" lines="none">
+        <ion-row class="row-khong-margin">
+          <ion-col>
+            <ion-item lines="none" class="pick-time-nhan-cb ion-no-padding">
+              <ion-datetime class="thoi-gian-su-kien-datetime" placeholder="00 giờ : 00 phút : 00 giây"
+                [displayFormat]="displayFomat">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item lines="none">
+        <ion-label >
+          <b>Lặp lại</b>
+        </ion-label>
+        <ion-checkbox slot="start"></ion-checkbox>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item class="lap-lai-sau" lines="none">
+        <p>
+          Lặp lại sau
+        </p>
+       </ion-item>
+    </ion-row> 
+    <ion-row class="row-lap-lap-sau">
+      <ion-item class="time-pick-center ion-no-padding" lines="none">
+        <ion-row class="row-khong-margin">
+          <ion-col>
+              <ion-item lines="none" class="pick-time-nhan-cb ion-no-padding">
+              <ion-datetime class="thoi-gian-su-kien-datetime" placeholder="00 giờ : 00 phút : 00 giây"
+                [displayFormat]="displayFomat">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-row>
+    <ion-row class="repeat-row">
+
+      <!-- <ion-item class="time-pick-center ion-no-padding" lines="none">
+        <ion-row class="row-khong-margin">
+          <ion-col>
+              <ion-item lines="none" class="pick-time-nhan-cb ion-no-padding">
+              <ion-datetime class="thoi-gian-su-kien-datetime" placeholder="00 giờ : 00 phút : 00 giây"
+                [displayFormat]="displayFomat">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item> -->
+
+
+        <ion-col sizeMd=6><p class="so-lan-lap-lai">Số lần lặp lại</p></ion-col>
+        <!-- <ion-col> -->
+          <!-- <ion-item lines="none">
+            <ion-row class="row-muc-chenh-lech">
+                <ion-col size="8">
+                    <ion-label>Khoảng giá trị lệch</ion-label>
+                    
+                </ion-col>
+                <ion-col size="4">
+                    <ion-item lines="none" class="ion-no-padding combobox-rpc">
+                        <ion-select value="1" placeholder="1">
+                            <ion-select-option value="1">1</ion-select-option>
+                            <ion-select-option value="1.5">1.5</ion-select-option>
+                            <ion-select-option value="2">2</ion-select-option>
+                            <ion-select-option value="2.5">2.5</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                
+                </ion-col>
+            </ion-row>
+        </ion-item> -->
+          <!-- <ion-item lines="none" class="combobox-rpc">
+            <ion-select style="margin-left: 50%;" value="1">
+              <ion-select-option *ngFor="let number of numberSelect">{{number}}</ion-select-option>
+            </ion-select>
+          </ion-item> -->
+          <ion-col>
+            <ion-item class="" lines="none">
+              <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" class="thoi-gian-su-kien-datetime combobox-rpc" value="1">
+                <ion-select-option *ngFor="let number of numberSelect">{{number}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          
+        <!-- </ion-col> -->
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="dismiss(name)">Xác nhận</ion-button>
+      </ion-col>
+      <!-- <ion-col>
+        <ion-button expand="block" (click)="dismiss(null)">Hủy bỏ</ion-button>
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+</ion-content>

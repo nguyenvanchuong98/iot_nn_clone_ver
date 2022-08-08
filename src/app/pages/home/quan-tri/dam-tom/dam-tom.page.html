@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/quan-tri/menu"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Danh sách nhà vườn </ion-label>
+      <ion-button class="ion-no-padding ion-no-margin" fill="clear" routerLink="./them-moi-dam-tom">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
+
+  <!-- search bar -->
+  <ion-item
+    style="position: relative"
+    lines="none"
+    class="search-dam ion-no-padding">
+    <ion-searchbar 
+    showCancelButton="never" 
+    placeholder="Tên nhà vườn" 
+    type="text"
+    debounce="500"
+    (ionChange)="findDamTom($event)"
+    ></ion-searchbar>
+  </ion-item>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid>
+  
+    <ion-list *ngIf="spinStatus==1" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+    </ion-list>
+    
+    <p class="ion-text-center" *ngIf="spinStatus==3 || isnotFind">Không có dữ liệu</p>
+
+    <p *ngIf="spinStatus==4" class="ion-text-center">Có lỗi xảy ra</p>
+
+    <ion-card class="ion-no-margin" *ngIf="spinStatus==2">
+      <ion-row class="ion-no-padding" *ngFor="let dt of listdt">
+        <ion-label [routerLink]="['thong-tin-dam-tom',dt.id]">
+          {{dt.name}}
+        </ion-label>
+        <ion-toggle
+          [hidden]="isAuthEdit"
+          (ionChange)="onActiveDam($event,dt.id)"
+          class="ion-no-margin ion-no-padding"
+          [checked]="dt.active"
+        ></ion-toggle>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+</ion-content>
+
+<ion-fab 
+    vertical="bottom" 
+    horizontal="end" 
+    slot="fixed"
+    class="custom-ion-fab"
+    *ngIf="isGoTop" (click)="goTop()">
+      <ion-fab-button>
+        <i class="mdi mdi-chevron-up"></i>
+      </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-row>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/giam-sat" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+            <ion-label>Giám sát</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/dieu-khien" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+            <ion-label>Điều khiển</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/camera" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/camera.svg"></ion-icon>
+            <ion-label>Camera</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" routerLink="/home/quan-tri/menu" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+            <ion-label>Quản trị</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->

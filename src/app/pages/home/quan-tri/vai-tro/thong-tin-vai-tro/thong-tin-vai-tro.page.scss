@@ -1,0 +1,201 @@
+.child-role {
+  padding-left: 20%;
+}
+ion-header {
+  // background-color: #d7d8da;
+  ion-back-button {
+    --color: var(--dark-700) !important;
+  }
+  ion-toolbar{
+    margin-bottom: 16px;
+    margin-top: 32px;
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,ion-icon{
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+ion-content{
+  margin-top: 16px;
+  .main-content {
+    min-height: calc(100% - 234px);
+  }
+  ion-grid{
+    // padding: 0 16px 38px;
+    padding: 0 !important;
+    // h2{
+    //     margin: 8px 0 8px 0;
+    //     font-weight: 500;
+    //     font-size: 16px;
+    //     line-height: 24px;
+    //     color: var(--dark-700);
+    //     span{
+    //         color: #D91F2C;
+    //     }
+    // }
+    .mess-error {
+      font-size: 12px;
+      color: #eb445a;
+      margin: 4px 0 0 0;
+    }
+    .row-input{
+        ion-item{
+          width: 100%;
+          --border-radius: 8px;
+          --background: #FFFFFF;
+          --padding-start: 0;
+          --inner-padding-start: 0px;
+          --inner-padding-end: 12px;
+          --color: var(--dark-700);
+          font-size: 15px;
+          line-height: 24px;
+          ion-input, ion-textarea{
+              --padding-bottom: 12px;
+              --padding-top: 12px;
+              --padding-start: 12px;
+              --padding-end: 12px;
+              --placeholder-color: var(--dark-700);
+              --placeholder-font-size: 15px;
+              --placeholder-font-weight: 500;
+          }
+          .icon-name {
+            font-size: 20px;
+            color: var(--dark-700);
+            padding-left: 15px;
+          }
+          .icon-edit {
+            padding-top: 12px;
+          }
+        }
+    }
+    .activate{
+        margin-top: 16px;
+        ion-label{
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            color: var(--dark-700);
+            margin: 16px 0;
+        }
+    }
+    .role{
+        position: relative;
+        i{
+            position: absolute;
+            right: 16px;
+        }
+        ion-select::part(icon) {
+            display: none;
+        }
+        ion-select{
+            width: 100%;
+            padding: 0;
+        }
+    }
+    ion-card{
+      margin: 0;
+      margin-top: 12px;
+      box-shadow: none;
+      padding: 10px 15px;
+      .flex {
+        --inner-padding-end: 0;
+        --inner-padding-start: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .title-pg {
+          padding-left: 55px;
+        }
+        .icon-pq {
+          position: absolute;
+          background-color: #64b5f6;
+          // padding: 5px;
+          width: 40px;
+          height: 40px;
+          font-weight: bold;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .icon-mdi {
+            color: white;
+            font-size: 20px;
+          }
+        }
+        ion-item {
+          flex-grow: 1;
+        }
+      }
+      ion-list{
+        .checkbox-permission {
+          margin-top: 10px;
+          --inner-padding-end: 0;
+        }
+      }
+      i {
+        font-size: 14px;
+        z-index: 99;
+      }
+    }
+    .btn-row {
+      margin: 24px 0 84px;
+    }
+  }
+}
+
+ion-fab{
+  margin-bottom: 50px;
+  ion-button{
+    background: #64B5F6;
+    height: 40px;
+    padding: 0px;
+    text-align: center;
+    width: 40px;
+    border-radius: 32px;
+  }
+  i{
+    color: #fff;
+    line-height: 40px;
+    font-size: 1.2rem;
+  }
+}

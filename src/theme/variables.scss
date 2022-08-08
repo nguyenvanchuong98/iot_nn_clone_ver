@@ -1,0 +1,1062 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+@font-face {
+  font-family: "SFProDisplayFont";
+  src: url("../assets/fonts/SFProDisplay-Regular.ttf");
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-Regular.ttf");
+}
+@font-face {
+  font-family: "Inter var";
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: "Regular";
+  src: url("../assets/fonts/Inter-roman.var.woff2?v=3.18") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter var";
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+  font-named-instance: "Italic";
+  src: url("../assets/fonts/Inter-italic.var.woff2?v=3.18") format("woff2");
+}
+
+/** Ionic CSS Variables **/
+:root {
+  // --ion-font-family: "SFProDisplayFont";
+  // --ion-font-family: "Raleway";
+  --ion-font-family: "Inter var";
+  /** primary **/
+  --ion-color-primary: #3880ff;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+
+  /** secondary **/
+  --ion-color-secondary: #3dc2ff;
+  --ion-color-secondary-rgb: 61, 194, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #36abe0;
+  --ion-color-secondary-tint: #50c8ff;
+
+  /** tertiary **/
+  --ion-color-tertiary: #5260ff;
+  --ion-color-tertiary-rgb: 82, 96, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #4854e0;
+  --ion-color-tertiary-tint: #6370ff;
+
+  /** success **/
+  --ion-color-success: #2dd36f;
+  --ion-color-success-rgb: 45, 211, 111;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #28ba62;
+  --ion-color-success-tint: #42d77d;
+
+  /** warning **/
+  --ion-color-warning: #ffc409;
+  --ion-color-warning-rgb: 255, 196, 9;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0ac08;
+  --ion-color-warning-tint: #ffca22;
+
+  /** danger **/
+  --ion-color-danger: #eb445a;
+  --ion-color-danger-rgb: 235, 68, 90;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #cf3c4f;
+  --ion-color-danger-tint: #ed576b;
+
+  /** dark **/
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 36, 40;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+
+  /** medium **/
+  --ion-color-medium: #92949c;
+  --ion-color-medium-rgb: 146, 148, 156;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #808289;
+  --ion-color-medium-tint: #9d9fa6;
+
+  /** light **/
+  --ion-color-light: #f4f5f8;
+  --ion-color-light-rgb: 244, 245, 248;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+
+  //**giam sat **//
+
+  --ion-color-toolbar: #d7d8da;
+  --ion-color-gslistbg: #3d85cc;
+  --ion-color-gstext: #ffffff;
+  --ion-color-warningbtn: #ffebec;
+  --ion-color-safebtn: #ebfffa;
+  --ion-color-luatlistbg: #f5f5f5;
+  --ion-color-reportbtn: #3d85cc;
+
+  // --ion-color-gslistbg: #ebf5ff;
+  // --ion-color-gstext: #3d85cc;
+  // --ion-color-warningbtn: #ffebec;
+  // --ion-color-safebtn: #ebfffa;
+  --ion-color-luatlistbg: #f5f5f5;
+  --ion-color-themluatbutton: #43484d;
+  --ion-color-toggleluat: #34c759;
+
+  // NB - custom color theme Alix
+  --dark-900: #263238;
+  --dark-800: #37474f;
+  --dark-700: #455a64;
+  --dark-600: #546e7a;
+  --pink-color: #f06292;
+  --yellow-color: #ffc107;
+  --placeholder-color-custom: rgba(45, 48, 51, 0.5);
+  --alix-primary-color: #64b5f6;
+  --alix-toolbar-color: rgba(200, 200, 200, 0.3);
+  --alix-background-color: rgba(200, 200, 200, 0.3);
+  --color-safety: #80cc5c;
+  --color-nguong-duoi: #8cbcea; // dark mode
+  // --color-warning: #c01c1c;
+  --color-warning: #edae5e; // dark mode
+  --color-on-rpc: #edae5e;
+  // --color-disconnected: #a8a4a4;
+  --color-disconnected: #606c74; // dark mode
+  --color-off: #c2c7c9;
+
+  --background-on: #354a5b;
+  --background-off: #37474f;
+  --background-diss: #2b3946;
+
+  // color for dark mode
+  --icon-dark-mode: #cfd8dd;
+  --text-dark-mode: #cfd8dd;
+  --title-dark-mode: #eeeeee;
+  --background-content-dark-mode: #263238;
+  --background-input-dark-mode: #37474f;
+  --line-dark-mode: #455a64;
+}
+
+// @media (prefers-color-scheme: dark) {
+/*
+  * Dark Colors
+  * -------------------------------------------
+  */
+
+body[color-theme="dark"] {
+  background: var(--background-content-dark-mode) !important;
+  // --ion-color-primary: #428cff;
+  // custom color
+  --ion-color-primary: #47acfc;
+
+  --ion-color-primary-rgb: 66, 140, 255;
+  --ion-color-primary-contrast: #232121;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3a7be0;
+  --ion-color-primary-tint: #5598ff;
+
+  --ion-color-secondary: #50c8ff;
+  --ion-color-secondary-rgb: 80, 200, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #46b0e0;
+  --ion-color-secondary-tint: #62ceff;
+
+  --ion-color-tertiary: #6a64ff;
+  --ion-color-tertiary-rgb: 106, 100, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #5d58e0;
+  --ion-color-tertiary-tint: #7974ff;
+
+  --ion-color-success: #2fdf75;
+  --ion-color-success-rgb: 47, 223, 117;
+  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #29c467;
+  --ion-color-success-tint: #44e283;
+
+  --ion-color-warning: #ffd534;
+  --ion-color-warning-rgb: 255, 213, 52;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0bb2e;
+  --ion-color-warning-tint: #ffd948;
+
+  --ion-color-danger: #ff4961;
+  --ion-color-danger-rgb: 255, 73, 97;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #e04055;
+  --ion-color-danger-tint: #ff5b71;
+
+  --ion-color-dark: #f4f5f8;
+  --ion-color-dark-rgb: 244, 245, 248;
+  --ion-color-dark-contrast: #000000;
+  --ion-color-dark-contrast-rgb: 0, 0, 0;
+  --ion-color-dark-shade: #d7d8da;
+  --ion-color-dark-tint: #f5f6f9;
+
+  --ion-color-medium: #989aa2;
+  --ion-color-medium-rgb: 152, 154, 162;
+  --ion-color-medium-contrast: #000000;
+  --ion-color-medium-contrast-rgb: 0, 0, 0;
+  --ion-color-medium-shade: #86888f;
+  --ion-color-medium-tint: #a2a4ab;
+
+  --ion-color-light: #222428;
+  --ion-color-light-rgb: 34, 36, 40;
+  --ion-color-light-contrast: #ffffff;
+  --ion-color-light-contrast-rgb: 255, 255, 255;
+  --ion-color-light-shade: #1e2023;
+  --ion-color-light-tint: #383a3e;
+}
+
+/*
+  * iOS Dark Theme
+  * -------------------------------------------
+  */
+
+.ios body[color-theme="dark"] {
+  --ion-background-color: var(--background-content-dark-mode);
+
+  --ion-background-color-rgb: 0, 0, 0;
+
+  // --ion-text-color: #ffffff;
+  // custom color
+  --ion-text-color: var(--title-dark-mode);
+  --ion-text-color-rgb: 255, 255, 255;
+
+  --ion-color-step-50: #0d0d0d;
+  // --ion-color-step-100: #1a1a1a;
+  // custom color
+  --ion-color-step-100: var(--background-input-dark-mode);
+
+  --ion-color-step-150: #262626;
+  --ion-color-step-200: #333333;
+  // --ion-color-step-250: #404040;
+
+  --ion-color-step-250: #455a64; // custom dark mode
+
+  --ion-color-step-300: #4d4d4d;
+  --ion-color-step-350: #595959;
+  // --ion-color-step-400: #666666;
+  --ion-color-step-400: var(--title-dark-mode);
+  --ion-color-step-450: #737373;
+  --ion-color-step-500: #808080;
+  --ion-color-step-550: #8c8c8c;
+  --ion-color-step-600: #999999;
+  --ion-color-step-650: #a6a6a6;
+  --ion-color-step-700: #b3b3b3;
+  --ion-color-step-750: #bfbfbf;
+  --ion-color-step-800: #cccccc;
+  --ion-color-step-850: #d9d9d9;
+  --ion-color-step-900: #e6e6e6;
+  --ion-color-step-950: #f2f2f2;
+
+  // --ion-item-background: #000000;
+
+  // custom color theme alix dark mode
+  --ion-item-background: #263238;
+  // --------------------------------
+  // --ion-card-background: #1c1c1d;
+
+  // custom dark mode text
+  --dark-700: #cfd8dd;
+
+  // custom dark mode
+
+  /* ======================Component Chung==========================*/
+  ion-content {
+    --background: var(--background-content-dark-mode) !important;
+  }
+  .modal-wrapper {
+    background: var(--background-content-dark-mode) !important;
+  }
+
+  // ion-refresher {
+  //   height: 100% !important;
+  //   ion-refresher-content{
+  //     height: 60px !important;
+  //   }
+  // }
+  // ion-refresher.refresher-active {
+  //   background: var(--background-content-dark-mode) !important;
+  // }
+  ion-header {
+    background-color: var(--background-content-dark-mode) !important;
+    ion-toolbar {
+      ion-title {
+        color: var(--title-dark-mode) !important;
+      }
+    }
+    i,
+    ion-icon,
+    ion-label,
+    ion-back-button,
+    h3 {
+      color: var(--title-dark-mode) !important;
+    }
+  }
+  ion-item {
+    --background: var(--background-input-dark-mode) !important;
+  }
+  ion-toggle {
+    --background: #455a64 !important;
+    --background-checked: var(--alix-primary-color);
+    --handle-background: #b0bec5;
+  }
+  ion-checkbox {
+    --checkmark-color: var(--title-dark-mode) !important;
+  }
+  /* =========================End======================*/
+
+  //  component menu quan tri
+  app-quan-tri-menu {
+    ion-content {
+      .info-user {
+        background: none !important;
+      }
+      .accordion-list {
+        background: var(--background-input-dark-mode) !important;
+      }
+      .accordion-list .list ion-item i {
+        color: var(--icon-dark-mode) !important;
+      }
+    }
+  }
+  // ========== end menu quan tri ==========
+
+  // custom quan ly tai khoan
+  app-tai-khoan {
+    .section-search ion-searchbar {
+      --background: var(--background-input-dark-mode) !important;
+      --placeholder-color: var(--text-dark-mode) !important;
+    }
+    ion-list {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .section-ds-tk .row-tai-khoan {
+      border-bottom: 1px solid var(--line-dark-mode);
+      .info-tai-khoan h2 {
+        color: var(--title-dark-mode) !important;
+      }
+    }
+  }
+  app-thong-tin-tai-khoan {
+    ion-grid .role .select-icon {
+      background: var(--background-input-dark-mode) !important;
+    }
+    ion-item {
+      --background-activated: var(--background-input-dark-mode) !important;
+    }
+  }
+  app-them-moi-tai-khoan {
+    ion-grid .role .select-icon {
+      background: var(--background-input-dark-mode) !important;
+    }
+    ion-item {
+      --background-activated: var(--background-input-dark-mode) !important;
+    }
+  }
+  // ========== end quan ly tai khoan ==========
+
+  // custom quan ly vai tro
+  app-vai-tro {
+    .section-search ion-searchbar {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    .section-ds-tk .row-tai-khoan {
+      border-bottom: 1px solid var(--line-dark-mode);
+    }
+    .section-ds-tk ion-list {
+      background: var(--background-input-dark-mode);
+    }
+  }
+  // ====== end quan ly vai tro =======
+
+  // custom quan ly dam tom
+  app-dam-tom {
+    .search-dam ion-searchbar,
+    ion-content ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    ion-content ion-card ion-row {
+      border-bottom: 1px solid var(--line-dark-mode) !important;
+    }
+    ion-content ion-card ion-row:last-child {
+      border-bottom: none !important;
+    }
+  }
+  app-thong-tin-dam-tom {
+    .segment,
+    .slides {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .card-camera ion-item,
+    .tab-btb ion-item,
+    .card-ng-ql ion-item {
+      --border-color: var(--line-dark-mode);
+    }
+    .card-gateway,
+    .card-camera,
+    .card-ng-ql {
+      --background: var(--background-input-dark-mode);
+    }
+    app-slide-zone {
+      .table-zone .table-zone-header {
+        background-color: var(--background-content-dark-mode);
+        border-bottom: 1px solid var(--line-dark-mode);
+      }
+      .list-content-table .card-item ion-item {
+        border-bottom: 1px solid var(--line-dark-mode) !important;
+        --background: #334248 !important;
+      }
+      .card-item:last-child {
+        ion-item {
+          border-bottom: none !important;
+        }
+      }
+      .list-content-table .card-item {
+        border-radius: unset;
+      }
+      .list-content-table {
+        background-color: var(--background-input-dark-mode) !important;
+      }
+    }
+  }
+  app-thong-tin-bo-thiet-bi {
+    .table-device .header {
+      background-color: #334248;
+      border-bottom: 1px solid var(--line-dark-mode);
+      h3 {
+        color: var(--title-dark-mode) !important;
+      }
+    }
+    .table-device .content {
+      ion-item {
+        --color: var(--title-dark-mode) !important;
+      }
+      p {
+        color: var(--title-dark-mode) !important;
+      }
+    }
+    .table-device .content:last-child {
+      border-bottom: none;
+    }
+    .table-device {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+  }
+  app-them-moi-quan-ly {
+    .search-dam ion-searchbar {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    .chon-ng-ql {
+      background: var(--background-input-dark-mode) !important;
+    }
+    ion-content ion-list ion-item {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+  app-thong-tin-thiet-bi {
+    ion-toolbar {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    .name-device ion-item,
+    .zone-device ion-item,
+    .row-type-device ion-col ion-item {
+      --background: unset !important;
+      --border-color: var(--line-dark-mode) !important;
+    }
+    .name-device ion-item span {
+      color: #eeeeee !important;
+    }
+  }
+  app-cap-nhap-nhom {
+    .row-ds-tb {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .row-ds-tb .ds-tb-content i {
+      color: #eeeeee !important;
+    }
+  }
+  app-them-moi-nhom {
+    .row-ds-tb {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .row-ds-tb .ds-tb-content i {
+      color: #eeeeee !important;
+    }
+  }
+  // modal chon thiet bi cua phan vung
+  .alertChooseDevice .alert-head h2,
+  .alertChooseDevice .alert-checkbox-label.sc-ion-alert-ios {
+    color: var(--title-dark-mode) !important;
+  }
+  .alertChooseDevice .alert-wrapper.sc-ion-alert-ios {
+    background-color: var(--background-input-dark-mode) !important;
+  }
+  .alertChooseDevice .alert-checkbox-icon.sc-ion-alert-ios {
+    border: 1px solid #455a64;
+  }
+  // modal thong tin bo thiet bi
+  .infoGateway .alert-wrapper.sc-ion-alert-ios {
+    background-color: #455a64 !important;
+  }
+  .infoGateway .alert-head h2,
+  .infoGateway .alert-message p {
+    color: #eeeeee !important;
+  }
+  // ======= end quan ly dam tom ======
+
+  /* ======================Component Camera==========================*/
+  app-camera {
+    ion-content .card-cam-chinh,
+    ion-content .card-cam-phu {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .choose-dam .select-icon {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+  /* ======================End component camera==========================*/
+
+  // component footer
+  app-footer-infor {
+    .footer-content {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .footer-copyright {
+      background: var(--background-content-dark-mode) !important;
+    }
+  }
+
+  // custom ion-tab-bar
+  ion-tab-bar {
+    // border-top-color: var(--background-content-dark-mode) !important;
+    --background: var(--background-input-dark-mode) !important;
+    ion-tab-button {
+      color: var(--text-dark-mode) !important;
+    }
+  }
+  // Them moi vai tro -ChuongNV
+  // Them moi vai tro -ChuongNV
+  app-them-moi-vai-tro {
+    ion-content {
+      ion-card {
+        --background: var(--background-input-dark-mode) !important;
+        ion-list {
+          background: var(--background-input-dark-mode) !important;
+          i {
+            --color: var(--title-dark-mode);
+          }
+        }
+      }
+    }
+  }
+
+  // Thong tin vai tro
+  app-thong-tin-vai-tro {
+    ion-content {
+      ion-card {
+        --background: var(--background-input-dark-mode) !important;
+        ion-list {
+          background: var(--background-input-dark-mode) !important;
+          i {
+            --color: var(--title-dark-mode);
+          }
+        }
+      }
+    }
+  }
+  /* ========================= Dat lich xuat bao cao =====================*/
+  app-lich-xuat-bao-cao {
+    ion-grid {
+      ion-list {
+        background: var(--background-input-dark-mode) !important;
+        .row-tai-khoan {
+          h2,
+          span,
+          i {
+            color: var(--text-dark-mode) !important;
+          }
+        }
+      }
+    }
+  }
+  app-them-moi-lich-xuat-bao-cao {
+    ion-grid {
+      .role {
+        ion-item {
+          --background-activated: var(--background-input-dark-mode) !important;
+        }
+        .select-icon {
+          background: var(--background-input-dark-mode) !important;
+        }
+      }
+      .pick-hour {
+        ion-item {
+          --background-activated: var(--background-input-dark-mode) !important;
+        }
+        .select-icon {
+          background: var(--background-input-dark-mode) !important;
+        }
+      }
+      ion-card {
+        background: var(--background-input-dark-mode) !important;
+      }
+      .user-item {
+        color: var(--text-dark-mode) !important;
+        background-color: unset !important;
+      }
+    }
+  }
+  app-thong-tin-lich-xuat-bao-cao {
+    ion-grid {
+      .role {
+        ion-item {
+          --background-activated: var(--background-input-dark-mode) !important;
+        }
+        .select-icon {
+          background: var(--background-input-dark-mode) !important;
+        }
+      }
+      .pick-hour {
+        ion-item {
+          --background-activated: var(--background-input-dark-mode) !important;
+        }
+        .select-icon {
+          background: var(--background-input-dark-mode) !important;
+        }
+      }
+      ion-card {
+        background: var(--background-input-dark-mode) !important;
+      }
+      .user-item {
+        color: var(--text-dark-mode) !important;
+        background-color: unset !important;
+      }
+    }
+  }
+
+  /* ========================= Module Dieu Khien ======================== */
+  app-tab-dieu-khien-tu-dong {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+  }
+  app-tab-hen-gio-dieu-khien {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+  }
+  app-them-moi-dieu-khien-tu-dong {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+      ion-datetime {
+        border: 1px solid var(--line-dark-mode) !important;
+      }
+      .wrap-datetime {
+        ion-datetime {
+          border: none !important;
+        }
+      }
+      .row-dieu-khien,
+      .row-su-kien {
+        border-bottom: 1px solid var(--line-dark-mode) !important;
+      }
+    }
+  }
+  app-thong-tin-dieu-khien-tu-dong {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+      ion-datetime {
+        border: 1px solid var(--line-dark-mode) !important;
+      }
+      .wrap-datetime {
+        ion-datetime {
+          border: none !important;
+        }
+      }
+      .row-dieu-khien,
+      .row-su-kien {
+        border-bottom: 1px solid var(--line-dark-mode) !important;
+      }
+    }
+  }
+  app-them-moi-rpc-modal {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+  }
+  app-them-moi-hen-gio-dieu-khien {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+  }
+  app-thong-tin-hen-gio-dieu-khien {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+  }
+  // ==========region Bao cao ============
+  // Lich su truy cap
+  app-lich-su-truy-cap {
+    .ion-searchbar-custom {
+      --background: var(--background-input-dark-mode) !important;
+      ion-icon {
+        color: #fff;
+      }
+    }
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+  }
+
+  // Ket noi cam bien
+  app-ket-noi-cam-bien {
+    .favCard {
+      background: var(--background-input-dark-mode) !important;
+      thead {
+        tr {
+          background-color: var(--background-input-dark-mode) !important;
+        }
+      }
+    }
+    .echart {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+
+  // Du lieu giam sat
+  app-du-lieu-giam-sat {
+    .temp-chart {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .lux-chart {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .hum-chart {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+
+  // Bao cao canh bao
+  app-canh-bao {
+    .echart {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+
+  // Du lieu giam sat
+  app-thong-bao {
+    .favCard {
+      background: var(--background-input-dark-mode) !important;
+      thead {
+        tr {
+          background-color: var(--background-input-dark-mode) !important;
+        }
+      }
+    }
+    .echart {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+
+  // Bao cao tong hop
+  app-tong-hop {
+    .echart {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .temp-chart {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .lux-chart {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .hum-chart {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+  // =========end region bao cao ===========
+
+  // =========region du lieu cam bien =====
+  app-du-lieu-cam-bien {
+    .chart-row {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .segment-row {
+      ion-segment {
+        background-color: var(--background-content-dark-mode) !important;
+        ion-segment-button {
+          --background: var(--background-input-dark-mode) !important;
+        }
+      }
+    }
+  }
+  // =========end region du lieu cam bien ===========
+
+  // =========region luat canh bao =====
+  // thiet lap luat canh bao
+  app-thiet-lap-luat-canh-bao {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    ion-list {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+  // them moi luat canh bao
+  app-them-moi-luat-canh-bao {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    ion-segment {
+      ion-segment-button {
+        --background: var(--background-input-dark-mode) !important;
+      }
+    }
+    .canh-bao {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .nguong-input {
+      border: 1px solid white;
+    }
+    .custom-ion-datetime-occur {
+      border: 1px solid white;
+    }
+  }
+  app-them-luat-cb {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    ion-segment {
+      ion-segment-button {
+        --background: var(--background-input-dark-mode) !important;
+      }
+    }
+    .canh-bao {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .nguong-input {
+      border: 1px solid white;
+    }
+    .custom-ion-datetime-occur {
+      border: 1px solid white;
+    }
+  }
+  // thong tin luat canh bao
+  app-thong-tin-luat-canh-bao {
+    ion-card {
+      --background: var(--background-input-dark-mode) !important;
+    }
+    ion-segment {
+      ion-segment-button {
+        --background: var(--background-input-dark-mode) !important;
+      }
+    }
+    .canh-bao {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .nguong-input {
+      border: 1px solid white;
+    }
+    .custom-ion-datetime-occur {
+      border: 1px solid white;
+    }
+  }
+  // =========end region luat canh bao ===========
+
+  /* ======================Component DK thu cong==========================*/
+  app-dieu-khien {
+    .box-filter-time {
+      background-color: var(--background-content-dark-mode) !important;
+    }
+    .col-select,
+    ion-segment {
+      background: var(--background-content-dark-mode) !important;
+    }
+    ion-item {
+      --background-activated: var(--background-input-dark-mode) !important;
+    }
+    .select-icon {
+      background: var(--background-input-dark-mode) !important;
+    }
+    ion-segment ion-segment-button {
+      // border: 1px solid #37474f;
+      --background: unset;
+    }
+    app-nhom-dieu-khien {
+      .card-nhom-dieu-khien {
+        background: #37474f !important;
+      }
+    }
+  }
+  app-quan-ly-nhom {
+    ion-content .grid-ds-nhom {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    ion-content ion-card {
+      border-bottom: 1px solid var(--line-dark-mode);
+    }
+    ion-content ion-card:last-child {
+      border-bottom: unset;
+    }
+  }
+  app-cap-nhat-nhom {
+    ion-content .grid-body-content .row-ds-tb {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .row-ds-tb .ds-tb-content {
+      border-bottom: 1px solid var(--line-dark-mode) !important;
+    }
+    .row-ds-tb .ds-tb-content:last-child {
+      border-bottom: unset !important;
+    }
+  }
+  app-chon-thiet-bi {
+    ion-content .grid-container .grid-list-device {
+      background-color: var(--background-input-dark-mode) !important;
+    }
+    .row-list-device ion-list ion-item {
+      --border-color: var(--line-dark-mode) !important;
+    }
+  }
+  app-pickertime {
+    .container-grid .grid-dieu-khien {
+      background-color: var(--background-content-dark-mode) !important;
+    }
+    .row-control ion-item,
+    .row-lap-lai ion-item,
+    .row-so-lan-lap ion-item {
+      border: 1px solid var(--line-dark-mode) !important;
+    }
+    .select-icon {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .disable-icon-clock {
+      color: rgb(94 107 113) !important;
+    }
+  }
+  /* ======================End dk thu cong==========================*/
+
+  /* ======================Component Ds Canh bao ==========================*/
+  app-danh-sach-canh-bao {
+    .row-select-vuon ion-card ion-item .select-icon {
+      background: var(--background-input-dark-mode) !important;
+    }
+    .item-group-day,
+    .item-group-day ion-item-divider,
+    .card-content-day,
+    .item-canh-bao ion-card {
+      background: var(--background-input-dark-mode) !important;
+    }
+  }
+
+  /* ======================End Ds Canh bao ==========================*/
+}
+
+.ios ion-modal {
+  --ion-background-color: var(--ion-color-step-100);
+  --ion-toolbar-background: var(--ion-color-step-150);
+  --ion-toolbar-border-color: var(--ion-color-step-250);
+}
+
+/*
+  * Material Design Dark Theme
+  * -------------------------------------------
+  */
+
+.md body[color-theme="dark"] {
+  --ion-background-color: var(--background-content-dark-mode);
+  --ion-background-color-rgb: 18, 18, 18;
+
+  // --ion-text-color: #ffffff;
+  --ion-text-color: var(--title-dark-mode);
+
+  --ion-text-color-rgb: 255, 255, 255;
+
+  --ion-border-color: #222222;
+
+  --ion-color-step-50: #1e1e1e;
+  // --ion-color-step-100: #2a2a2a;
+
+  // custom color
+  --ion-color-step-100: var(--background-input-dark-mode);
+
+  --ion-color-step-150: #363636;
+  --ion-color-step-200: #414141;
+  --ion-color-step-250: #4d4d4d;
+  --ion-color-step-300: #595959;
+  --ion-color-step-350: #656565;
+  // --ion-color-step-400: #717171;
+  --ion-color-step-400: var(--title-dark-mode);
+  --ion-color-step-450: #7d7d7d;
+  --ion-color-step-500: #898989;
+  --ion-color-step-550: #949494;
+  --ion-color-step-600: #a0a0a0;
+  --ion-color-step-650: #acacac;
+  --ion-color-step-700: #b8b8b8;
+  --ion-color-step-750: #c4c4c4;
+  --ion-color-step-800: #d0d0d0;
+  --ion-color-step-850: #dbdbdb;
+  --ion-color-step-900: #e7e7e7;
+  --ion-color-step-950: #f3f3f3;
+
+  --ion-item-background: #1e1e1e;
+
+  --ion-toolbar-background: #1f1f1f;
+
+  --ion-tab-bar-background: #1f1f1f;
+
+  // --ion-card-background: #1e1e1e;
+}
+// }
+
+.ios .quan-tri-tab {
+  margin-top: 25px;
+}
+.quan-tri-header {
+  padding-top: 0 !important;
+}
+
+.dieu-khien-slides {
+  ion-slide > :first-child {
+    width: 100%;
+  }
+
+  ion-list {
+    background: none;
+
+    h2 {
+      // font-weight: 600;
+      font-size: 18px;
+      line-height: 26px;
+      color: #43484d;
+      text-align: left;
+    }
+  }
+}
+
+ion-back-button {
+  --color: rgba(235, 245, 255, 1);
+}

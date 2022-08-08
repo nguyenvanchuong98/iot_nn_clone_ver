@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar class="ion-no-padding" color="toolbar">
+        <ion-buttons slot="start">
+            <ion-back-button mode="md" text="" defaultHref="/home/quan-tri/menu" style="color: var(--dark-700);"></ion-back-button>
+        </ion-buttons>
+        <ion-row class="title-home-account">
+            <ion-label class="title"> Báo cáo tổng hợp </ion-label>
+        </ion-row>
+    </ion-toolbar>
+    <form [formGroup]="form">
+        <ion-row>
+            <ion-col class="ion-no-padding ion-no-margin">
+                <ion-card class="reportCard">
+                    <ion-item lines="none">
+                        <i class="ph-map-pin-light" style="font-size: 20px; color: var(--dark-700);"></i>
+                        <ion-label [hidden]="true">Chọn Nhà vườn</ion-label>
+                        <ion-select [interfaceOptions]="customActionSheetOptions" okText="Xác nhận" cancelText="Hủy bỏ"
+                            (ionChange)="damTomChange()" formControlName="damtom" name="damtom" *ngIf="!isDamTomLoading"
+                            value='ALL' interface="action-sheet">
+                            <ion-select-option value='ALL'>Tất cả</ion-select-option>
+                            <ion-select-option *ngFor="let damtom of damTomList" [value]="damtom.id">{{damtom.name}}
+                            </ion-select-option>
+                        </ion-select>
+                        <span class="select-icon">
+                            <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </ion-item>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="date-time-row">
+            <ion-col size='6' class="col-filter-time" style="padding-right: 4px;">
+                <ion-item lines="none">
+                    <i class="mdi mdi-clock-outline" ></i>
+                    <ion-datetime cancelText="Hủy bỏ" doneText="Xác nhận" (ionChange)="validateDay()" formControlName="dateFrom" name="dateFrom" [max]="maxFromTo" display-format="DD/MM/YYYY" picker-format="DD:MM:YYYY"></ion-datetime>
+                </ion-item>
+            </ion-col>
+            <ion-col size='6' class="col-filter-time" style="padding-left: 4px;">
+                <ion-item lines="none">
+                    <i class="mdi mdi-clock-outline"></i>
+                    <ion-datetime cancelText="Hủy bỏ" doneText="Xác nhận" formControlName="dateTo" (ionChange)="validateDay()" name="dateTo" [max]="now" [min]="this.form.get('dateFrom').value" display-format="DD/MM/YYYY" picker-format="DD:MM:YYYY">
+                    </ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="invalidDate">
+            <ion-col>
+                <ion-item lines="none">
+                    <p class="invalid">Khoảng thời gian không hợp lệ</p>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingText="">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div echarts [options]="chartOption" class="echart"></div>
+                <div echarts [options]="tempChartOption" class="temp-chart"></div>
+                <div echarts [options]="humChartOption" class="hum-chart"></div>
+                <div echarts [options]="luxChartOption" class="lux-chart"></div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-fab class="ion-no-padding" *ngIf="isGoTop" slot="fixed" vertical="bottom" horizontal="end">
+        <ion-button class="ion-no-margin" fill="clear" (click)="goTop()">
+            <i class="mdi mdi-chevron-up"></i>
+        </ion-button>
+    </ion-fab>
+</ion-content>

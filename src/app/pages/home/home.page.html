@@ -1,0 +1,28 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button (click)="onTabChange('giam-sat')">
+      <ion-label>Giám sát</ion-label>
+      <ion-icon *ngIf="activeTab === 'giam-sat'" src="assets/icon/giam_sat_active.svg"></ion-icon>
+      <ion-icon *ngIf="activeTab !== 'giam-sat'" src="assets/icon/giam_sat.svg"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button (click)="onTabChange('dieu-khien')">
+      <ion-label>Điều khiển</ion-label>
+      <ion-icon *ngIf="activeTab === 'dieu-khien'" src="assets/icon/dieu_khien_active.svg"></ion-icon>
+      <ion-icon *ngIf="activeTab !== 'dieu-khien'" src="assets/icon/dieu_khien.svg"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button (click)="onTabChange('camera')">
+      <ion-label>Camera</ion-label>
+      <ion-icon *ngIf="activeTab === 'camera'" src="assets/icon/camera_active.svg"></ion-icon>
+      <ion-icon *ngIf="activeTab !== 'camera'" src="assets/icon/camera.svg"></ion-icon>
+    </ion-tab-button>
+    <!-- <ion-tab-button tab="bao-cao">
+      <ion-label>Báo cáo</ion-label>
+      <ion-icon name="stats-chart"></ion-icon>
+    </ion-tab-button> -->
+    <ion-tab-button (click)="onTabChange('quan-tri')">
+      <ion-label>Quản trị</ion-label>
+      <ion-icon *ngIf="activeTab === 'quan-tri'" src="assets/icon/quan_tri_active.svg"></ion-icon>
+      <ion-icon *ngIf="activeTab !== 'quan-tri'" src="assets/icon/quan_tri.svg"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

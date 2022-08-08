@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/home/quan-tri/menu">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Danh Sách Báo Cáo</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="light" routerLink="/home/quan-tri/bao-cao/lich-xuat-bao-cao">
+        <ion-icon style="color: #FFFFFF;" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col>
+        <div [routerLink]="['/','home','bao-cao','du-lieu-giam-sat']">
+          <ion-row>
+            <ion-col>
+              <ion-img [src]="giamsatIconUrl"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>Dữ Liệu Giám Sát</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div [routerLink]="['/','home','bao-cao','canh-bao']">
+          <ion-row>
+            <ion-col>
+              <ion-img [src]="canhbaoIconUrl"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>Cảnh Báo</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div [routerLink]="['/','home','bao-cao','ket-noi-cam-bien']">
+          <ion-row>
+            <ion-col>
+              <ion-img [src]="cambienIconUrl"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>Kết Nối Cảm Biến</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div [routerLink]="['/','home','bao-cao','thong-bao']">
+          <ion-row>
+            <ion-col>
+              <ion-img [src]="thongbaoIconUrl"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>Thông Báo</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div [routerLink]="['/','home','bao-cao','tong-hop']">
+          <ion-row>
+            <ion-col >
+              <ion-img class="tong-hop" [src]="tonghopIconUrl"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>Báo Cáo Tổng Hợp</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
+

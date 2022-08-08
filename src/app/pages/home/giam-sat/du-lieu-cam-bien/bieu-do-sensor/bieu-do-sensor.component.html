@@ -1,0 +1,186 @@
+<!-- filter time -->
+<ion-row class="date-time-row">
+    <ion-col size='6' class="col-filter-time">
+        <ion-card style="margin-right: 4px">
+            <ion-item lines="none">
+                <i class="mdi mdi-clock-outline"></i>
+                <ion-datetime display-format="DD/MM/YYYY HH:mm"
+                    picker-format="DD/MM/YYYY HH:mm" [ngModel]="deviceSensor?.fromDate"
+                    (ngModelChange)="fromDateChange($event)" max={{currentDate}}
+                    doneText="Xác nhận" cancelText="Hủy bỏ" class="datetimePicker">
+                </ion-datetime>
+            </ion-item>
+        </ion-card>
+    </ion-col>
+    <ion-col size='6' class="col-filter-time">
+        <ion-card style="margin-left: 4px">
+            <ion-item lines="none">
+                <i class="mdi mdi-clock-outline"></i>
+                <ion-datetime text-wrap display-format="DD/MM/YYYY HH:mm"
+                    picker-format="DD/MM/YYYY HH:mm" [ngModel]="deviceSensor?.toDate"
+                    (click)="filterTime()" (ngModelChange)="toDateChange($event)"
+                    max={{currentDate}} doneText="Xác nhận" cancelText="Hủy bỏ"
+                    class="datetimePicker">
+                </ion-datetime>
+            </ion-item>
+        </ion-card>
+    </ion-col>
+</ion-row>
+<ion-row>
+    <ion-item style="--background: unset !important; --padding-start: 0; font-size: 14px;" 
+    *ngIf="!datesValid()" lines="none">
+        <ion-label color="danger" style="margin: 0px 16px">
+            Khoảng thời gian không hợp lệ</ion-label>
+    </ion-item>
+</ion-row>
+
+<!--data of device -->
+<ion-row class="chart-row">
+    <ion-col class="ion-text-left">
+        <ion-row class="row-name">
+            <ion-col size="10">
+                <ion-label class="zoneName">{{zone?.zoneName}}</ion-label>
+            </ion-col>
+            <ion-col class="col-sliders" size="2">
+                <ion-icon name="options-outline" class="threedot"
+                    *ngIf="deviceSensor?.tbKey.includes('Temperature')"
+                    (click)="presentTempPrompt(deviceSensor.lowerReset, deviceSensor.upperReset)">
+                </ion-icon>
+
+                <ion-icon name="options-outline" class="threedot"
+                    *ngIf="deviceSensor?.tbKey.includes('Humidity')"
+                    (click)="presentHumidityPrompt(deviceSensor.lowerReset, deviceSensor.upperReset)">
+                </ion-icon>
+
+                <ion-icon name="options-outline" class="threedot"
+                    *ngIf="deviceSensor?.tbKey.includes('Lux')"
+                    (click)="presentLuxPrompt(deviceSensor.lowerReset, deviceSensor.upperReset)">
+                </ion-icon>
+
+                <ion-icon name="options-outline" class="threedot"
+                    *ngIf="deviceSensor?.tbKey.includes('Unknow') || deviceSensor?.tbKey.includes('Sensor')"
+                    (click)="presentUnknowPrompt(deviceSensor.lowerReset, deviceSensor.upperReset)">
+                </ion-icon>
+                
+            </ion-col>
+        </ion-row>
+        <ion-row class="row-group-info">
+            <ion-col>
+                <ion-row>
+                    <ion-col size="8" class="col-lastest-value-time">
+                        <ion-row>
+                            <ion-col>
+                                <div *ngIf="deviceSensor.telemetryData?.value !== null"
+                                    class="chartLegend">
+                                    {{!!deviceSensor.label ? deviceSensor.label :
+                                        deviceSensor.name}}
+                                    lúc {{converTime(deviceSensor?.telemetryData?.ts)}}
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="ion-text-left col-chart-number">
+                                <ion-label>
+                                    <div *ngIf="deviceSensor?.telemetryData?.value !== null 
+                                            && deviceSensor?.telemetryData?.alarm === false"
+                                        class="chartNumber" style="color: var(--color-safety);">
+                                        {{deviceSensor?.telemetryData?.value}} {{deviceSensor?.unit}}
+                                    </div>
+                                    <div *ngIf="deviceSensor?.telemetryData?.value !== null 
+                                            && deviceSensor?.telemetryData?.alarm === true 
+                                            && deviceSensor?.telemetryData?.nguongViPham === 'GREATER_OR_EQUAL'"
+                                        class="chartNumber" style="color: var(--color-warning);">
+                                        {{deviceSensor?.telemetryData?.value}} {{deviceSensor?.unit}}
+                                    </div>
+                                    <div *ngIf="deviceSensor?.telemetryData?.value !== null 
+                                            && deviceSensor?.telemetryData?.alarm === true 
+                                            && deviceSensor?.telemetryData?.nguongViPham === 'LESS_OR_EQUAL'"
+                                        class="chartNumber" style="color: var(--color-nguong-duoi);">
+                                        {{deviceSensor?.telemetryData?.value}} {{deviceSensor?.unit}}
+                                    </div>
+                                    <div *ngIf="deviceSensor?.telemetryData?.value == null"
+                                        class="matketnoilabel">Mất kết nối
+                                    </div>
+                                </ion-label>
+                            </ion-col>
+                        </ion-row>
+                    </ion-col>
+                    <ion-col size="4" class="ion-text-left">
+                        <ion-row class="nowrap-row">
+                            <ion-col class="nowrap-row">
+                                <ion-label class="maxLabel">Max: {{deviceSensor.maxValue}}
+                                </ion-label>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="nowrap-row">
+                            <ion-col class="nowrap-row">
+                                <ion-label class="minLabel">Min: {{deviceSensor.minValue}}
+                                </ion-label>
+                            </ion-col>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+
+
+                <!--                            tuy chinh bieu do-->
+                <ion-row class="chart-name-row ion-text-center">
+                    <!-- <ion-col class="titleYAxes" size="3">
+                        <ion-label *ngIf="device.telemetryType.includes('Temperature')">Nhiệt
+                            độ({{device.unit}})</ion-label>
+                        <ion-label *ngIf="device.telemetryType.includes('Humidity')">Độ
+                            ẩm({{device.unit}})</ion-label>
+                        <ion-label *ngIf="device.telemetryType.includes('Lux')">Ánh
+                            sáng({{device.unit}})</ion-label>
+                    </ion-col> -->
+                    <ion-col>
+                        <ion-button (click)="editNameChart(deviceSensor)" fill="clear" class="chartTittle">
+                            <span>{{deviceSensor.nameChart}}</span>
+                        </ion-button>
+                        <!-- <ion-label *ngIf="device.deviceId === deviceIdFromDashboard" class="chartTittle">
+                                Biểu đồ {{!!device.deviceLabel ? device.deviceLabel  : device.deviceName}} 
+                            </ion-label> -->
+                    </ion-col>
+                </ion-row>
+
+            </ion-col>
+        </ion-row>
+        <ion-row class="row-echarts">
+            <ion-col>
+                <!-- <div class="chart">
+                    <div class="favCard">
+                        <canvas height="200" style="width: 94%;" baseChart
+                            [labels]="deviceSensor.chartLabels" chartType="line"
+                            [datasets]="deviceSensor.chartDatasets" [options]="deviceSensor.deviceChartOptions"
+                            [colors]="chartColors" [plugins]="lineChartPlugins">
+                        </canvas>
+                    </div>
+                </div> -->
+
+                <div class="container-chart">
+                    <div #echart echarts [options]="deviceSensor.chartOption" 
+                    [merge]="deviceSensor.updateChartOption"></div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <!-- filter bottom -->
+        <ion-row class="time-options">
+            <ion-col class="btn-hom-truoc">
+                <ion-button fill="clear" [disabled]="deviceSensor.isSelectDuringTime" (click)="backToYesterday()">
+                    <!-- <i class="ph-arrow-square-left"></i> -->
+                    <span>Hôm trước</span>
+                </ion-button>
+            </ion-col>
+            <ion-col class="time-during" *ngIf="!deviceSensor.isSelectDuringTime">
+                {{deviceSensor.fromDate | date: 'dd/MM/yyyy'}}
+            </ion-col>
+            <ion-col class="btn-home-sau">
+                <ion-button fill="clear" [disabled]="deviceSensor.isSelectDuringTime || checkMaxCurrentTime()"
+                    (click)="goToTomorrow()">
+                    <span>Hôm sau</span>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-col>
+</ion-row>
+

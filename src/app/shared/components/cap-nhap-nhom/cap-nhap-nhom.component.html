@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons class="back-arrow" slot="start">
+      <ion-button (click)="huy()">
+        <i class="mdi mdi-arrow-left" data-page=""></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Thông tin phân vùng</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid class="grid-body-content">
+    <ion-list>
+      <form [formGroup]="formAddZone">
+        <!-- <ion-label  class="label-title"> Tên nhóm <span>*</span> </ion-label> -->
+        <ion-item class="ion-no-padding" lines="none" class="item-name-zone">
+          <i class="mdi mdi-apps icon-name"></i>
+          <ion-input 
+          (ionChange)="changeNameZone()" 
+          formControlName="tenZone" 
+          placeholder="Tên phân vùng *">
+          </ion-input>
+        </ion-item>
+  
+        <ng-container *ngIf="formAddZone.get('tenZone').hasError('maxlength')">
+          <p class="errorMess">Tối đa 255 ký tự!</p>
+        </ng-container>
+  
+        <ng-container *ngIf="(formAddZone.get('tenZone').value.trim() == '' && formAddZone.get('tenZone').touched)">
+          <p class="errorMess">Đây là trường bắt buộc!</p>
+        </ng-container>
+        
+        <ng-container *ngIf="errorMessage !== ''">
+          <p class="errorMess">{{errorMessage}}</p>
+        </ng-container>
+  
+        <ion-grid class="row-ds-tb">
+
+          <ion-row class="ds-tb-header">
+            <h4>
+              <i class="mdi mdi-format-list-bulleted"></i>
+              <span>Danh sách thiết bị: ({{devicesChecked.length}})</span>
+            </h4>
+            
+            <ion-button (click)="showModalChooseDevice()" class="btn-chon-thiet-bi" fill="clear">
+              <!-- <i class="mdi mdi-circle-edit-outline"></i> -->
+              <i class="mdi mdi-square-edit-outline"></i>
+            </ion-button>
+          </ion-row>
+    
+          <ion-row class="ds-tb-content" *ngFor="let name of devicesChecked">
+            <!-- <i class="mdi mdi-checkbox-marked"></i> -->
+            <p class="name-device">{{name.name}}</p>
+          </ion-row>
+
+          <ion-row *ngIf="devicesChecked.length === 0" class="ion-justify-content-center">
+            <p>Hãy chọn thiết bị!</p>
+          </ion-row>
+
+        </ion-grid>
+      
+      </form>
+    </ion-list>
+
+    <ion-row class="ion-justify-content-center row-button-confirm">
+      <ion-button [disabled]="formAddZone.get('tenZone').value.trim()==='' || errorMessage !== '' || formAddZone.get('tenZone').hasError('maxlength')" 
+                  (click)="updateZone()" 
+                  class="btn-confirm-default" 
+                  expand="block">Xác nhận
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-fab 
+vertical="bottom" 
+horizontal="end" 
+slot="fixed"
+class="custom-ion-fab"
+*ngIf="isGoTop" (click)="goTop()">
+  <ion-fab-button>
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>
+
+<!-- <ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-row>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerGs()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/giam_sat.svg"></ion-icon>
+            <ion-label>Giám sát</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerDk()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/dieu_khien.svg"></ion-icon>
+            <ion-label>Điều khiển</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerCamera()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/camera.svg"></ion-icon>
+            <ion-label>Camera</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding">
+        <ion-button class="ion-no-margin" (click)="routerQuanTri()" expand="block" fill="clear">
+          <div class="custom-button-content">
+            <ion-icon src="assets/icon/quan_tri.svg"></ion-icon>
+            <ion-label>Quản trị</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->

@@ -1,0 +1,151 @@
+<ion-row style="min-height: 211px;" *ngIf="isLoading">
+  <ion-col size="12" class="ion-text-center">
+    <ion-spinner></ion-spinner>
+  </ion-col>
+</ion-row>
+<ion-row style="padding: 0 16px 16px;" *ngIf="getLstLichSu().length > 0" class="ion-no-padding">
+  <ion-col class="ion-no-padding" size="12">
+    <ion-item-group
+      *ngFor="let lsu of getLstLichSu()"
+      class="lstHistory ion-no-padding"
+    >
+      <ion-item-divider lines="none" class="thoigianHistory ion-no-padding" sticky>
+        <ion-row>
+          <ion-col class="ngayHistory" size="2">
+            <ion-label
+              >{{ lsu.dataHistory[0].commandTime | date: "dd" }}
+            </ion-label>
+          </ion-col>
+          <ion-col class="thangnamHistory" size="9">
+            <ion-label
+              >Tháng {{ lsu.dataHistory[0].commandTime | date: "MM" }} năm
+              {{ lsu.dataHistory[0].commandTime | date: "YYYY" }}
+              <p>
+                {{
+                  convertTiengViet(transformThu(lsu.dataHistory[0].commandTime))
+                }}
+              </p>
+            </ion-label>
+          </ion-col>
+          <ion-col *ngIf="countNewHistory!==0" class="readDayHistory" size="1">
+            <ion-button (click)="readAll(lsu.dataHistory[0].commandTime)" expand="block" fill="clear">
+              <!-- <u>Xem tất cả</u> -->
+              <i class="ph-square-bold"></i>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item-divider>
+      <!-- List event history -->
+      <div class="lsu-div" *ngFor="let lichsuofDay of lsu.dataHistory">
+        <ion-item
+          (click)="lichsuofDay.isWantShow = !lichsuofDay.isWantShow"
+          [ngClass]="
+            lichsuofDay.viewed
+              ? 'item-save ion-no-padding'
+              : 'item-danger ion-no-padding'
+          "
+          lines="none"
+        >
+          <ion-label class="tenEvent">
+            <span
+              *ngIf="lichsuofDay.valueControl == 0 && !lichsuofDay.groupRpcId"
+              >Tắt
+              {{
+                lichsuofDay.label ? lichsuofDay.label : lichsuofDay.deviceName
+              }}</span
+            >
+            <span
+              *ngIf="lichsuofDay.valueControl == 1 && !lichsuofDay.groupRpcId"
+              >Bật
+              {{
+                lichsuofDay.label ? lichsuofDay.label : lichsuofDay.deviceName
+              }}</span
+            >
+            <span *ngIf="!!lichsuofDay.groupRpcId"
+              >Khởi động nhóm {{ lichsuofDay.groupRpcName }}</span
+            >
+            <p>
+              <i
+                [ngClass]="{
+                  'icon-on':
+                    lichsuofDay.valueControl === 0 && !lichsuofDay.groupRpcId,
+                  'icon-off':
+                    lichsuofDay.valueControl === 1 || !!lichsuofDay.groupRpcId
+                }"
+                class="ph-power-fill"
+              ></i>
+              &nbsp;{{ lichsuofDay.commandTime | date: "HH:mm" }} &nbsp;&nbsp;{{displayTypeControl(lichsuofDay.origin)}}{{lichsuofDay.originName?': '+lichsuofDay.originName:''}}{{convertRemAction(lichsuofDay.rpcRemAction)}}{{convertPercentRem(lichsuofDay.rpcRemId, lichsuofDay.rpcRemStatus, lichsuofDay.rpcRemAction)}}
+            </p>
+          </ion-label>
+          <!-- <i *ngIf="!lichsuofDay.isWantShow&&!!lichsuofDay.groupRpcId" class="ph-caret-right"></i>
+                <i *ngIf="lichsuofDay.isWantShow&&!!lichsuofDay.groupRpcId" class="ph-caret-down"></i> -->
+          <i
+            [ngClass]="{
+              'ph-caret-right':
+                !lichsuofDay.isWantShow && !!lichsuofDay.groupRpcId,
+              'ph-caret-down':
+                lichsuofDay.isWantShow && !!lichsuofDay.groupRpcId
+            }"
+          ></i>
+        </ion-item>
+        <!-- Danh sach lich su child ben trong nhom -->
+        <div
+          class="child-history"
+          *ngIf="!!lichsuofDay.groupRpcId && lichsuofDay.isWantShow"
+        >
+          <ion-item
+            [ngClass]="
+              lichsuofDay.viewed
+                ? 'item-save ion-no-padding'
+                : 'item-danger ion-no-padding'
+            "
+            *ngFor="let lsChild of lichsuofDay.groupRpcCommand"
+            lines="none"
+          >
+            <ion-label class="tenEvent">
+              <span *ngIf="lsChild.valueControl == 0"
+                >Tắt
+                {{ lsChild.label ? lsChild.label : lsChild.deviceName }}</span
+              >
+              <span *ngIf="lsChild.valueControl == 1"
+                >Bật
+                {{ lsChild.label ? lsChild.label : lsChild.deviceName }}</span
+              >
+              <p>
+                <i
+                  [ngClass]="{
+                    'icon-on': lsChild.valueControl === 0,
+                    'icon-off': lsChild.valueControl === 1
+                  }"
+                  class="ph-power-fill"
+                ></i>
+                &nbsp;{{
+                  lsChild.commandTime | date: "HH:mm"
+                }}
+                &nbsp;&nbsp;Trạng thái:&nbsp;{{
+                  getCommandStatus(lsChild.status)
+                }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </div>
+      </div>
+    </ion-item-group>
+  </ion-col>
+</ion-row>
+<ion-row
+  style="margin-top: 16px;min-height: 211px;"
+  class="ion-no-padding"
+  *ngIf="getLstLichSu().length == 0 && !isLoading"
+>
+  <ion-col class="ion-no-padding ion-text-center" size="12">
+    <ion-label>Không có dữ liệu</ion-label>
+  </ion-col>
+</ion-row>
+<ion-infinite-scroll threshold="50%" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Đang tải..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

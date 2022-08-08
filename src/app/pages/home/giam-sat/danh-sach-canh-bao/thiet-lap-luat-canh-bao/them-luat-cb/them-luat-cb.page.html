@@ -1,0 +1,379 @@
+<ion-header>
+  <ion-toolbar class="ion-no-padding" color="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        text=""
+        defaultHref="/home/giam-sat/danh-sach-canh-bao/thiet-lap-luat-canh-bao"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-row class="title-home-account">
+      <ion-label class="title">Thêm mới luật cảnh báo </ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="logScrolling($event)">
+  <ion-grid class="grid-content ion-no-padding">
+    <form [formGroup]="formLuat">
+      <ion-row class="rule-name">
+        <ion-col>
+          <ion-row class="canh-bao">
+            <i class="mdi mdi-clock-outline"></i>
+            <ion-input
+              class="ion-no-padding"
+              (ionChange)="changeNameLuat()"
+              formControlName="tenLCB"
+              type="text"
+              placeholder="Tên Luật cảnh báo *"
+            >
+            </ion-input>
+          </ion-row>
+          <!-- Validate ten luat Nhiet do -->
+          <ion-label
+            *ngIf="formLuat.get('tenLCB').value.trim()=='' && formLuat.get('tenLCB').touched"
+            class="warning"
+          >
+            Đây là trường bắt buộc!
+          </ion-label>
+          <ion-label *ngIf="isExistNameLuat" class="warning">
+            Tên luật cảnh báo đã tồn tại!
+          </ion-label>
+          <ion-label
+            *ngIf="formLuat.get('tenLCB').value.trim().length>255 && formLuat.get('tenLCB').touched"
+            class="warning"
+          >
+            Tối đa 255 ký tự!
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="segment-row">
+        <ion-segment
+          class="ion-no-padding"
+          scrollable
+          formControlName="loaiDieukien"
+          (ionChange)="segmentChanged($event)"
+        >
+          <ion-segment-button value="Temperature">
+            <ion-label>Nhiệt độ</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Humidity">
+            <ion-label>Độ ẩm</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Lux">
+            <ion-label>Ánh sáng</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-row>
+      
+      <ion-row class="rule-condition">
+        <ion-col>
+          <ion-card class="rule-card">
+            <ion-row style="margin-top: 8px">
+              <i class="mdi mdi-select i-content"></i>
+              <ion-label class="nguong-title"
+                >Điều kiện <span>*</span></ion-label
+              >
+            </ion-row>
+            <ion-row style="margin-top: 12px">
+              <ion-col size="6" class="ion-text-left">
+                <ion-label class="nguong-canh-bao">{{convertSegmentToLabel()[0]}}</ion-label>
+                <!-- Dấu ≤ -->
+              </ion-col>
+              <ion-col size="6">
+                <ion-input
+                  class="nguong-input"
+                  type="text"
+                  inputmode="decimal"
+                  formControlName="nguongTren"
+                  placeholder="Ngưỡng trên"
+                  (ionBlur)="convertNguongTren($event)"
+                ></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin-top: 12px">
+              <ion-col size="6" class="ion-text-left">
+                <ion-label class="nguong-canh-bao"
+                  >{{convertSegmentToLabel()[1]}}</ion-label
+                >
+                <!-- Dấu ≤ -->
+              </ion-col>
+              <ion-col size="6">
+                <ion-input
+                  class="nguong-input"
+                  type="text"
+                  inputmode="decimal"
+                  formControlName="nguongDuoi"
+                  placeholder="Ngưỡng dưới"
+                  (ionBlur)="convertNguongDuoi($event)"
+                ></ion-input>
+              </ion-col>
+            </ion-row>
+            <!-- Validate nhiet do -->
+            <ion-row style="margin-left: 8px">
+              <ion-label
+                class="warning"
+                *ngIf="formLuat.get('nguongTren').value=='' && formLuat.get('nguongDuoi').value==''&&(formLuat.get('nguongTren').touched||formLuat.get('nguongDuoi').touched)"
+              >
+                Đây là trường bắt buộc</ion-label
+              >
+              <ion-label class="warning" *ngIf="isTrenNhoHon()"
+                >Ngưỡng trên phải lớn hơn ngưỡng dưới!
+              </ion-label>
+              <ion-label
+                class="warning"
+                *ngIf="(formLuat.get('loaiDieukien').value == 'Temperature' || formLuat.get('loaiDieukien').value == 'Humidity') && (formLuat.get('nguongTren').value>100 || formLuat.get('nguongTren').value<0 || formLuat.get('nguongDuoi').value< 0 || formLuat.get('nguongDuoi').value> 100)"
+              >
+                Nhập trong khoảng 0 đến 100</ion-label
+              >
+              <ion-label class="warning" *ngIf="formLuat.get('loaiDieukien').value == 'Lux' && (formLuat.get('nguongTren').value>100000 || formLuat.get('nguongTren').value<0 || formLuat.get('nguongDuoi').value< 0 || formLuat.get('nguongDuoi').value> 100000)">
+                Nhập trong khoảng 0 đến 100000</ion-label>
+              <ion-label
+                class="warning"
+                *ngIf="formLuat.get('nguongTren').hasError('pattern')||formLuat.get('nguongDuoi').hasError('pattern')"
+              >
+                Không đúng định dạng</ion-label
+              >
+            </ion-row>
+            <ion-row style="margin-top: 12px">
+              <ion-col size="6">
+                <ion-label class="from-to-label">Trong (HH:MM:SS)</ion-label>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item class="custom-ion-datetime-occur" lines="none">
+                  <i class="mdi mdi-clock-outline"></i>
+                  <ion-datetime
+                    formControlName="thoiGianXacNhan"
+                    placeholder="00 : 00 : 00"
+                    displayFormat="HH : mm : ss"
+                    doneText="Xác nhận"
+                    cancelText="Hủy bỏ"
+                  >
+                  </ion-datetime>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin-top: 12px">
+              <ion-col size="6">
+                <ion-label class="nguong-canh-bao">Từ giờ</ion-label>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item class="custom-ion-datetime-occur" lines="none">
+                  <i class="mdi mdi-clock-outline"></i>
+                  <ion-datetime
+                    formControlName="scheduleStart"
+                    placeholder="00 : 00"
+                    displayFormat="HH : mm"
+                    doneText="Xác nhận"
+                    cancelText="Hủy bỏ"
+                  >
+                  </ion-datetime>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin-top: 12px">
+              <ion-col size="6">
+                <ion-label class="nguong-canh-bao">Đến giờ</ion-label>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item class="custom-ion-datetime-occur" lines="none">
+                  <i class="mdi mdi-clock-outline"></i>
+                  <ion-datetime
+                    formControlName="scheduleEnd"
+                    placeholder="00 : 00"
+                    displayFormat="HH : mm"
+                    doneText="Xác nhận"
+                    cancelText="Hủy bỏ"
+                  >
+                  </ion-datetime>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-label class="nguong-canh-bao">Vào các ngày</ion-label>
+            </ion-row>
+            <!-- Chọn ngày lặp lại -->
+            <ion-row class="vao-cac-ngay ion-justify-content-between">
+              <div
+                class="day-of-week-btn"
+                [ngClass]="{
+    'day-of-week-btn': !scheduleDayOfWeek['1'],
+    'day-of-week-btn-active': scheduleDayOfWeek['1']
+  }"
+                (click)="toggleDayOfWeek('1')
+  "
+              >
+                <div class="container">
+                  <div class="text">T2</div>
+                </div>
+              </div>
+
+              <div
+                class="day-of-week-btn"
+                [ngClass]="{
+    'day-of-week-btn': !scheduleDayOfWeek['2'],
+    'day-of-week-btn-active': scheduleDayOfWeek['2']
+  }"
+                (click)="toggleDayOfWeek('2')
+  "
+              >
+                <div class="container">
+                  <div class="text">T3</div>
+                </div>
+              </div>
+
+              <div
+                class="day-of-week-btn"
+                [ngClass]="{
+    'day-of-week-btn': !scheduleDayOfWeek['3'],
+    'day-of-week-btn-active': scheduleDayOfWeek['3']
+  }"
+                (click)="toggleDayOfWeek('3')
+  "
+              >
+                <div class="container">
+                  <div class="text">T4</div>
+                </div>
+              </div>
+
+              <div
+                class="day-of-week-btn"
+                [ngClass]="{
+    'day-of-week-btn': !scheduleDayOfWeek['4'],
+    'day-of-week-btn-active': scheduleDayOfWeek['4']
+  }"
+                (click)="toggleDayOfWeek('4')
+  "
+              >
+                <div class="container">
+                  <div class="text">T5</div>
+                </div>
+              </div>
+
+              <div
+                class="day-of-week-btn"
+                [ngClass]="{
+    'day-of-week-btn': !scheduleDayOfWeek['5'],
+    'day-of-week-btn-active': scheduleDayOfWeek['5']
+  }"
+                (click)="toggleDayOfWeek('5')
+  "
+              >
+                <div class="container">
+                  <div class="text">T6</div>
+                </div>
+              </div>
+
+              <div
+                class="day-of-week-btn"
+                [ngClass]="{
+    'day-of-week-btn': !scheduleDayOfWeek['6'],
+    'day-of-week-btn-active': scheduleDayOfWeek['6']
+  }"
+                (click)="toggleDayOfWeek('6')
+  "
+              >
+                <div class="container">
+                  <div class="text">T7</div>
+                </div>
+              </div>
+
+              <div
+                class="day-of-week-btn"
+                [ngClass]="{
+    'day-of-week-btn': !scheduleDayOfWeek['7'],
+    'day-of-week-btn-active': scheduleDayOfWeek['7']
+  }"
+                (click)="toggleDayOfWeek('7')
+  "
+              >
+                <div class="container">
+                  <div class="text">CN</div>
+                </div>
+              </div>
+            </ion-row>
+            <!-- Validate vao cac ngay -->
+            <ion-row style="margin-left: 8px">
+              <ion-label
+                *ngIf="checkValidVaoCacNgay()"
+                style="margin-top: 32px; margin-bottom: 8px"
+                class="warning"
+              >
+                Chọn ít nhất một ngày!</ion-label
+              >
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row class="report-via">
+        <ion-col>
+          <!-- Gửi thông báo qua -->
+          <ion-card class="rule-card">
+            <ion-row style="margin-top: 8px">
+              <i class="mdi mdi-bell-ring-outline i-content"></i>
+              <ion-label class="nguong-title">Gửi thông báo qua</ion-label>
+            </ion-row>
+            <ion-row>
+              <ion-col size="10">
+                <i class="ph-bell noti-icon"></i>
+                <ion-label class="noti-label">Thông báo điện thoại</ion-label>
+              </ion-col>
+              <ion-col size="2">
+                <ion-toggle formControlName="viaNotification"></ion-toggle>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="10">
+                <i class="ph-envelope-open noti-icon"></i>
+                <ion-label class="noti-label">Mail</ion-label>
+              </ion-col>
+              <ion-col size="2">
+                <ion-toggle formControlName="viaEmail"> </ion-toggle>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="10">
+                <i class="ph-chats noti-icon"></i>
+                <ion-label class="noti-label">SMS</ion-label>
+              </ion-col>
+              <ion-col size="2">
+                <ion-toggle formControlName="viaSMS"> </ion-toggle>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-grid style="margin-top: 24px; margin-bottom: 24px">
+        <ion-row>
+          <ion-col
+            style="
+              display: flex;
+              justify-content: space-around;
+              padding: 0 !important;
+            "
+          >
+            <ion-button
+              class="btn-confirm-default"
+              [disabled]="checkValidForm()"
+              expand="block"
+              (click)="onCreateLuat()"
+            >
+              Xác nhận
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-grid>
+</ion-content>
+<ion-fab
+  class="custom-ion-fab ion-no-padding"
+  *ngIf="isGoTop"
+  slot="fixed"
+  vertical="bottom"
+  horizontal="end"
+>
+  <ion-fab-button class="ion-no-margin" fill="clear" (click)="goTop()">
+    <i class="mdi mdi-chevron-up"></i>
+  </ion-fab-button>
+</ion-fab>

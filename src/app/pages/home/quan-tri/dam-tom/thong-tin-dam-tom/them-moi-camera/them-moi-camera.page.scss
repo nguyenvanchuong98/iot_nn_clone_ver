@@ -1,0 +1,189 @@
+ion-header {
+  ion-toolbar {
+    margin-bottom: 16px;
+    margin-top: 32px;
+    ion-buttons.back-arrow {
+      ion-button{
+        width: 48px;
+        height: 48px;
+        margin: 0;
+      }
+      i {
+        font-size: 26px;
+      }
+    }
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,ion-icon{
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+// .ion-invalid.ion-touched ion-label {
+//   color: var(--ion-color-danger);
+// }
+
+// .ion-invalid.ion-touched ion-input {
+//   color: var(--ion-color-danger);
+// }
+ion-content {
+  font-family: "Inter var" !important;
+  i {
+    font-size: 20px;
+    color: var(--dark-700);
+  }
+  ion-grid {
+    padding: 0 16px 16px;
+    color: var(--dark-700);
+    min-height: calc(100% - 234px);
+  }
+  ion-list {
+    margin: 0;
+    background-color: unset;
+    .item-ma-cam,
+    .item-ten-cam,
+    .item-url-cam {
+      i {
+        padding-left: 12px;
+      }
+    }
+
+    .item-note-cam {
+      padding: 0;
+    }
+    ion-item:first-child {
+      margin: 0 0 12px 0;
+    }
+    .item-cam-chinh {
+      --background: #ffffff;
+      --padding-start: 12px;
+      --padding-end: 12px;
+      .label-title {
+        font-family: "Inter var";
+        font-weight: 500;
+        margin: 12px;
+        font-size: 15px;
+        line-height: 24px;
+        color: rgb(202 203 204);
+      }
+    }
+    ion-item {
+      margin: 12px 0;
+      --inner-padding-end: none;
+      --border-radius: 8px;
+      --background: #ffffff;
+      --color: var(--dark-700);
+      ion-input {
+        font-family: "Inter var";
+        line-height: 24px;
+        font-size: 15px;
+        --placeholder-font-weight: 500;
+        --placeholder-color: var(--dark-700);
+        --padding-start: 12px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+    }
+  }
+}
+.row-note {
+  position: relative;
+  // margin-bottom: 30px;
+  ion-item {
+    --inner-padding-end: 0;
+    --border-radius: 8px;
+  }
+  i {
+    position: absolute;
+    top: 12px;
+    z-index: 100;
+    font-size: 20px;
+    padding-left: 12px;
+  }
+  ion-textarea {
+    line-height: 24px;
+    font-size: 15px;
+    --placeholder-color: var(--dark-700);
+    --placeholder-font-weight: 500;
+    border-radius: 8px;
+    --padding-start: 44px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    --padding-end: 12px;
+  }
+}
+.mess-error {
+  font-size: 14px;
+  color: #eb445a;
+  margin: 0 0 16px 0;
+}
+ion-footer {
+  position: unset;
+  z-index: unset;
+  ion-toolbar {
+    padding-top: 2px;
+    ion-row {
+      ion-col {
+        .custom-button-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          ion-icon {
+            margin-top: 2px;
+            margin-bottom: 2px;
+            font-size: 30px;
+            font-weight: 400;
+            max-width: 100%;
+          }
+          ion-label {
+            font-size: 10px;
+            min-height: 11px;
+            margin-bottom: 1px;
+            text-align: center;
+            font-weight: 500;
+            color: #8c8c8c;
+          }
+        }
+      }
+    }
+  }
+}

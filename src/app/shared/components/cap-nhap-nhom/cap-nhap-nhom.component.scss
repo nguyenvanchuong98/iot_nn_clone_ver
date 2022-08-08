@@ -1,0 +1,224 @@
+ion-header {
+  ion-toolbar {
+    margin-bottom: 16px;
+    margin-top: 32px;
+    ion-buttons.back-arrow {
+      ion-button {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+      }
+      i {
+        font-size: 26px;
+      }
+    }
+    .title-home-account {
+      justify-content: space-between;
+      align-items: center;
+      .btn-delete {
+        margin-right: -35px;
+      }
+      ion-button {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 7px;
+        i,
+        ion-icon {
+          color: var(--dark-700);
+          font-size: 23px;
+          margin-right: 16px;
+        }
+      }
+      // ChuongNV 11/9/2021
+      .title {
+        color: var(--dark-700);
+        text-transform: none;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 36px;
+        position: relative;
+      }
+    }
+  }
+  ion-toolbar::before {
+    display: block;
+    position: absolute;
+    content: " ";
+    height: 1px;
+    width: 20px;
+    background: #64b5f6;
+    top: 44px;
+    left: 16px;
+  }
+
+  ion-toolbar::after {
+    display: block;
+    position: relative;
+    content: " ";
+    height: 1px;
+    width: 40px;
+    background: #64b5f6;
+    left: 16px;
+  }
+}
+ion-content {
+  font-family: "Inter var" !important;
+  .grid-body-content {
+    padding: 0 16px 16px;
+  }
+  ion-grid {
+    color: var(--dark-700);
+    min-height: calc(100% - 234px);
+  }
+  ion-list {
+    background: unset;
+    margin: 0;
+    .errorMess {
+      color: #d91f2c;
+      font-size: 14px;
+      margin-top: 0;
+    }
+    ion-item {
+      margin: 0px 0 12px 0;
+      --inner-padding-end: none;
+      align-items: center;
+      --border-radius: 8px;
+      --padding-start: 0;
+      --background: #ffffff;
+      --color: var(--dark-700);
+      ion-input {
+        line-height: 24px;
+        font-size: 15px;
+        --placeholder-font-weight: 600;
+        --placeholder-color: var(--dark-700);
+        --padding-start: 12px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        --padding-end: 12px;
+      }
+    }
+
+    .label-title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #43484d;
+      span {
+        margin-left: 3px;
+        color: #eb445a;
+      }
+    }
+  }
+}
+.item-name-zone {
+  i {
+    padding-left: 12px;
+    font-size: 20px;
+    color: var(--dark-700);
+  }
+}
+
+.row-button-confirm {
+  margin: 12px 0 68px 0;
+  .btn-yellow {
+    margin: 0 20px 0 0;
+  }
+  .btn-confirm-default {
+    margin: 0;
+  }
+}
+.row-ds-tb {
+  padding: 16px 16px 30px 16px;
+  background-color: white;
+  border-radius: 8px;
+  p {
+    margin: 12px 0;
+  }
+  .ds-tb-header {
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    h4 {
+      color: var(--dark-700);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      i {
+        font-size: 20px;
+        display: inline-block;
+        background: var(--alix-primary-color);
+        color: #fff;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 50%;
+      }
+      span {
+        padding: 0 20px;
+        color: var(--dark-700);
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
+  .btn-chon-thiet-bi {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    --padding-start: 0;
+    --padding-end: 0;
+    i {
+      font-size: 20px;
+      color: var(--dark-700);
+    }
+  }
+
+  .ds-tb-content {
+    align-items: center;
+    border-bottom: 1px solid var(--line-dark-mode);
+    i {
+      color: #3880ff;
+      font-size: 20px;
+    }
+    .name-device {
+      font-size: 16px;
+      color: var(--dark-700);
+      margin: 12px 32px;
+    }
+  }
+  .ds-tb-content:last-child{
+    border: none;
+  }
+}
+ion-footer {
+  position: unset;
+  z-index: unset;
+  ion-toolbar {
+    padding-top: 2px;
+    ion-row {
+      ion-col {
+        .custom-button-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          ion-icon {
+            margin-top: 2px;
+            margin-bottom: 2px;
+            font-size: 30px;
+            font-weight: 400;
+            max-width: 100%;
+          }
+          ion-label {
+            font-size: 10px;
+            min-height: 11px;
+            margin-bottom: 1px;
+            text-align: center;
+            font-weight: 500;
+            color: #8c8c8c;
+          }
+        }
+      }
+    }
+  }
+}
